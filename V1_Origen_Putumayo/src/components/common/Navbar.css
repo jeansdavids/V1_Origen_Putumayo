@@ -1,0 +1,109 @@
+/* ========================================
+   NAVBAR STYLES - Diseño profesional de navegación
+   ======================================== */
+
+/* IMPORTAR FUENTE BEBAS NEUE */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* ESTILOS GLOBALES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CONTENEDOR PRINCIPAL DEL NAVBAR */
+.navbar {
+  background: #f9f9f9; /* Color azul sólido */
+  padding: 1rem 4rem; /* Espaciado generoso */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(194, 139, 139, 0.15); /* Sombra sutil */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+/* LOGO */
+.navbar-logo img {
+  height: 120px; /* Altura del logo más grande */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease; /* Efecto hover suave */
+  cursor: pointer;
+}
+
+.navbar-logo img:hover {
+  transform: scale(1.05); /* Amplifica el logo al pasar el mouse */
+}
+
+/* MENÚ DE NAVEGACIÓN */
+.navbar-menu {
+  display: flex;
+  gap: 3.5rem; /* Espaciado entre items */
+  list-style: none;
+  align-items: center;
+}
+
+/* ITEMS DEL MENÚ */
+.navbar-item {
+  position: relative;
+}
+
+.navbar-item a {
+  font-family: 'Bebas Neue', sans-serif; /* Fuente Bebas Neue */
+  font-size: 1.3rem; /* Tamaño de letra aumentado */
+  font-weight: 200; /* Fuente más pesada */
+  color: #000000; /* Texto blanco */
+  text-decoration: none;
+  transition: all 0.3s ease; /* Transición suave */
+  padding: 0.5rem 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* EFECTO HOVER - Línea animada */
+.navbar-item a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: #1c814b;
+  transition: width 0.3s ease;
+}
+
+.navbar-item a:hover {
+  color: #1c814b; /* Cambio de color en hover */
+}
+
+.navbar-item a:hover::after {
+  width: 100%; /* Anima la línea */
+}
+
+/* RESPONSIVE - Estilos para dispositivos pequeños */
+@media (max-width: 768px) {
+  /* Reduce el espaciado del navbar en pantallas pequeñas */
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  /* Reduce el espacio entre items del menú y permite que se envuelvan */
+  .navbar-menu {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* Reduce la altura del logo en dispositivos móviles */
+  .navbar-logo img {
+    height: 50px;
+  }
+
+  /* Reduce el tamaño de la fuente del menú en pantallas pequeñas */
+  .navbar-item a {
+    font-size: 0.9rem;
+  }
+}

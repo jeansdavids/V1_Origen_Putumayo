@@ -1,11 +1,15 @@
-import "../styles/Navbar.css";
-
-
-
+import "../common/Navbar.css";
+import logo from "../../assets/images/logo.png";
 
 const Navbar = () => {
     return (
         <nav className="navbar">
+            {/* LOGO */}
+            <div className="navbar-logo">
+                <img src={logo} alt="Logo" />
+            </div>
+
+            {/* MENU */}
             <ul className="navbar-menu">
                 <li className="navbar-item"><a href="#home">Home</a></li>
                 <li className="navbar-item"><a href="#productos">Productos</a></li>

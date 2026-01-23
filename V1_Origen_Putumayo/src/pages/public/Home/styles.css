@@ -1,0 +1,158 @@
+/* ========================================
+   HOME STYLES - Estilos de la página Home
+   ======================================== */
+
+/* IMPORTAR FUENTE BEBAS NEUE */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* CONTENEDOR PRINCIPAL */
+.home {
+  background: #ffffff; /* Fondo blanco */
+  color: #111111; /* Color de texto oscuro */
+}
+
+/* ========================================
+   SECCIÓN HERO
+   ======================================== */
+
+/* CONTENEDOR DEL HERO */
+.home-hero {
+  position: relative;
+  height: 560px; /* Altura fija del hero */
+  background-size: cover; /* Cubre todo el espacio */
+  background-position: center; /* Centra la imagen */
+  overflow: hidden; /* Oculta contenido que se desborda */
+}
+
+/* OVERLAY - Oscurece la imagen de fondo */
+.home-hero__overlay {
+  position: absolute;
+  inset: 0; /* Cubre todo el contenedor */
+  background: rgba(0, 0, 0, 0.35); /* Color sólido negro con opacidad */
+}
+
+/* CONTENIDO DEL HERO */
+.home-hero__content {
+  position: relative;
+  height: 100%;
+  max-width: 1080px; /* Ancho máximo */
+  margin: 0 auto; /* Centra horizontalmente */
+  padding: 48px 18px; /* Espaciado interno */
+  display: flex;
+  flex-direction: column; /* Organiza elementos en columna */
+  align-items: center; /* Centra horizontalmente */
+  justify-content: center; /* Centra verticalmente */
+  text-align: center;
+  gap: 40px; /* Espaciado entre elementos */
+}
+
+/* TÍTULO PRINCIPAL DEL HÉROE */
+.home-hero__title {
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
+  color: #ffffff; /* Color blanco */
+  font-weight: 100; /* Peso de fuente ligero */
+  text-transform: uppercase; /* Convierte a mayúsculas */
+  letter-spacing: 3.5px; /* Espaciado entre letras */
+  line-height: 1.2; /* Altura de línea compacta */
+  font-size: 65px; /* Tamaño grande */
+  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); /* Sombra del texto */
+  font-stretch: condensed; /* Fuente más condensada */
+}
+
+/* SUBTÍTULO DEL HÉROE */
+.home-hero__subtitle {
+  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
+  color: rgba(255, 255, 255, 0.92); /* Blanco con ligera transparencia */
+  margin: 0;
+  margin-top: 20px; /* Baja el subtítulo */
+  max-width: 460px; /* Ancho máximo del texto */
+  font-weight: 300; /* Peso fuerte */
+  text-transform: uppercase; /* En mayúsculas */
+  letter-spacing: 0.35px; /* Espaciado de letras */
+  font-size: 20px; /* Tamaño pequeño */
+  line-height: 1.55; /* Altura de línea generosa */
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); /* Sombra sutil */
+}
+
+/* ========================================
+   BOTÓN
+   ======================================== */
+
+/* BOTÓN PRINCIPAL DEL HERO */
+.home-hero__btn {
+  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
+  margin-top: 10px;
+  height: 45px; /* Altura fija */
+  padding: 0 18px; /* Espaciado horizontal */
+  border-radius: 10px; /* Esquinas redondeadas */
+  display: inline-flex; /* Alinea contenido */
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  text-decoration: none; /* Sin subrayado */
+  background: #1e5a37; /* Color verde sólido */
+  color: #ffffff; /* Texto blanco */
+  font-weight: 400; /* Peso fuerte */
+  text-transform: uppercase; /* En mayúsculas */
+  font-size: 20px; /* Tamaño pequeño */
+  letter-spacing: 0.35px; /* Espaciado de letras */
+  border: 1px solid rgba(0, 0, 0, 0.22); /* Borde oscuro */
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22); /* Sombra */
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; /* Transiciones suaves */
+}
+
+/* ESTADO HOVER - Al pasar el mouse */
+.home-hero__btn:hover {
+  transform: translateY(-1px); /* Sube 1px */
+  background: #16492c; /* Verde más oscuro */
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.26); /* Sombra más marcada */
+}
+
+/* ESTADO ACTIVO - Al hacer click */
+.home-hero__btn:active {
+  transform: translateY(0); /* Vuelve a su posición */
+}
+
+/* ========================================
+   RESPONSIVE - Adapta a diferentes pantallas
+   ======================================== */
+
+/* PANTALLAS MEDIANAS (hasta 820px) */
+@media (max-width: 820px) {
+  .home-hero {
+    height: 420px; /* Altura media */
+  }
+
+  .home-hero__title {
+    font-size: 48px; /* Reduce tamaño de título */
+    letter-spacing: 2px; /* Reduce espaciado */
+  }
+
+  .home-hero__subtitle {
+    font-size: 18px; /* Tamaño para tablet */
+    margin-top: 15px; /* Espaciado */
+  }
+}
+
+/* PANTALLAS PEQUEÑAS (hasta 480px) */
+@media (max-width: 480px) {
+  .home-hero {
+    height: 300px; /* Altura pequeña */
+  }
+
+  .home-hero__title {
+    font-size: 28px; /* Reduce más el título */
+    letter-spacing: 1px; /* Reduce espaciado */
+  }
+
+  .home-hero__subtitle {
+    font-size: 14px; /* Reduce subtítulo */
+    margin-top: 10px; /* Reduce margen */
+  }
+
+  .home-hero__btn {
+    height: 35px; /* Altura reducida */
+    padding: 0 14px; /* Padding menor */
+    font-size: 10px; /* Fuente más pequeña */
+  }
+}
