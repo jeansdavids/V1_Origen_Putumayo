@@ -53,7 +53,7 @@
   color: #ffffff; /* Color blanco */
   font-weight: 100; /* Peso de fuente ligero */
   text-transform: uppercase; /* Convierte a mayúsculas */
-  letter-spacing: 3.5px; /* Espaciado entre letras */
+  letter-spacing: 3.5px; /* Espaciado entreñ letras */
   line-height: 1.2; /* Altura de línea compacta */
   font-size: 65px; /* Tamaño grande */
   text-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); /* Sombra del texto */
@@ -62,7 +62,7 @@
 
 /* SUBTÍTULO DEL HÉROE */
 .home-hero__subtitle {
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
   color: rgba(255, 255, 255, 0.92); /* Blanco con ligera transparencia */
   margin: 0;
   margin-top: 20px; /* Baja el subtítulo */
@@ -70,7 +70,7 @@
   font-weight: 300; /* Peso fuerte */
   text-transform: uppercase; /* En mayúsculas */
   letter-spacing: 0.35px; /* Espaciado de letras */
-  font-size: 20px; /* Tamaño pequeño */
+  font-size: 16px; /* Tamaño pequeño */
   line-height: 1.55; /* Altura de línea generosa */
   text-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); /* Sombra sutil */
 }
