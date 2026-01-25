@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles.css";
-import "./destacados.css";
-import "./turismo.css";
-import "./Historia.css";
-import "./contacto.css";
+import "../../../styles/Home.css/Historia.css";
+import "../../../styles/Home.css/contacto.css";
+import "../../../styles/Home.css/destacados.css";
+import "../../../styles/Home.css/styles.css";
+import "../../../styles/Home.css/turismo.css";
 
 const Home: React.FC = () => {
   return (

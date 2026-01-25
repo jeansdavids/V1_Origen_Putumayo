@@ -1,18 +1,19 @@
-import Navbar from "./components/common/Navbar";
-/*import Home from "./pages/public/Home";*/
-import History from "./pages/public/History"; 
-import "./styles/globals.css";
-// Si tu Navbar necesita este css y NO lo importa por su cuenta, déjalo:
-import "./components/common/Navbar.css";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import NavbarLayout from "./components/common/NavbarLayout";
+import Home from "./pages/public/Home";
+import History from "./pages/public/History";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <Navbar />
-      <History />
-    </>
+    <NavbarLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/historia" element={<History />} />
+      </Routes>
+    </NavbarLayout>
   );
-}
-
+};
 
 export default App;
+
