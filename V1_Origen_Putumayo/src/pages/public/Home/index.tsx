@@ -22,6 +22,11 @@ import { getPublicProducts } from "../../../services/products.service";
 const Home: React.FC = () => {
   const [products, setProducts] = useState([]);
 
+  // Carrusel destacados
+  const [index, setIndex] = useState(0);
+  const CARD_W = 320; // debe coincidir con flex-basis de .Destacado-card
+  const GAP = 18;     // debe coincidir con gap de .Destacado-rail
+
   useEffect(() => {
     getPublicProducts()
       .then((data) => setProducts(Array.isArray(data) ? data : []))
@@ -34,10 +39,14 @@ const Home: React.FC = () => {
   // Supabase devuelve snake_case
   const topProducts = products.filter((p) => p && p.is_top === true);
 
-  const featuredProducts = (topProducts.length ? topProducts : products).slice(
-    0,
-    3
-  );
+  // Puedes subir este número si quieres más items en el carrusel
+  const featuredProducts = (topProducts.length ? topProducts : products).slice(0, 10);
+
+  // Reajusta el índice si cambia la cantidad de productos
+  useEffect(() => {
+    const max = Math.max(0, featuredProducts.length - 1);
+    setIndex((i) => Math.min(i, max));
+  }, [featuredProducts.length]);
 
   const getImg = (p) => {
     if (!p || !Array.isArray(p.images) || p.images.length === 0) {
@@ -45,6 +54,9 @@ const Home: React.FC = () => {
     }
     return p.images[0];
   };
+
+  const maxIndex = Math.max(0, featuredProducts.length - 1);
+  const offset = index * (CARD_W + GAP);
 
   return (
     <main className="home">
@@ -70,7 +82,8 @@ const Home: React.FC = () => {
             CULTURAL Y HUMANA DE NUESTROS TERRITORIOS
           </p>
 
-          <Link className="home-hero__btn" to="/catalog">
+          {/* ✅ ruta correcta ahora es /products */}
+          <Link className="home-hero__btn" to="/products">
             COMPRA AQUÍ
           </Link>
         </div>
@@ -91,21 +104,37 @@ const Home: React.FC = () => {
         </div>
 
         <div className="Destacado-carousel">
-          <button className="Destacado-arrow Destacado-arrow--left" disabled>
+          <button
+            className="Destacado-arrow Destacado-arrow--left"
+            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            disabled={index === 0}
+            aria-label="Anterior"
+          >
             ‹
           </button>
 
           <div className="Destacado-track">
-            {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.product_id}
-                product={product}
-                getImg={getImg}
-              />
-            ))}
+            <div
+              className="Destacado-rail"
+              style={{ transform: `translateX(-${offset}px)` }}
+            >
+              {featuredProducts.map((product) => (
+                <ProductCard
+                  key={product.product_id}
+                  product={product}
+                  getImg={getImg}
+                  linkBase="/products"
+                />
+              ))}
+            </div>
           </div>
 
-          <button className="Destacado-arrow Destacado-arrow--right" disabled>
+          <button
+            className="Destacado-arrow Destacado-arrow--right"
+            onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+            disabled={index >= maxIndex}
+            aria-label="Siguiente"
+          >
             ›
           </button>
         </div>

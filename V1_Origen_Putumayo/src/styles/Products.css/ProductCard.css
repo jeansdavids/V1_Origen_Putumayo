@@ -1,0 +1,167 @@
+/* =========================================
+   PRODUCT CARD (pCard)
+   - Estilo base de la card
+   - Fix: evita que rompa el carrusel (cuando está dentro de .Destacado-card / .Destacado-rail)
+   ========================================= */
+
+/* Card base */
+.pCard {
+  width: 100%;
+  max-width: 330px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* =========================
+   FIX CARRUSEL (IMPORTANTE)
+   Si la pCard está dentro del carrusel, el ancho lo debe controlar el item del carrusel.
+   Esto evita que la card tome todo el ancho y se “apile” en vertical.
+   ========================= */
+.Destacado-card > .pCard {
+  width: 100%;
+  max-width: none; /* <- clave */
+}
+
+/* Alternativa por si renderizas pCard directo dentro del rail (sin .Destacado-card)
+.Destacado-rail > .pCard {
+  width: 320px;
+  max-width: none;
+  flex: 0 0 320px;
+}
+*/
+
+/* Imagen */
+.pCard__imgWrap {
+  width: 100%;
+  height: 190px;
+  background: #cfcfcf;
+}
+
+.pCard__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Body */
+.pCard__body {
+  padding: 14px 16px 16px;
+}
+
+.pCard__name {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+}
+
+/* Meta */
+.pCard__meta {
+  margin: 0 0 10px;
+  font-size: 11px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pCard__metaLabel {
+  font-weight: 700;
+  color: #7a7a7a;
+}
+
+/* Chips */
+.pCard__chips {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pCard__chip {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #d9d9d9;
+  color: #6a6a6a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Lineas */
+.pCard__line {
+  margin: 6px 0;
+  font-size: 12px;
+  color: #444;
+}
+
+.pCard__lineLabel {
+  font-weight: 800;
+  color: #7a7a7a;
+  text-transform: none;
+}
+
+.pCard__lineValue {
+  font-weight: 700;
+  color: #222;
+}
+
+.pCard__line--withDot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pCard__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #f5a623; /* puntito naranja */
+  flex: 0 0 auto;
+}
+
+/* Precio */
+.pCard__price {
+  margin: 10px 0 12px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.pCard__priceLabel {
+  color: #7a7a7a;
+  font-weight: 800;
+}
+
+.pCard__priceValue {
+  color: #111;
+  font-weight: 900;
+}
+
+/* Botón */
+.pCard__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: lowercase;
+}
+
+.pCard__btn:hover {
+  opacity: 0.92;
+}
