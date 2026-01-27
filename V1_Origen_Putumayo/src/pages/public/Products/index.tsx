@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from "react";
 /* ESTILOS */
 import "../../../styles/Products.css/styles.css";
 
-
 /* COMPONENTES / SERVICIOS */
 import ProductCard from "../../../features/products/components/ProductCard";
 import { getPublicProducts } from "../../../services/products.service";
@@ -75,28 +74,34 @@ const Products: React.FC = () => {
 
   return (
     <main className="products">
-      {/* Header simple */}
+      {/* HERO / SEARCH */}
       <section className="products-hero" aria-label="Productos">
         <h1 className="products-title">ENCUENTRA LO QUE NECESITAS</h1>
 
         <div className="products-searchWrap">
           <div className="products-search">
+            <span className="products-searchIcon" aria-hidden="true" />
             <input
               className="products-searchInput"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search..."
+              placeholder="Busca productos del territorio..."
               aria-label="Buscar productos"
             />
-            <span className="products-searchIcon" aria-hidden="true">
-              
-            </span>
+            <button
+              className="products-searchBtn"
+              type="button"
+              aria-hidden="true"
+            >
+              Buscar
+            </button>
           </div>
         </div>
       </section>
 
+      {/* CONTENT */}
       <section className="products-content">
-        {/* Sidebar */}
+        {/* SIDEBAR */}
         <aside className="products-sidebar" aria-label="Categorías">
           <div className="products-sidebarBox">
             <h2 className="products-sidebarTitle">CATEGORÍAS</h2>
@@ -135,7 +140,7 @@ const Products: React.FC = () => {
           </div>
         </aside>
 
-        {/* Grid */}
+        {/* GRID */}
         <div className="products-gridWrap">
           {loading ? (
             <div className="products-empty">
@@ -144,13 +149,19 @@ const Products: React.FC = () => {
           ) : filtered.length === 0 ? (
             <div className="products-empty">
               <p className="products-emptyTitle">No encontramos resultados</p>
-              <p className="products-emptyText">Probá con otro término o cambiá la categoría.</p>
+              <p className="products-emptyText">
+                Probá con otro término o cambiá la categoría.
+              </p>
             </div>
           ) : (
             <div className="products-grid">
               {filtered.map((product: any) => (
                 <div key={product.product_id} className="products-cardCell">
-                  <ProductCard product={product} getImg={getImg} linkBase="/products" />
+                  <ProductCard
+                    product={product}
+                    getImg={getImg}
+                    linkBase="/products"
+                  />
                 </div>
               ))}
             </div>
