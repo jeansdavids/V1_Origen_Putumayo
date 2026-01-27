@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 /* ESTILOS */
@@ -24,8 +24,13 @@ const Home: React.FC = () => {
 
   // Carrusel destacados
   const [index, setIndex] = useState(0);
-  const CARD_W = 320; // debe coincidir con flex-basis de .Destacado-card
-  const GAP = 18;     // debe coincidir con gap de .Destacado-rail
+
+  // Deben coincidir con tu CSS (desktop)
+  const CARD_W = 320; // .Destacado-card flex-basis
+  const GAP = 18;     // .Destacado-rail gap
+
+  // cantidad visible (desktop)
+  const VISIBLE = 3;
 
   useEffect(() => {
     getPublicProducts()
@@ -42,11 +47,15 @@ const Home: React.FC = () => {
   // Puedes subir este número si quieres más items en el carrusel
   const featuredProducts = (topProducts.length ? topProducts : products).slice(0, 10);
 
+  // maxIndex correcto para “3 visibles”
+  const maxIndex = useMemo(() => {
+    return Math.max(0, featuredProducts.length - VISIBLE);
+  }, [featuredProducts.length]);
+
   // Reajusta el índice si cambia la cantidad de productos
   useEffect(() => {
-    const max = Math.max(0, featuredProducts.length - 1);
-    setIndex((i) => Math.min(i, max));
-  }, [featuredProducts.length]);
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
 
   const getImg = (p) => {
     if (!p || !Array.isArray(p.images) || p.images.length === 0) {
@@ -55,7 +64,6 @@ const Home: React.FC = () => {
     return p.images[0];
   };
 
-  const maxIndex = Math.max(0, featuredProducts.length - 1);
   const offset = index * (CARD_W + GAP);
 
   return (
@@ -82,7 +90,6 @@ const Home: React.FC = () => {
             CULTURAL Y HUMANA DE NUESTROS TERRITORIOS
           </p>
 
-          {/* ✅ ruta correcta ahora es /products */}
           <Link className="home-hero__btn" to="/products">
             COMPRA AQUÍ
           </Link>
@@ -119,12 +126,14 @@ const Home: React.FC = () => {
               style={{ transform: `translateX(-${offset}px)` }}
             >
               {featuredProducts.map((product) => (
-                <ProductCard
-                  key={product.product_id}
-                  product={product}
-                  getImg={getImg}
-                  linkBase="/products"
-                />
+                // ✅ IMPORTANTE: envolver en .Destacado-card
+                <div className="Destacado-card" key={product.product_id ?? product.id}>
+                  <ProductCard
+                    product={product}
+                    getImg={getImg}
+                    linkBase="/products"
+                  />
+                </div>
               ))}
             </div>
           </div>

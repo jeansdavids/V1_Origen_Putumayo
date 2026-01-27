@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import "../../../styles/Products.css/ProductCard.css";
 
 /**
- * ProductCard (listados / destacados)
- * - Diseño como el mock (sin background del contenedor)
- * - Agrega precio
- * - Rutas: /products y /products/:id
+ * ProductCard
+ * - Usa datos reales de Supabase (defensivo)
+ * - Sin Tailwind
+ * - Preparado para grid / destacados
  */
 const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   if (!product) return null;
@@ -47,15 +47,17 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
     return availabilityRaw || null;
   })();
 
-  // Chips: usa tags si existen, si no: muestra category + availability
-  const chips = Array.isArray(product?.tags) && product.tags.length
-    ? product.tags.slice(0, 2)
-    : [category, availabilityLabel].filter(Boolean).slice(0, 2);
+  // Chips: usa tags si existen; si no, category + availability
+  const chips =
+    Array.isArray(product?.tags) && product.tags.length
+      ? product.tags.slice(0, 2)
+      : [category, availabilityLabel].filter(Boolean).slice(0, 2);
 
   const to = id ? `${linkBase}/${id}` : linkBase;
 
   return (
     <article className="pCard">
+      {/* Imagen */}
       <div className="pCard__imgWrap">
         <img
           className="pCard__img"
@@ -64,31 +66,23 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
         />
       </div>
 
+      {/* Contenido */}
       <div className="pCard__body">
-        <h3 className="pCard__name">{product?.name || "name"}</h3>
+        <h3 className="pCard__name">{product?.name || "Producto"}</h3>
 
-        <p className="pCard__meta">
-          <span className="pCard__metaLabel">Categoría:</span>
-          <span className="pCard__chips">
+        {chips.length > 0 && (
+          <div className="pCard__chips">
             {chips.map((t) => (
               <span key={t} className="pCard__chip">
                 {t}
               </span>
             ))}
-          </span>
-        </p>
+          </div>
+        )}
 
         <p className="pCard__line">
-          <span className="pCard__lineLabel">empresa:</span>{" "}
+          <span className="pCard__lineLabel">Empresa:</span>
           <span className="pCard__lineValue">{company}</span>
-        </p>
-
-        <p className="pCard__line">
-          <span className="pCard__lineLabel">Nombre empresa</span>
-        </p>
-
-        <p className="pCard__line">
-          <span className="pCard__lineLabel">Location</span>
         </p>
 
         <p className="pCard__line pCard__line--withDot">
@@ -102,7 +96,7 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
         </p>
 
         <Link className="pCard__btn" to={to}>
-          ver producto
+          Ver producto
         </Link>
       </div>
     </article>

@@ -39,6 +39,7 @@
   transform: scale(1.05); /* Amplifica el logo al pasar el mouse */
 }
 
+
 /* MENÚ DE NAVEGACIÓN */
 .navbar-menu {
   display: flex;

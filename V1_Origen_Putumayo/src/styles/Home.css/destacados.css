@@ -20,9 +20,9 @@
 
 /* CONTENEDOR INTERIOR */
 .Destacado-container {
-    max-width: 1080px; /* Ancho máximo */
-    width: 100%; /* Ancho completo */
-    text-align: left; /* Alinea contenido a la izquierda */
+  max-width: 1080px; /* Ancho máximo */
+  width: 100%; /* Ancho completo */
+  text-align: left; /* Alinea contenido a la izquierda */
 }
 
 /* TÍTULO DESTACADOS */
@@ -49,14 +49,14 @@
 
 /* TEXTO DESCRIPTIVO */
 .Destacado-text {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-    font-size: 16px; /* Tamaño medio */
-    color: #060606; /* Gris */
-    margin: 0; /* Sin margen */
-    line-height: 1.6; /* Altura de línea generosa */
-    letter-spacing: 0.5px; /* Pequeño espaciado */
-    text-transform: uppercase; /* En mayúsculas */
-    font-weight: 500; /* Peso medio */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+  font-size: 16px; /* Tamaño medio */
+  color: #060606; /* Gris */
+  margin: 0; /* Sin margen */
+  line-height: 1.6; /* Altura de línea generosa */
+  letter-spacing: 0.5px; /* Pequeño espaciado */
+  text-transform: uppercase; /* En mayúsculas */
+  font-weight: 500; /* Peso medio */
 }
 
 /* ========================================
@@ -108,7 +108,7 @@
 }
 
 /* ========================================
-   CARRUSEL DESTACADOS (nuevo)
+   CARRUSEL DESTACADOS
    ======================================== */
 
 .Destacado-carousel {
@@ -121,23 +121,31 @@
   align-items: center;
 }
 
+/* Track = viewport (solo muestra lo que cabe) */
 .Destacado-track {
   overflow: hidden;
-  width: 100%;
+  min-width: 0;          /* importante dentro de grid */
+  max-width: 100%;
+  margin: 0 auto;        /* centra el viewport en la columna central */
+  width: calc(320px * 3 + 18px * 2); /* ✅ Desktop: 3 cards + 2 gaps */
 }
 
+/* Rail horizontal */
 .Destacado-rail {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 18px;
   transition: transform 300ms ease;
   will-change: transform;
 }
 
+/* Flechas */
 .Destacado-arrow {
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   background: #fff;
   cursor: pointer;
   font-size: 26px;
@@ -145,7 +153,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
   transition: transform 120ms ease, opacity 120ms ease;
 }
 
@@ -159,28 +167,51 @@
   transform: none;
 }
 
-/* Para que las cards no se estiren raro en el rail */
+/* Item del carrusel */
 .Destacado-card {
   flex: 0 0 320px; /* ancho de card en carrusel */
+  width: 320px;
 }
 
-/* Responsive */
+/* Para que la pCard no limite el ancho dentro del carrusel */
+.Destacado-card > .pCard {
+  width: 100%;
+  max-width: none;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+/* Tablet: 2 visibles */
 @media (max-width: 820px) {
   .Destacado-carousel {
     grid-template-columns: 40px 1fr 40px;
   }
+
   .Destacado-card {
-    flex-basis: 280px;
+    flex: 0 0 280px;
+    width: 280px;
+  }
+
+  .Destacado-track {
+    width: calc(280px * 2 + 18px * 1);
   }
 }
 
+/* Móvil: 1 visible */
 @media (max-width: 480px) {
   .Destacado-carousel {
     grid-template-columns: 36px 1fr 36px;
     gap: 10px;
   }
+
   .Destacado-card {
-    flex-basis: 260px;
+    flex: 0 0 260px;
+    width: 260px;
+  }
+
+  .Destacado-track {
+    width: 260px;
   }
 }
-
