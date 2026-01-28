@@ -109,16 +109,15 @@
 }
 
 /* =========================================
-   SIDEBAR
+   SIDEBAR (DESKTOP)
    ========================================= */
-/* ancho del sidebar */
-.products-sidebar {
-  flex: 0 0 320px; 
-  position: sticky;
-  top: 180px; /* separación desde el top */
-  align-self: flex-start;
-}
 
+.products-sidebar {
+  flex: 0 0 320px;
+  align-self: flex-start;
+  position: sticky;
+  top: 160px; /* debajo del hero/search */
+}
 
 .products-sidebarBox {
   background: #006839;
@@ -253,7 +252,9 @@
   }
 
   .products-sidebar {
-    flex: none;
+    position: relative; /* vuelve al flujo */
+    top: auto;
+    width: 100%;
   }
 
   .products-sidebarBox {

@@ -1,15 +1,20 @@
 // @ts-nocheck
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../../../features/cart/CartContext";
 import "../../../styles/Products.css/ProductCard.css";
 
 /**
  * ProductCard
- * - Usa datos reales de Supabase (defensivo)
- * - Sin Tailwind
- * - Preparado para grid / destacados
+ * - Click en la card → ver producto
+ * - Botón principal → agregar al carrito
+ * - Usa CartContext
+ * - Defensivo con datos de Supabase
  */
 const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+
   if (!product) return null;
 
   const id = product?.product_id ?? product?.productId ?? product?.id;
@@ -23,16 +28,21 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
     product?.precio ??
     null;
 
+  const numericPrice =
+    price === null || price === undefined || price === ""
+      ? 0
+      : Number(price);
+
   const currency = product?.currency ?? "COP";
 
   const priceLabel =
-    price === null || price === undefined || price === ""
+    numericPrice === 0
       ? "—"
       : new Intl.NumberFormat("es-CO", {
           style: "currency",
           currency,
           maximumFractionDigits: 0,
-        }).format(Number(price));
+        }).format(numericPrice);
 
   const category = product?.category || product?.categoryName || "—";
   const company = product?.companyName || product?.company_name || "—";
@@ -47,22 +57,37 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
     return availabilityRaw || null;
   })();
 
-  // Chips: usa tags si existen; si no, category + availability
+  // Chips
   const chips =
     Array.isArray(product?.tags) && product.tags.length
       ? product.tags.slice(0, 2)
       : [category, availabilityLabel].filter(Boolean).slice(0, 2);
 
-  const to = id ? `${linkBase}/${id}` : linkBase;
+  const handleNavigate = () => {
+    if (id) navigate(`${linkBase}/${id}`);
+  };
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // ⛔ evita navegar al detalle
+
+    addToCart({
+      id: String(id),
+      name: product?.name || "Producto",
+      price: numericPrice,
+      image: getImg(product),
+    });
+  };
 
   return (
-    <article className="pCard">
+    <article className="pCard" onClick={handleNavigate} role="button">
       {/* Imagen */}
       <div className="pCard__imgWrap">
         <img
           className="pCard__img"
           src={getImg(product)}
           alt={product?.name || "Producto"}
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -95,9 +120,14 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
           <span className="pCard__priceValue">{priceLabel}</span>
         </p>
 
-        <Link className="pCard__btn" to={to}>
-          Ver producto
-        </Link>
+        {/* CTA principal */}
+        <button
+          className="pCard__btn"
+          type="button"
+          onClick={handleAddToCart}
+        >
+          Agregar al carrito
+        </button>
       </div>
     </article>
   );
