@@ -108,3 +108,50 @@
     font-size: 0.9rem;
   }
 }
+
+/* ========================================
+   BOTÓN CARRITO (NAVBAR)
+   ======================================== */
+
+.navbar-cartBtn {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000; /* color del icono */
+  padding: 0.5rem;
+}
+
+.navbar-cartBtn:hover {
+  color: #1c814b; /* verde marca */
+}
+
+/* Icono SVG */
+.navbar-cartIcon {
+  width: 26px;
+  height: 26px;
+  stroke: currentColor;
+}
+
+/* Badge */
+.navbar-cartBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #8cc342;
+  color: #006839;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
