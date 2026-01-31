@@ -13,25 +13,41 @@ import "../../../styles/Home.css/contacto.css";
 import ProductCard from "../../../features/products/components/ProductCard";
 import { getPublicProducts } from "../../../services/products.service";
 
-/**
- * Home
- * - Diseño completo
- * - Productos destacados dinámicos desde Supabase
- * Autor: Kaleth
- */
 const Home: React.FC = () => {
   const [products, setProducts] = useState([]);
 
-  // Carrusel destacados
+  // carrusel
   const [index, setIndex] = useState(0);
 
-  // Deben coincidir con tu CSS (desktop)
-  const CARD_W = 320; // .Destacado-card flex-basis
-  const GAP = 18;     // .Destacado-rail gap
+  // responsive
+  const [visible, setVisible] = useState(3);
+  const [cardW, setCardW] = useState(320);
 
-  // cantidad visible (desktop)
-  const VISIBLE = 3;
+  const GAP = 18;
 
+  // 🔁 detectar tamaño de pantalla
+  useEffect(() => {
+    const onResize = () => {
+      const w = window.innerWidth;
+
+      if (w < 640) {
+        setVisible(1);
+        setCardW(280);
+      } else if (w < 1024) {
+        setVisible(2);
+        setCardW(300);
+      } else {
+        setVisible(3);
+        setCardW(320);
+      }
+    };
+
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // cargar productos
   useEffect(() => {
     getPublicProducts()
       .then((data) => setProducts(Array.isArray(data) ? data : []))
@@ -41,18 +57,19 @@ const Home: React.FC = () => {
       });
   }, []);
 
-  // Supabase devuelve snake_case
+  // destacados
   const topProducts = products.filter((p) => p && p.is_top === true);
+  const featuredProducts = (topProducts.length ? topProducts : products).slice(
+    0,
+    10
+  );
 
-  // Puedes subir este número si quieres más items en el carrusel
-  const featuredProducts = (topProducts.length ? topProducts : products).slice(0, 10);
-
-  // maxIndex correcto para “3 visibles”
+  // índice máximo real
   const maxIndex = useMemo(() => {
-    return Math.max(0, featuredProducts.length - VISIBLE);
-  }, [featuredProducts.length]);
+    return Math.max(0, featuredProducts.length - visible);
+  }, [featuredProducts.length, visible]);
 
-  // Reajusta el índice si cambia la cantidad de productos
+  // reajustar índice si cambia cantidad
   useEffect(() => {
     setIndex((i) => Math.min(i, maxIndex));
   }, [maxIndex]);
@@ -64,7 +81,7 @@ const Home: React.FC = () => {
     return p.images[0];
   };
 
-  const offset = index * (CARD_W + GAP);
+  const offset = index * (cardW + GAP);
 
   return (
     <main className="home">
@@ -72,15 +89,12 @@ const Home: React.FC = () => {
       <section
         className="home-hero"
         style={{ backgroundImage: "url(/home/hero.jpg)" }}
-        aria-label="Sección principal"
       >
         <div className="home-hero__overlay" />
         <div className="home-hero__content">
           <h1 className="home-hero__title">
-            DESCUBRE LAS
-            <br />
-            RIQUEZAS DE NUESTRA
-            <br />
+            DESCUBRE LAS <br />
+            RIQUEZAS DE NUESTRA <br />
             TIERRA
           </h1>
 
@@ -111,11 +125,11 @@ const Home: React.FC = () => {
         </div>
 
         <div className="Destacado-carousel">
+          {/* flecha izquierda */}
           <button
             className="Destacado-arrow Destacado-arrow--left"
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
             disabled={index === 0}
-            aria-label="Anterior"
           >
             ‹
           </button>
@@ -126,8 +140,10 @@ const Home: React.FC = () => {
               style={{ transform: `translateX(-${offset}px)` }}
             >
               {featuredProducts.map((product) => (
-                // ✅ IMPORTANTE: envolver en .Destacado-card
-                <div className="Destacado-card" key={product.product_id ?? product.id}>
+                <div
+                  className="Destacado-card"
+                  key={product.product_id ?? product.id}
+                >
                   <ProductCard
                     product={product}
                     getImg={getImg}
@@ -138,11 +154,11 @@ const Home: React.FC = () => {
             </div>
           </div>
 
+          {/* flecha derecha */}
           <button
             className="Destacado-arrow Destacado-arrow--right"
             onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
             disabled={index >= maxIndex}
-            aria-label="Siguiente"
           >
             ›
           </button>
@@ -153,8 +169,7 @@ const Home: React.FC = () => {
       <section className="EcoturismoPutumayo">
         <div className="EcoturismoPutumayo-container">
           <h2 className="EcoturismoPutumayo-title">
-            Explora el putumayo en
-            <br />
+            Explora el putumayo en <br />
             <span>Ecoturismo putumayo</span>
           </h2>
           <p className="EcoturismoPutumayo-text">
@@ -172,22 +187,17 @@ const Home: React.FC = () => {
       <section className="hIStoria">
         <div className="hIStoria-container">
           <h2 className="hIStoria-title">
-            desde nuestras
-            <br />
+            desde nuestras <br />
             <span>raices al mundo</span>
           </h2>
           <p className="hIStoria-text">
             Nacimos en la esencia de la naturaleza,
             <br />
-            conectados profundamente con
+            conectados profundamente con comunidades
             <br />
-            comunidades que protegen y honran su entorno.
-            <br />
-            Desde el origen, creamos oportunidades que dejan
-            <br />
-            huella en los territorios y en las personas.
+            que protegen y honran su entorno.
           </p>
-          <Link className="hIStoria-btn" to="/historia">
+          <Link className="hIStoria-btn" to="/history">
             conoce nuestra historia
           </Link>
         </div>
@@ -197,14 +207,13 @@ const Home: React.FC = () => {
       <section className="contacto">
         <div className="contacto-container">
           <h2 className="contacto-title">
-            Estamos para
-            <br />
+            Estamos para <br />
             <span>ayudarte</span>
           </h2>
           <p className="contacto-text">
-            nuestro equipo esta listo para ayudarte de forma clara,
+            nuestro equipo esta listo para ayudarte
             <br />
-            cerca y oportuna cuando lo necesites
+            de forma clara y oportuna
           </p>
           <Link className="contacto-btn" to="/contacto">
             contacto

@@ -6,63 +6,81 @@
 /* Tipografía base */
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
+/* =========================================
+   PRODUCTS PAGE
+   - Contenedor general de la vista
+   ========================================= */
+
+/* Wrapper principal de la página de productos */
 .products {
-  background: #ffffff;
-  color: #111;
-  padding-bottom: 80px;
+  background: #ffffff;          /* Fondo blanco */
+  color: #111;                  /* Color base del texto */
+  padding-bottom: 80px;         /* Espacio inferior general */
 }
+
 
 /* =========================================
    HERO + SEARCH
    ========================================= */
 
+/* Sección hero superior con buscador */
 .products-hero {
-  padding: 96px 20px 64px;
-  text-align: center;
+  padding: 206px 20px 64px;      /* Espaciado superior amplio */
+  text-align: center;           /* Centra contenido */
   background: linear-gradient(
     to bottom,
-    rgba(0, 104, 57, 0.08),
-    rgba(255, 255, 255, 0)
+    rgba(0, 104, 57, 0.08),     /* Verde suave arriba */
+    rgba(255, 255, 255, 0)      /* Desvanece a blanco */
   );
 }
 
+/* Título principal de la página */
 .products-title {
   font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(42px, 6vw, 96px);
-  color: #006839;
+  font-size: clamp(42px, 6vw, 96px); /* Escala fluida */
+  color: #006839;               /* Verde identidad */
   letter-spacing: -0.02em;
   margin-bottom: 32px;
 }
 
-/* Search */
+
+/* =========================
+   SEARCH
+   ========================= */
+
+/* Wrapper para centrar el buscador */
 .products-searchWrap {
   display: flex;
   justify-content: center;
 }
 
+/* Contenedor relativo del input + botón */
 .products-search {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: 820px;             /* Ancho máximo del buscador */
 }
 
+/* Input de búsqueda */
 .products-searchInput {
   width: 100%;
   height: 64px;
-  padding: 0 140px 0 56px;
-  border-radius: 999px;
+  padding: 0 140px 0 56px;      /* Espacio para icono y botón */
+  border-radius: 999px;         /* Forma píldora */
   border: none;
   background: #ffffff;
   font-size: 18px;
   font-weight: 600;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-  outline: none;
+  outline: none;                /* Quita borde azul */
 }
 
+/* Placeholder del input */
 .products-searchInput::placeholder {
-  color: #c7c7c7;
+  color: #b1aeae;
 }
 
+/* Icono de búsqueda (SVG en máscara) */
 .products-searchIcon {
   position: absolute;
   left: 22px;
@@ -75,6 +93,7 @@
     no-repeat center / contain;
 }
 
+/* Botón de búsqueda */
 .products-searchBtn {
   position: absolute;
   right: 10px;
@@ -84,62 +103,71 @@
   padding: 0 26px;
   border-radius: 999px;
   border: none;
-  background: #f7c914;
-  color: #006839;
+  background: #006839;          /* Amarillo identidad */
+  color: #ffffff;
   font-family: "Bebas Neue", sans-serif;
   font-size: 20px;
   cursor: pointer;
 }
 
+/* Hover del botón de búsqueda */
 .products-searchBtn:hover {
-  background: #8cc342;
-  color: #fff;
+  background: #04884d;          /* Verde claro */
+  color: #ffffff;
 }
+
 
 /* =========================================
    CONTENT LAYOUT
    ========================================= */
 
+/* Layout principal: sidebar + grid */
 .products-content {
   display: flex;
-  gap: 48px;
-  max-width: 1400px;
+  gap: 48px;                    /* Separación columnas */
+  max-width: 2400px;
   margin: 0 auto;
   padding: 0 24px;
 }
+
 
 /* =========================================
    SIDEBAR (DESKTOP)
    ========================================= */
 
+/* Columna lateral de filtros */
 .products-sidebar {
-  flex: 0 0 320px;
+  flex: 0 0 300px;              /* Ancho fijo */
   align-self: flex-start;
   position: sticky;
-  top: 160px; /* debajo del hero/search */
+  top: 160px;                   /* Se pega bajo el hero */
 }
 
+/* Caja visual del sidebar */
 .products-sidebarBox {
   background: #006839;
-  border-radius: 0 48px 48px 0;
-  padding: 40px 28px;
-  min-height: 520px;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.2);
+  border-radius: 48px;
+  padding: 50px 28px;
+  min-height: 420px;
+  box-shadow: 0 24px 50px rgba(255, 254, 254, 0.2);
 }
 
+/* Título del sidebar */
 .products-sidebarTitle {
   font-family: "Bebas Neue", sans-serif;
   font-size: 48px;
-  color: #f7c914;
+  color: #ffffff;
   margin-bottom: 32px;
 }
 
+/* Lista de categorías */
 .products-categories {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Botón de categoría */
 .products-categoryBtn {
   border: none;
   background: transparent;
@@ -155,104 +183,131 @@
   transition: all 0.2s ease;
 }
 
+/* Hover categoría */
 .products-categoryBtn:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* Categoría activa */
 .products-categoryBtn.is-active {
-  background: #f7c914;
+  background: #ffffff;
   color: #006839;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
   transform: scale(1.05);
 }
 
-/* Sidebar meta */
+
+/* =========================
+   SIDEBAR META
+   ========================= */
+
+/* Bloque de información adicional */
 .products-sidebarMeta {
-  margin-top: 40px;
+  margin-top: 30px;
   padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* Fila meta */
 .products-sidebarRow {
   display: flex;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 13px;
   justify-content: space-between;
   font-size: 13px;
-  font-weight: 800;
-  color: #fff;
+  font-weight: 120;
+  color: #fbfbfb;
   margin-bottom: 16px;
 }
 
+/* Badge de conteo */
 .products-badge {
-  background: #8cc342;
+  background: #fafafa;
   color: #006839;
   padding: 4px 10px;
   border-radius: 999px;
 }
 
+/* Botón limpiar filtros */
 .products-clearBtn {
   width: 100%;
   margin-top: 12px;
   height: 42px;
+  
   border-radius: 999px;
   border: none;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(239, 239, 239, 0.15);
   color: #fff;
   font-weight: 800;
   cursor: pointer;
 }
 
+/* Estado deshabilitado */
 .products-clearBtn:disabled {
   opacity: 0.4;
   cursor: default;
 }
 
+
 /* =========================================
    GRID
    ========================================= */
 
+/* Wrapper del grid */
 .products-gridWrap {
   flex: 1;
 }
 
+/* Grid de tarjetas */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 32px;
 }
 
+/* Celda para centrar cards */
 .products-cardCell {
   display: flex;
   justify-content: center;
 }
 
-/* Empty / loading */
+
+/* =========================
+   EMPTY / LOADING
+   ========================= */
+
+/* Estado vacío */
 .products-empty {
   padding: 120px 20px;
   text-align: center;
 }
 
+/* Título vacío */
 .products-emptyTitle {
   font-family: "Bebas Neue", sans-serif;
   font-size: 32px;
   color: #006839;
 }
 
+/* Texto vacío */
 .products-emptyText {
   color: #666;
   margin-top: 8px;
 }
 
+
 /* =========================================
    RESPONSIVE
    ========================================= */
 
+/* ---------- TABLET ---------- */
 @media (max-width: 1024px) {
   .products-content {
-    flex-direction: column;
+    flex-direction: column;     /* Sidebar arriba */
   }
 
   .products-sidebar {
-    position: relative; /* vuelve al flujo */
+    position: relative;         /* Sale del sticky */
     top: auto;
     width: 100%;
   }
@@ -262,6 +317,7 @@
   }
 }
 
+/* ---------- MÓVIL ---------- */
 @media (max-width: 600px) {
   .products-hero {
     padding: 72px 16px 48px;
@@ -282,3 +338,4 @@
     height: 40px;
   }
 }
+
