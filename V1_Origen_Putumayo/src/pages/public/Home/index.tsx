@@ -88,7 +88,7 @@ const Home: React.FC = () => {
       {/* HERO */}
       <section
         className="home-hero"
-        style={{ backgroundImage: "url(/home/hero.jpg)" }}
+        style={{ backgroundImage: "url(../../assets/images/Home_Origen_Putumayo\ .png)" }}
       >
         <div className="home-hero__overlay" />
         <div className="home-hero__content">

@@ -1,32 +1,35 @@
-/* ========================================
-   CART DRAWER
-   Sidebar derecho + overlay con blur
-   ======================================== */
-
+/* =========================
+   OVERLAY (fondo oscuro)
+   Cubre toda la pantalla
+========================= */
 .cart-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-  z-index: 999;
+  position: fixed;              /* Fijo sobre toda la vista */
+  inset: 0;                     /* top, right, bottom, left = 0 */
+  background: rgba(0, 0, 0, 0.35); /* Fondo oscuro semitransparente */
+  backdrop-filter: blur(6px);   /* Desenfoque del fondo */
+  z-index: 999;                 /* Debajo del drawer */
 }
 
-/* Drawer */
+/* =========================
+   DRAWER DEL CARRITO
+   Panel lateral derecho
+========================= */
 .cart-drawer {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 0;                     /* Se ancla a la derecha */
   width: 360px;
-  max-width: 90%;
-  height: 100vh;
+  max-width: 90%;               /* Responsive en móviles */
+  height: 100vh;                /* Alto completo */
   background: #ffffff;
-  z-index: 1000;
+  z-index: 1000;                /* Encima del overlay */
   display: flex;
-  flex-direction: column;
-  animation: slideIn 0.3s ease forwards;
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+  flex-direction: column;       /* Header / Content / Footer */
+  animation: slideIn 0.3s ease forwards; /* Animación de entrada */
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25); /* Sombra lateral */
 }
 
+/* Animación: entra desde la derecha */
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -36,11 +39,13 @@
   }
 }
 
-/* Header */
+/* =========================
+   HEADER DEL CARRITO
+========================= */
 .cart-header {
   padding: 20px 24px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Título a la izquierda, botón a la derecha */
   align-items: center;
   border-bottom: 1px solid #eee;
 }
@@ -51,6 +56,7 @@
   color: #006839;
 }
 
+/* Botón cerrar (X) */
 .cart-closeBtn {
   background: transparent;
   border: none;
@@ -58,20 +64,24 @@
   cursor: pointer;
 }
 
-/* Content */
+/* =========================
+   CONTENIDO (scroll)
+========================= */
 .cart-content {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1;                      /* Ocupa todo el espacio disponible */
+  overflow-y: auto;             /* Scroll vertical */
   padding: 20px 24px;
 }
 
-/* Empty */
+/* =========================
+   CARRITO VACÍO
+========================= */
 .cart-empty {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center;      /* Centrado vertical y horizontal */
   text-align: center;
 }
 
@@ -91,7 +101,9 @@
   color: #666;
 }
 
-/* Item */
+/* =========================
+   ITEM DEL CARRITO
+========================= */
 .cart-item {
   display: flex;
   gap: 12px;
@@ -100,13 +112,15 @@
   border-bottom: 1px solid #eee;
 }
 
+/* Imagen del producto */
 .cart-itemImg {
   width: 64px;
   height: 64px;
-  object-fit: cover;
+  object-fit: cover;            /* Mantiene proporción */
   border-radius: 12px;
 }
 
+/* Información del producto */
 .cart-itemInfo {
   flex: 1;
   display: flex;
@@ -123,6 +137,7 @@
   color: #666;
 }
 
+/* Acciones (precio y eliminar) */
 .cart-itemActions {
   display: flex;
   flex-direction: column;
@@ -134,20 +149,24 @@
   font-weight: 800;
 }
 
+/* Botón eliminar */
 .cart-removeBtn {
   background: none;
   border: none;
-  color: #c0392b;
+  color: #e31313;
   font-size: 12px;
   cursor: pointer;
 }
 
-/* Footer */
+/* =========================
+   FOOTER DEL CARRITO
+========================= */
 .cart-footer {
   padding: 20px 24px;
   border-top: 1px solid #eee;
 }
 
+/* Subtotal */
 .cart-subtotal {
   display: flex;
   justify-content: space-between;
@@ -155,10 +174,11 @@
   font-size: 15px;
 }
 
+/* Botón de checkout */
 .cart-checkoutBtn {
   width: 100%;
   height: 44px;
-  border-radius: 999px;
+  border-radius: 999px;         /* Botón pill */
   border: none;
   background: #006839;
   color: #ffffff;
@@ -167,6 +187,7 @@
   cursor: pointer;
 }
 
+/* Hover del botón */
 .cart-checkoutBtn:hover {
   background: #8cc342;
 }
