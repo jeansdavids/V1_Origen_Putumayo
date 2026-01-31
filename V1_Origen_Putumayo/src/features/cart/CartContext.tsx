@@ -1,4 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/features/cart/CartContext.tsx
+
 import React, { createContext, useContext, useMemo, useState } from "react";
 import type { CartItem } from "./types";
 

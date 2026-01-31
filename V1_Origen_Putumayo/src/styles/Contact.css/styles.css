@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+/* ===================== CONTACT SECTION ===================== */
+
+.contact {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.direct-contact {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* MITAD VERDE */
+.contact-left {
+  width: 50%;
+  background-color: #006839;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 7rem;
+}
+
+/* TÍTULO */
+.contact-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-size: 69px;
+  margin-bottom: 1rem;
+}
+
+/* SUBTÍTULO */
+.contact-subtitle {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  max-width: 400px;
+  line-height: 1.2;
+  margin-bottom: 4rem;
+}
+
+/* ICONOS REDES */
+.social-icons {
+  display: flex;
+  gap: 2rem;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 1.8rem;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+  color: #b9c9c1;
+}
+
+/* MITAD BLANCA */
+.contact-right {
+  width: 50%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4rem;
+}
+
+/* BLOQUES DE INFO */
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.info-item i {
+  font-size: 3rem;
+  color: #7ad155;
+}
+
+/* TÍTULOS INFO */
+.info-item h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 24px;
+  margin: 0 0 0rem 0;
+  font-weight: 400;
+}
+
+/* TEXTO INFO */
+.info-item p {
+  margin: 0;
+  color: #444444;
+  max-width: 400px;
+  line-height: 1.5;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* ===================== LOCATION SPLIT ===================== */
+
+.location-split {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* IZQUIERDA - FORMULARIO (GRIS CLARO) */
+.location-left {
+  width: 50%;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem;
+}
+
+.location-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 40px;
+  margin-bottom: 2.5rem;
+  color: #000000;
+  font-weight: 400;
+}
+
+/* FORMULARIO */
+.contact-form {
+  width: 100%;
+}
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background-color: #d9d9d9;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: "Bebas Neue", sans-serif;
+  border-radius: 10px; /* 👈 más redonditos */
+}
+.form-input::placeholder {
+  color: #555555;
+}
+
+/* MENSAJE GRANDE */
+.form-textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 1rem 1.2rem;
+  background-color: #d9d9d9;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 16px;
+  font-family: "Bebas Neue", sans-serif;
+  border-radius: 20px; /* 👈 más redondito */
+}
+
+.form-textarea::placeholder {
+  color: #555555;
+}
+
+/* DERECHA - MAPA (VERDE) */
+.location-right {
+  width: 50%;
+  background-color: #006839;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.map-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 40px;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+/* CONTENEDOR MAPA */
+.map-container {
+  width: 100%;
+  height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 768px) {
+  .location-split {
+    flex-direction: column;
+  }
+
+  .location-left,
+  .location-right {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+/* ===================== FOOTER ===================== */
+
+.footer {
+  background-color: #006839;
+  color: #ffffff;
+  text-align: center;
+  padding: 1.5rem;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 768px) {
+  .direct-contact {
+    flex-direction: column;
+  }
+
+  .contact-left,
+  .contact-right {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .contact-subtitle {
+    font-size: 28px;
+  }
+}

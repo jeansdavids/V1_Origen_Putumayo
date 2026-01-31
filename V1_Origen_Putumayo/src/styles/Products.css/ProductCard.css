@@ -1,41 +1,42 @@
-/* =========================================
+/* =========================================================
    PRODUCT CARD (pCard)
-   - Estilo base de la card
-   - Identidad visual IA (verde / naranja)
-   - Responsive alineado con tu carrusel:
-     Desktop: 320px
-     Tablet:  280px
-     Móvil:   260px
-   ========================================= */
+   Mobile-first, compacto
 
-/* Card base */
+   Objetivos UX:
+   - Mobile: alta densidad, lectura rápida
+   - Desktop: mayor claridad de acción
+   - Jerarquía clara: imagen → nombre → chips → precio → CTA
+   ========================================================= */
+
+
+/* =========================================================
+   CARD BASE
+   ========================================================= */
 .pCard {
   width: 100%;
-  max-width: 330px;
-  border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .pCard:hover {
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.16);
-  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  transform: translateY(-3px);
 }
 
-/* =========================
-   FIX CARRUSEL (IMPORTANTE)
-   ========================= */
-.Destacado-card > .pCard {
-  width: 100%;
-  max-width: none;
-}
 
-/* Imagen */
+/* =========================================================
+   IMAGE
+   - Mobile: imagen contenida, no dominante
+   ========================================================= */
 .pCard__imgWrap {
   width: 100%;
-  height: 190px;
+  height: 130px;
   background: #e5e5e5;
   overflow: hidden;
 }
@@ -45,36 +46,51 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s ease;
 }
 
-/* Zoom suave IA */
 .pCard:hover .pCard__img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
-/* Body */
+
+/* =========================================================
+   BODY
+   ========================================================= */
 .pCard__body {
-  padding: 16px 18px 18px;
+  padding: 12px 14px 14px;
+  box-sizing: border-box;
 }
 
-/* Nombre */
+
+/* =========================================================
+   NAME
+   - Máximo 2 líneas para mantener altura uniforme
+   ========================================================= */
 .pCard__name {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-family: "Bebas Neue", sans-serif;
-  font-size: 20px;
-  letter-spacing: 0.02em;
+  font-size: 18px;
   font-weight: 900;
+  letter-spacing: 0.02em;
   color: #006839;
-  transition: color 0.25s ease;
+  line-height: 1.1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Cambio de color en hover */
 .pCard:hover .pCard__name {
-  color: #8cc342;
+  color: #0f790f;
 }
 
-/* Chips */
+
+/* =========================================================
+   CHIPS (categoría / disponibilidad)
+   - Máximo 2 chips
+   ========================================================= */
 .pCard__chips {
   display: inline-flex;
   gap: 6px;
@@ -83,163 +99,106 @@
 }
 
 .pCard__chip {
-  display: inline-flex;
-  align-items: center;
   height: 18px;
-  padding: 0 10px;
+  padding: 0 8px;
   border-radius: 999px;
-  background: rgba(0, 104, 57, 0.1);
+  background: rgba(0, 104, 57, 0.12);
   color: #006839;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-/* Líneas */
-.pCard__line {
-  margin: 6px 0;
-  font-size: 12px;
-  color: #444;
-}
 
-.pCard__lineLabel {
-  font-weight: 800;
-  color: #7a7a7a;
-}
-
-.pCard__lineValue {
-  font-weight: 700;
-  color: #222;
-}
-
-.pCard__line--withDot {
+/* =========================================================
+   FOOTER
+   - Precio + CTA
+   ========================================================= */
+.pCard__footer {
+  margin-top: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.pCard__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #f3923a;
-  flex: 0 0 auto;
-}
-
-/* Precio */
-.pCard__price {
-  margin: 12px 0 14px;
-  display: flex;
-  align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  font-size: 12px;
 }
 
-.pCard__priceLabel {
-  color: #7a7a7a;
-  font-weight: 800;
-}
 
-.pCard__priceValue {
-  color: #006839;
-  font-weight: 900;
+/* =========================================================
+   PRICE
+   ========================================================= */
+.pCard__price {
   font-size: 14px;
+  font-weight: 900;
+  color: #006839;
 }
 
-/* Botón */
-.pCard__btn {
+
+/* =========================================================
+   CART BUTTON
+   - Mobile: botón circular rápido
+   - Desktop: botón con texto
+   ========================================================= */
+.pCard__cartBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: #006839;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 42px;
-  border-radius: 999px;
-  background: #006839;
-  color: #fff;
-  text-decoration: none;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 18px;
-  letter-spacing: 0.08em;
-  transition: background 0.25s ease, transform 0.15s ease;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.pCard__btn:hover {
-  background: #8cc342;
+.pCard__cartBtn:hover {
+  background: #0f790f;
 }
 
-.pCard__btn:active {
-  transform: scale(0.95);
+.pCard__cartBtn:active {
+  transform: scale(0.92);
 }
 
-/* =========================================
-   RESPONSIVE
-   ========================================= */
 
-/* Tablet */
-@media (max-width: 820px) {
+/* =========================================================
+   CART BUTTON STATES
+   ========================================================= */
+.pCard__cartBtn:disabled,
+.pCard__cartBtn[aria-disabled="true"] {
+  background: #cfcfcf;
+  cursor: not-allowed;
+  opacity: 0.85;
+  transform: none;
+}
+
+
+/* =========================================================
+   DESKTOP / TABLET ADJUSTMENTS
+   ========================================================= */
+@media (min-width: 768px) {
   .pCard__imgWrap {
-    height: 175px;
-  }
-
-  .pCard__body {
-    padding: 14px 16px 16px;
+    height: 180px;
   }
 
   .pCard__name {
-    font-size: 18px;
+    font-size: 20px;
   }
 
-  .pCard__chip {
-    height: 17px;
-    font-size: 9.5px;
+  /* Desktop CTA más expresivo */
+  .pCard__cartBtn {
+    width: auto;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
   }
 
-  .pCard__line {
-    font-size: 11.5px;
-  }
-
-  .pCard__price {
-    font-size: 11.5px;
-    margin: 10px 0 12px;
-  }
-
-  .pCard__btn {
-    height: 40px;
-    font-size: 16px;
-  }
-}
-
-/* Móvil */
-@media (max-width: 480px) {
-  .pCard__imgWrap {
-    height: 165px;
-  }
-
-  .pCard__body {
-    padding: 12px 14px 14px;
-  }
-
-  .pCard__name {
-    font-size: 17px;
-  }
-
-  .pCard__chip {
-    height: 16px;
-    font-size: 9px;
-  }
-
-  .pCard__line {
-    font-size: 11px;
-  }
-
-  .pCard__price {
-    font-size: 11px;
-  }
-
-  .pCard__btn {
-    height: 38px;
-    font-size: 15px;
+  .pCard__cartBtn::after {
+    content: " Agregar";
   }
 }

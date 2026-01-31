@@ -1,5 +1,6 @@
 // src/features/cart/CartDrawer.tsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "./CartContext";
 import "../../styles/CartDrawer.css";
 
@@ -12,7 +13,14 @@ const CartDrawer: React.FC = () => {
     subtotal,
   } = useCart();
 
+  const navigate = useNavigate();
+
   if (!isOpen) return null;
+
+  const handleCheckout = () => {
+    closeCart();          // cerrar drawer
+    navigate("/checkout"); // ir a checkout
+  };
 
   return (
     <>
@@ -95,7 +103,11 @@ const CartDrawer: React.FC = () => {
               </strong>
             </div>
 
-            <button className="cart-checkoutBtn">
+            {/* 👇 BOTÓN CLAVE */}
+            <button
+              className="cart-checkoutBtn"
+              onClick={handleCheckout}
+            >
               Finalizar compra
             </button>
           </footer>
