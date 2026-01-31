@@ -1,17 +1,25 @@
-// @ts-nocheck
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../features/cart/CartContext";
 import "../../../styles/Products.css/ProductCard.css";
 
+interface ProductCardProps {
+  product: any;
+  getImg: (product: any) => string;
+  linkBase?: string;
+}
+
 /**
  * ProductCard
  * - Click en la card → ver producto
- * - Botón principal → agregar al carrito
- * - Usa CartContext
- * - Defensivo con datos de Supabase
+ * - Botón carrito → agregar al carrito
+ * - Mobile-first, compacto
  */
-const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  getImg,
+  linkBase = "/products",
+}) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -44,9 +52,7 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
           maximumFractionDigits: 0,
         }).format(numericPrice);
 
-  const category = product?.category || product?.categoryName || "—";
-  const company = product?.companyName || product?.company_name || "—";
-  const location = product?.location || product?.locationName || "—";
+  const category = product?.category || product?.categoryName || null;
 
   const availabilityRaw = product?.availability || "";
   const availabilityLabel = (() => {
@@ -54,20 +60,17 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
     if (v === "available") return "Disponible";
     if (v === "out_of_stock") return "Sin stock";
     if (v === "on_demand") return "Bajo pedido";
-    return availabilityRaw || null;
+    return null;
   })();
 
-  // Chips
-  const chips =
-    Array.isArray(product?.tags) && product.tags.length
-      ? product.tags.slice(0, 2)
-      : [category, availabilityLabel].filter(Boolean).slice(0, 2);
+  // Chips visibles (máx 2)
+  const chips = [category, availabilityLabel].filter(Boolean).slice(0, 2);
 
   const handleNavigate = () => {
     if (id) navigate(`${linkBase}/${id}`);
   };
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // ⛔ evita navegar al detalle
 
     addToCart({
@@ -79,7 +82,12 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   };
 
   return (
-    <article className="pCard" onClick={handleNavigate} role="button">
+    <article
+      className="pCard"
+      onClick={handleNavigate}
+      role="button"
+      aria-label={`Ver producto ${product?.name || ""}`}
+    >
       {/* Imagen */}
       <div className="pCard__imgWrap">
         <img
@@ -105,29 +113,19 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
           </div>
         )}
 
-        <p className="pCard__line">
-          <span className="pCard__lineLabel">Empresa:</span>
-          <span className="pCard__lineValue">{company}</span>
-        </p>
+        {/* Precio + CTA compacto */}
+        <div className="pCard__footer">
+          <span className="pCard__price">{priceLabel}</span>
 
-        <p className="pCard__line pCard__line--withDot">
-          <span className="pCard__dot" aria-hidden="true" />
-          <span className="pCard__lineValue">{location}</span>
-        </p>
-
-        <p className="pCard__price">
-          <span className="pCard__priceLabel">Precio:</span>
-          <span className="pCard__priceValue">{priceLabel}</span>
-        </p>
-
-        {/* CTA principal */}
-        <button
-          className="pCard__btn"
-          type="button"
-          onClick={handleAddToCart}
-        >
-          Agregar al carrito
-        </button>
+          <button
+            className="pCard__cartBtn"
+            type="button"
+            onClick={handleAddToCart}
+            aria-label="Agregar al carrito"
+          >
+            🛒
+          </button>
+        </div>
       </div>
     </article>
   );

@@ -337,5 +337,16 @@
     font-size: 18px;
     height: 40px;
   }
+
+    /* GRID MOBILE: 3 cards por fila */
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px; /* más compacto para mobile */
+  }
+
+  .products-cardCell {
+    justify-content: stretch; /* el card ocupa toda la celda */
+  }
+
 }
 
