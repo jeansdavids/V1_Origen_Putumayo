@@ -349,4 +349,81 @@
   }
 
 }
+/* =========================================
+   MOBILE: mostrar filtros horizontales y ocultar sidebar
+========================================= */
+
+/* Por defecto (desktop): no mostrar la barra mobile */
+.products-mobileSticky {
+  display: none;
+}
+
+/* Estilos base para chips */
+.products-catChip {
+  white-space: nowrap;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  /* Ocultar sidebar en mobile */
+  .products-sidebar {
+    display: none;
+  }
+
+  /* Mostrar barra mobile debajo del buscador */
+  .products-mobileSticky {
+    display: block;
+    position: sticky;
+    top: 0; /* Ajusta si tu navbar es sticky; por ejemplo top: 72px */
+    z-index: 50;
+    background: #ffffff;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  /* Fila resultados + limpiar */
+  .products-mobileMetaRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .products-mobileMetaLabel {
+    font-weight: 600;
+  }
+
+  .products-mobileClearBtn {
+    margin-left: auto;
+  }
+
+  /* Rail horizontal de categorías */
+  .products-mobileCatsRail {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+
+  .products-mobileCatsRail::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Chip */
+  .products-catChip {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .products-catChip.is-active {
+    border-color: rgba(0, 0, 0, 0.28);
+    font-weight: 700;
+  }
+}
+
 

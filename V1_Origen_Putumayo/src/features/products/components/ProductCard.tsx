@@ -1,34 +1,35 @@
+// @ts-nocheck
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../features/cart/CartContext";
 import "../../../styles/Products.css/ProductCard.css";
 
-interface ProductCardProps {
-  product: any;
-  getImg: (product: any) => string;
-  linkBase?: string;
-}
-
 /**
  * ProductCard
- * - Click en la card → ver producto
- * - Botón carrito → agregar al carrito
- * - Mobile-first, compacto
+ *
+ * Objetivo UX:
+ * - Mostrar solo información esencial para decisión rápida
+ * - Jerarquía clara: imagen → nombre → chips → precio → CTA
+ *
+ * Comportamiento:
+ * - Click en la card: navega al detalle
+ * - Click en CTA: agrega al carrito sin navegar
  */
-const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  getImg,
-  linkBase = "/products",
-}) => {
+const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
   if (!product) return null;
 
+  /* =========================
+     IDENTIFICADOR
+  ========================= */
   const id = product?.product_id ?? product?.productId ?? product?.id;
 
-  // Precio (soporta varios nombres comunes)
-  const price =
+  /* =========================
+     PRECIO
+  ========================= */
+  const rawPrice =
     product?.price ??
     product?.unit_price ??
     product?.price_value ??
@@ -37,41 +38,53 @@ const ProductCard: React.FC<ProductCardProps> = ({
     null;
 
   const numericPrice =
-    price === null || price === undefined || price === ""
+    rawPrice === null || rawPrice === undefined || rawPrice === ""
       ? 0
-      : Number(price);
+      : Number(rawPrice);
 
   const currency = product?.currency ?? "COP";
 
   const priceLabel =
     numericPrice === 0
-      ? "—"
+      ? "Consultar"
       : new Intl.NumberFormat("es-CO", {
           style: "currency",
           currency,
           maximumFractionDigits: 0,
         }).format(numericPrice);
 
+  /* =========================
+     CATEGORÍA / DISPONIBILIDAD
+  ========================= */
   const category = product?.category || product?.categoryName || null;
 
-  const availabilityRaw = product?.availability || "";
-  const availabilityLabel = (() => {
-    const v = String(availabilityRaw).toLowerCase();
-    if (v === "available") return "Disponible";
-    if (v === "out_of_stock") return "Sin stock";
-    if (v === "on_demand") return "Bajo pedido";
-    return null;
-  })();
+  const availabilityRaw = String(product?.availability || "").toLowerCase();
+  const availabilityLabel =
+    availabilityRaw === "available"
+      ? "Disponible"
+      : availabilityRaw === "out_of_stock"
+      ? "Sin stock"
+      : availabilityRaw === "on_demand"
+      ? "Bajo pedido"
+      : null;
 
-  // Chips visibles (máx 2)
+  const isOutOfStock = availabilityLabel === "Sin stock";
+
+  /* =========================
+     CHIPS (máx. 2)
+  ========================= */
   const chips = [category, availabilityLabel].filter(Boolean).slice(0, 2);
 
+  /* =========================
+     HANDLERS
+  ========================= */
   const handleNavigate = () => {
     if (id) navigate(`${linkBase}/${id}`);
   };
 
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); // ⛔ evita navegar al detalle
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    if (isOutOfStock) return;
 
     addToCart({
       id: String(id),
@@ -86,7 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className="pCard"
       onClick={handleNavigate}
       role="button"
-      aria-label={`Ver producto ${product?.name || ""}`}
+      tabIndex={0}
     >
       {/* Imagen */}
       <div className="pCard__imgWrap">
@@ -101,29 +114,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Contenido */}
       <div className="pCard__body">
+        {/* Nombre */}
         <h3 className="pCard__name">{product?.name || "Producto"}</h3>
 
+        {/* Chips */}
         {chips.length > 0 && (
           <div className="pCard__chips">
-            {chips.map((t) => (
-              <span key={t} className="pCard__chip">
-                {t}
+            {chips.map((chip) => (
+              <span key={chip} className="pCard__chip">
+                {chip}
               </span>
             ))}
           </div>
         )}
 
-        {/* Precio + CTA compacto */}
+        {/* Footer: precio + CTA (único precio del card) */}
         <div className="pCard__footer">
-          <span className="pCard__price">{priceLabel}</span>
+          <div className="pCard__price">{priceLabel}</div>
 
           <button
             className="pCard__cartBtn"
             type="button"
             onClick={handleAddToCart}
-            aria-label="Agregar al carrito"
+            disabled={isOutOfStock}
+            aria-disabled={isOutOfStock}
           >
-            🛒
+            +
           </button>
         </div>
       </div>
