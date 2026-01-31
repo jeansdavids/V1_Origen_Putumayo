@@ -2,43 +2,58 @@ import "../../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../../features/cart/CartContext";
 import logo from "../../assets/images/logo.png";
-import navBg from "../../assets/images/navbar-bg-1920x250.png";
+import { useState } from "react";
+import "../../styles/navbarcel.css"
+
 
 const Navbar = () => {
   const { totalItems, openCart } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav
-      className="navbar"
-      style={{
-        backgroundImage: `url(${navBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <nav className="navbar">
       {/* Logo */}
       <div className="navbar-logo">
         <img src={logo} alt="Logo" />
       </div>
 
+      {/* Hamburguesa */}
+      <button
+        className="navbar-toggle"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Abrir menú"
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
       {/* Menu */}
-      <ul className="navbar-menu">
-        <li className="navbar-item"><Link to="/">Home</Link></li>
-        <li className="navbar-item"><Link to="/products">Productos</Link></li>
-        <li className="navbar-item"><Link to="/history">Historia</Link></li>
-        <li className="navbar-item"><Link to="/turismo">Turismo</Link></li>
-        <li className="navbar-item"><Link to="/contacto">Contacto</Link></li>
+      <ul className={`navbar-menu ${menuOpen ? "active" : ""}`}>
+        <li className="navbar-item" onClick={() => setMenuOpen(false)}>
+          <Link to="/">Home</Link>
+        </li>
+        <li className="navbar-item" onClick={() => setMenuOpen(false)}>
+          <Link to="/products">Productos</Link>
+        </li>
+        <li className="navbar-item" onClick={() => setMenuOpen(false)}>
+          <Link to="/history">Historia</Link>
+        </li>
+        <li className="navbar-item" onClick={() => setMenuOpen(false)}>
+          <Link to="/turismo">Turismo</Link>
+        </li>
+        <li className="navbar-item" onClick={() => setMenuOpen(false)}>
+          <Link to="/contacto">Contacto</Link>
+        </li>
       </ul>
 
-      {/* Botón carrito */}
+      {/* Carrito */}
       <button
         className="navbar-cartBtn"
         type="button"
         aria-label="Abrir carrito"
         onClick={openCart}
       >
-        {/* Icono carrito (SVG profesional) */}
         <svg
           className="navbar-cartIcon"
           xmlns="http://www.w3.org/2000/svg"
@@ -54,15 +69,11 @@ const Navbar = () => {
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
         </svg>
 
-        {/* Badge */}
         {totalItems > 0 && (
-          <span className="navbar-cartBadge">
-            {totalItems}
-          </span>
+          <span className="navbar-cartBadge">{totalItems}</span>
         )}
       </button>
     </nav>
   );
 };
-
 export default Navbar;
