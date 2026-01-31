@@ -18,10 +18,14 @@
 /* CONTENEDOR DEL HERO */
 .home-hero {
   position: relative;
-  height: 560px; /* Altura fija del hero */
-  background-size: cover; /* Cubre todo el espacio */
-  background-position: center; /* Centra la imagen */
-  overflow: hidden; /* Oculta contenido que se desborda */
+  width: 99vw;          /* 🔥 ocupa todo el ancho */
+  height: 100vh;         /* 🔥 alto de pantalla */
+  
+  
+  background-image: url("../../assets/images/Home_Origen_Putumayo .png"); /* imagen de fondo */
+  background-size: cover;     /* ahora sí */
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* OVERLAY - Oscurece la imagen de fondo */
@@ -35,7 +39,7 @@
 .home-hero__content {
   position: relative;
   height: 100%;
-  max-width: 1080px; /* Ancho máximo */
+  max-width: 1090px; /* Ancho máximo */
   margin: 0 auto; /* Centra horizontalmente */
   padding: 48px 18px; /* Espaciado interno */
   display: flex;
