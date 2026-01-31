@@ -6,10 +6,14 @@ import "../../../styles/Products.css/ProductCard.css";
 
 /**
  * ProductCard
- * - Click en la card → ver producto
- * - Botón principal → agregar al carrito
- * - Usa CartContext
- * - Defensivo con datos de Supabase
+ *
+ * Objetivo UX:
+ * - Mostrar solo información esencial para decisión rápida
+ * - Jerarquía clara: imagen → nombre → chips → precio → CTA
+ *
+ * Comportamiento:
+ * - Click en la card: navega al detalle
+ * - Click en CTA: agrega al carrito sin navegar
  */
 const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   const navigate = useNavigate();
@@ -17,10 +21,15 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
 
   if (!product) return null;
 
+  /* =========================
+     IDENTIFICADOR
+  ========================= */
   const id = product?.product_id ?? product?.productId ?? product?.id;
 
-  // Precio (soporta varios nombres comunes)
-  const price =
+  /* =========================
+     PRECIO
+  ========================= */
+  const rawPrice =
     product?.price ??
     product?.unit_price ??
     product?.price_value ??
@@ -29,46 +38,53 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
     null;
 
   const numericPrice =
-    price === null || price === undefined || price === ""
+    rawPrice === null || rawPrice === undefined || rawPrice === ""
       ? 0
-      : Number(price);
+      : Number(rawPrice);
 
   const currency = product?.currency ?? "COP";
 
   const priceLabel =
     numericPrice === 0
-      ? "—"
+      ? "Consultar"
       : new Intl.NumberFormat("es-CO", {
           style: "currency",
           currency,
           maximumFractionDigits: 0,
         }).format(numericPrice);
 
-  const category = product?.category || product?.categoryName || "—";
-  const company = product?.companyName || product?.company_name || "—";
-  const location = product?.location || product?.locationName || "—";
+  /* =========================
+     CATEGORÍA / DISPONIBILIDAD
+  ========================= */
+  const category = product?.category || product?.categoryName || null;
 
-  const availabilityRaw = product?.availability || "";
-  const availabilityLabel = (() => {
-    const v = String(availabilityRaw).toLowerCase();
-    if (v === "available") return "Disponible";
-    if (v === "out_of_stock") return "Sin stock";
-    if (v === "on_demand") return "Bajo pedido";
-    return availabilityRaw || null;
-  })();
+  const availabilityRaw = String(product?.availability || "").toLowerCase();
+  const availabilityLabel =
+    availabilityRaw === "available"
+      ? "Disponible"
+      : availabilityRaw === "out_of_stock"
+      ? "Sin stock"
+      : availabilityRaw === "on_demand"
+      ? "Bajo pedido"
+      : null;
 
-  // Chips
-  const chips =
-    Array.isArray(product?.tags) && product.tags.length
-      ? product.tags.slice(0, 2)
-      : [category, availabilityLabel].filter(Boolean).slice(0, 2);
+  const isOutOfStock = availabilityLabel === "Sin stock";
 
+  /* =========================
+     CHIPS (máx. 2)
+  ========================= */
+  const chips = [category, availabilityLabel].filter(Boolean).slice(0, 2);
+
+  /* =========================
+     HANDLERS
+  ========================= */
   const handleNavigate = () => {
     if (id) navigate(`${linkBase}/${id}`);
   };
 
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // ⛔ evita navegar al detalle
+    e.stopPropagation();
+    if (isOutOfStock) return;
 
     addToCart({
       id: String(id),
@@ -79,7 +95,12 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   };
 
   return (
-    <article className="pCard" onClick={handleNavigate} role="button">
+    <article
+      className="pCard"
+      onClick={handleNavigate}
+      role="button"
+      tabIndex={0}
+    >
       {/* Imagen */}
       <div className="pCard__imgWrap">
         <img
@@ -93,41 +114,34 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
 
       {/* Contenido */}
       <div className="pCard__body">
+        {/* Nombre */}
         <h3 className="pCard__name">{product?.name || "Producto"}</h3>
 
+        {/* Chips */}
         {chips.length > 0 && (
           <div className="pCard__chips">
-            {chips.map((t) => (
-              <span key={t} className="pCard__chip">
-                {t}
+            {chips.map((chip) => (
+              <span key={chip} className="pCard__chip">
+                {chip}
               </span>
             ))}
           </div>
         )}
 
-        <p className="pCard__line">
-          <span className="pCard__lineLabel">Empresa:</span>
-          <span className="pCard__lineValue">{company}</span>
-        </p>
+        {/* Footer: precio + CTA (único precio del card) */}
+        <div className="pCard__footer">
+          <div className="pCard__price">{priceLabel}</div>
 
-        <p className="pCard__line pCard__line--withDot">
-          <span className="pCard__dot" aria-hidden="true" />
-          <span className="pCard__lineValue">{location}</span>
-        </p>
-
-        <p className="pCard__price">
-          <span className="pCard__priceLabel">Precio:</span>
-          <span className="pCard__priceValue">{priceLabel}</span>
-        </p>
-
-        {/* CTA principal */}
-        <button
-          className="pCard__btn"
-          type="button"
-          onClick={handleAddToCart}
-        >
-          Agregar al carrito
-        </button>
+          <button
+            className="pCard__cartBtn"
+            type="button"
+            onClick={handleAddToCart}
+            disabled={isOutOfStock}
+            aria-disabled={isOutOfStock}
+          >
+            +
+          </button>
+        </div>
       </div>
     </article>
   );

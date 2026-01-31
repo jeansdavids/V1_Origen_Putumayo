@@ -1,62 +1,42 @@
-/* =========================================
+/* =========================================================
    PRODUCT CARD (pCard)
-   Desktop: 320px
-   Tablet:  280px
-   Mobile:  260px
-   ========================================= */
+   Mobile-first, compacto
 
-/* =========================
+   Objetivos UX:
+   - Mobile: alta densidad, lectura rápida
+   - Desktop: mayor claridad de acción
+   - Jerarquía clara: imagen → nombre → chips → precio → CTA
+   ========================================================= */
+
+
+/* =========================================================
    CARD BASE
-   ========================= */
+   ========================================================= */
 .pCard {
   width: 100%;
-  max-width: 100%;              /* ✅ CLAVE: no forzar ancho */
-  border-radius: 4px;
-  background: #fff;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   box-sizing: border-box;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .pCard:hover {
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.16);
-  transform: translateY(-4px);
-}
-
-/* =========================
-   FIX CARRUSEL
-   ========================= */
-.Destacado {
-  position: relative;
-  overflow: hidden; /* ✅ CLAVE */
-  width: 100%;
-}
-
-.Destacado-arrow {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: none;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  transform: translateY(-3px);
 }
 
 
-
-
-
-/* =========================
+/* =========================================================
    IMAGE
-   ========================= */
+   - Mobile: imagen contenida, no dominante
+   ========================================================= */
 .pCard__imgWrap {
   width: 100%;
-  height: 200px;
+  height: 130px;
   background: #e5e5e5;
   overflow: hidden;
 }
@@ -66,40 +46,51 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s ease;
 }
 
 .pCard:hover .pCard__img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
-/* =========================
+
+/* =========================================================
    BODY
-   ========================= */
+   ========================================================= */
 .pCard__body {
-  padding: 20px 18px 18px;
+  padding: 12px 14px 14px;
   box-sizing: border-box;
 }
 
-/* =========================
+
+/* =========================================================
    NAME
-   ========================= */
+   - Máximo 2 líneas para mantener altura uniforme
+   ========================================================= */
 .pCard__name {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-family: "Bebas Neue", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   letter-spacing: 0.02em;
   color: #006839;
+  line-height: 1.1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .pCard:hover .pCard__name {
   color: #0f790f;
 }
 
-/* =========================
-   CHIPS
-   ========================= */
+
+/* =========================================================
+   CHIPS (categoría / disponibilidad)
+   - Máximo 2 chips
+   ========================================================= */
 .pCard__chips {
   display: inline-flex;
   gap: 6px;
@@ -109,76 +100,105 @@
 
 .pCard__chip {
   height: 18px;
-  padding: 0 10px;
+  padding: 0 8px;
   border-radius: 999px;
-  background: rgba(0, 104, 57, 0.1);
+  background: rgba(0, 104, 57, 0.12);
   color: #006839;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-/* =========================
-   INFO LINES
-   ========================= */
-.pCard__line {
-  margin: 6px 0;
-  font-size: 12px;
-  color: #444;
-}
 
-.pCard__line--withDot {
+/* =========================================================
+   FOOTER
+   - Precio + CTA
+   ========================================================= */
+.pCard__footer {
+  margin-top: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.pCard__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #006839;
-}
-
-/* =========================
-   PRICE
-   ========================= */
-.pCard__price {
-  margin: 12px 0 14px;
-  display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  gap: 10px;
 }
 
-.pCard__priceValue {
-  color: #006839;
-  font-weight: 900;
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+.pCard__price {
   font-size: 14px;
+  font-weight: 900;
+  color: #006839;
 }
 
-/* =========================
-   BUTTON
-   ========================= */
-.pCard__btn {
-  width: 100%;
-  height: 42px;
-  border-radius: 999px;
+
+/* =========================================================
+   CART BUTTON
+   - Mobile: botón circular rápido
+   - Desktop: botón con texto
+   ========================================================= */
+.pCard__cartBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
   background: #006839;
-  color: #fff;
-  font-family: "Bebas Neue", sans-serif;
+  color: #ffffff;
   font-size: 18px;
-  letter-spacing: 0.08em;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.25s ease, transform 0.15s ease;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.pCard__btn:hover {
+.pCard__cartBtn:hover {
   background: #0f790f;
 }
 
-.pCard__btn:active {
-  transform: scale(0.95);
+.pCard__cartBtn:active {
+  transform: scale(0.92);
+}
+
+
+/* =========================================================
+   CART BUTTON STATES
+   ========================================================= */
+.pCard__cartBtn:disabled,
+.pCard__cartBtn[aria-disabled="true"] {
+  background: #cfcfcf;
+  cursor: not-allowed;
+  opacity: 0.85;
+  transform: none;
+}
+
+
+/* =========================================================
+   DESKTOP / TABLET ADJUSTMENTS
+   ========================================================= */
+@media (min-width: 768px) {
+  .pCard__imgWrap {
+    height: 180px;
+  }
+
+  .pCard__name {
+    font-size: 20px;
+  }
+
+  /* Desktop CTA más expresivo */
+  .pCard__cartBtn {
+    width: auto;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .pCard__cartBtn::after {
+    content: " Agregar";
+  }
 }

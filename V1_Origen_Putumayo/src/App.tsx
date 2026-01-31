@@ -1,14 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NavbarLayout from "./components/common/NavbarLayout";
-
 import Home from "./pages/public/Home";
 import History from "./pages/public/History";
 import Products from "./pages/public/Products";
 import CheckoutPage from "./pages/public/checkout/CheckoutPage";
-
 import { CartProvider } from "./features/cart/CartContext";
 import CartDrawer from "./features/cart/CartDrawer";
+
 
 const App: React.FC = () => {
   return (

@@ -9,10 +9,7 @@ import type {
 
 interface Props {
   items: OrderItemSnapshot[];
-  onSuccess?: (data: {
-    orderId: string;
-    customer: CustomerSnapshot;
-  }) => void;
+  onSuccess?: (customer: CustomerSnapshot) => void;
 }
 
 const documentTypes: DocumentType[] = ["CC", "TI", "CE", "PASAPORTE"];
@@ -51,19 +48,14 @@ export default function CheckoutForm({ items, onSuccess }: Props) {
       setLoading(true);
       setError(null);
 
-      // 👉 ahora solo insertamos, no leemos nada
+      // 1 Guardar pedido (sin leer nada)
       await createOrderRequest({
         customer: form,
         items_json: items,
       });
 
-      // 👉 ID solo para UX / WhatsApp (no es el de la DB)
-      const clientOrderId = crypto.randomUUID();
-
-      onSuccess?.({
-        orderId: clientOrderId,
-        customer: form,
-      });
+      // 2 Avisar que el pedido está listo
+      onSuccess?.(form);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -76,74 +68,87 @@ export default function CheckoutForm({ items, onSuccess }: Props) {
   };
 
   return (
-    <form onSubmit={submit}>
-      <h3>Datos del comprador</h3>
+  <form className="checkout-form" onSubmit={submit}>
+    <h3 className="checkout-title">DATOS DEL COMPRADOR</h3>
 
-      <input
-        placeholder="Nombre completo"
-        value={form.full_name}
-        onChange={(e) => update("full_name", e.target.value)}
-        required
-      />
+    <input
+      className="checkout-input"
+      placeholder="Nombre completo"
+      value={form.full_name}
+      onChange={(e) => update("full_name", e.target.value)}
+      required
+    />
 
-      <input
-        placeholder="Teléfono"
-        value={form.phone}
-        onChange={(e) => update("phone", e.target.value.replace(/\D/g, ""))}
-        required
-      />
+    <input
+      className="checkout-input"
+      placeholder="Teléfono"
+      value={form.phone}
+      onChange={(e) => update("phone", e.target.value.replace(/\D/g, ""))}
+      required
+    />
 
-      <input
-        placeholder="Dirección"
-        value={form.address}
-        onChange={(e) => update("address", e.target.value)}
-        required
-      />
+    <input
+      className="checkout-input"
+      placeholder="Dirección"
+      value={form.address}
+      onChange={(e) => update("address", e.target.value)}
+      required
+    />
 
-      <input
-        placeholder="Ciudad"
-        value={form.city}
-        onChange={(e) => update("city", e.target.value)}
-        required
-      />
+    <input
+      className="checkout-input"
+      placeholder="Ciudad"
+      value={form.city}
+      onChange={(e) => update("city", e.target.value)}
+      required
+    />
 
-      <select
-        value={form.document_type}
-        onChange={(e) =>
-          update("document_type", e.target.value as DocumentType)
-        }
-      >
-        {documentTypes.map((d) => (
-          <option key={d} value={d}>
-            {d}
-          </option>
-        ))}
-      </select>
+    <select
+      className="checkout-input"
+      value={form.document_type}
+      onChange={(e) =>
+        update("document_type", e.target.value as DocumentType)
+      }
+    >
+      {documentTypes.map((d) => (
+        <option key={d} value={d}>
+          {d}
+        </option>
+      ))}
+    </select>
 
-      <input
-        placeholder="Documento"
-        value={form.document_id}
-        onChange={(e) => update("document_id", e.target.value)}
-        required
-      />
+    <input
+      className="checkout-input"
+      placeholder="Documento"
+      value={form.document_id}
+      onChange={(e) => update("document_id", e.target.value)}
+      required
+    />
 
-      <textarea
-        placeholder="Referencias (opcional)"
-        value={form.references ?? ""}
-        onChange={(e) => update("references", e.target.value)}
-      />
+    <textarea
+      className="checkout-textarea"
+      placeholder="Referencias (opcional)"
+      value={form.references ?? ""}
+      onChange={(e) => update("references", e.target.value)}
+    />
 
-      <textarea
-        placeholder="Notas (opcional)"
-        value={form.notes ?? ""}
-        onChange={(e) => update("notes", e.target.value)}
-      />
+    <textarea
+      className="checkout-textarea"
+      placeholder="Notas (opcional)"
+      value={form.notes ?? ""}
+      onChange={(e) => update("notes", e.target.value)}
+    />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    {error && <p className="checkout-error">{error}</p>}
 
-      <button type="submit" disabled={!isValid || loading}>
-        {loading ? "Enviando..." : "Confirmar pedido"}
-      </button>
-    </form>
-  );
+    <button
+      className="checkout-submit"
+      type="submit"
+      disabled={!isValid || loading}
+    >
+      {loading ? "Enviando…" : "Confirmar pedido"}
+    </button>
+  </form>
+);
+
 }
