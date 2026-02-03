@@ -107,6 +107,17 @@
   .navbar-item a {
     font-size: 0.9rem;
   }
+   .navbar-actions {
+    gap: 10px;
+  }
+
+  .navbar-toggle {
+    font-size: 30px;
+  }
+
+  .navbar-cartBtn i {
+    font-size: 26px;
+  }
 }
 
 /* ========================================
@@ -154,4 +165,28 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+}
+/* CONTENEDOR ACCIONES DERECHA (☰ + 🛒) */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* separación elegante entre iconos */
+}
+.navbar-cartBtn {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #000000;
+  padding: 0.5rem;
+  margin-left: 0; /* 🔥 quitamos esto */
+}
+
+.navbar-cartBtn i {
+  font-size: 26px; /* tamaño del bi-cart */
 }
