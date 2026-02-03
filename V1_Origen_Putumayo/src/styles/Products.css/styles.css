@@ -363,67 +363,99 @@
   white-space: nowrap;
 }
 
-/* Mobile */
+/* =========================
+   MOBILE – FILTROS MEJORADOS
+   MISMA IDENTIDAD VISUAL
+========================= */
 @media (max-width: 768px) {
-  /* Ocultar sidebar en mobile */
+
+  /* Ocultar sidebar */
   .products-sidebar {
     display: none;
   }
 
-  /* Mostrar barra mobile debajo del buscador */
+  /* Barra sticky debajo del buscador */
   .products-mobileSticky {
     display: block;
     position: sticky;
-    top: 0; /* Ajusta si tu navbar es sticky; por ejemplo top: 72px */
+    top: 72px;
     z-index: 50;
     background: #ffffff;
-    padding: 10px 12px;
+    padding: 5px 14px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
 
-  /* Fila resultados + limpiar */
+  /* Resultados + limpiar */
   .products-mobileMetaRow {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
   .products-mobileMetaLabel {
     font-weight: 600;
+    font-size: 14px;
+    color: #111;
+  }
+
+  .products-mobileMetaLabel span {
+    font-size: 12px;
+    margin-left: 4px;
+    color: #1c814b;
   }
 
   .products-mobileClearBtn {
     margin-left: auto;
+    font-size: 12px;
+    background: #f7f7f7;
+    border: 1px solid rgba(3, 101, 33, 0.15);
+    padding: 4px 10px;
+    border-radius: 999px;
+    color: #333;
   }
 
-  /* Rail horizontal de categorías */
+  /* ===== CARRUSEL DE FILTROS ===== */
   .products-mobileCatsRail {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 2px;
+    padding: 4px 14px 8px;
+    margin: 0 -14px; /* ancho completo visual */
   }
 
   .products-mobileCatsRail::-webkit-scrollbar {
     display: none;
   }
 
-  /* Chip */
+  /* Chips */
   .products-catChip {
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+
+    border: 1px solid rgba(40, 163, 3, 0.2);
     background: #ffffff;
-    padding: 8px 12px;
+    padding: 8px 14px;
     border-radius: 999px;
-    font-size: 14px;
-    line-height: 1;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #111;
+    transition: all 0.2s ease;
   }
 
+  /* Feedback táctil */
+  .products-catChip:active {
+    transform: scale(0.95);
+  }
+
+  /* Activo */
   .products-catChip.is-active {
-    border-color: rgba(0, 0, 0, 0.28);
-    font-weight: 700;
+    border-color: #02730b;
+    background: rgba(2, 115, 11, 0.08);
+    font-weight: 600;
   }
 }
-
 

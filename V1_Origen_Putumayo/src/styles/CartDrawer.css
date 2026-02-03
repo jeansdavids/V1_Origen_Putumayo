@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;       /* Header / Content / Footer */
   animation: slideIn 0.3s ease forwards; /* Animación de entrada */
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25); /* Sombra lateral */
+  box-shadow: -10px 0 40px rgba(2, 108, 13, 0.492); /* Sombra lateral */
 }
 
 /* Animación: entra desde la derecha */
@@ -120,25 +120,29 @@
   border-radius: 12px;
 }
 
-/* Información del producto */
 .cart-itemInfo {
+  font-family: 'Bebas Neue', sans-serif;
+  
+  
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .cart-itemName {
-  font-weight: 800;
+  font-weight: 100;
   font-size: 14px;
 }
 
 .cart-itemQty {
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
 }
 
 /* Acciones (precio y eliminar) */
 .cart-itemActions {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 100;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -146,7 +150,7 @@
 }
 
 .cart-itemPrice {
-  font-weight: 800;
+  font-weight: 100;
 }
 
 /* Botón eliminar */
@@ -168,10 +172,12 @@
 
 /* Subtotal */
 .cart-subtotal {
+  font-family: "Bebas Neue", sans-serif;
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
   font-size: 15px;
+    font-weight: 100;
 }
 
 /* Botón de checkout */
@@ -189,5 +195,5 @@
 
 /* Hover del botón */
 .cart-checkoutBtn:hover {
-  background: #8cc342;
+  background: #5f9809;
 }

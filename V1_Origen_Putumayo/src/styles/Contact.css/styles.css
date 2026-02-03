@@ -1,6 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-
-/* ===================== CONTACT SECTION ===================== */
+/* ===================== CONTACT GENERAL ===================== */
 
 .contact {
   width: 100%;
@@ -15,7 +13,8 @@
   background-color: #ffffff;
 }
 
-/* MITAD VERDE */
+/* ===================== MITAD IZQUIERDA (VERDE) ===================== */
+
 .contact-left {
   width: 50%;
   background-color: #006839;
@@ -52,9 +51,7 @@
 .social-icons a {
   color: #ffffff;
   font-size: 1.8rem;
-  transition:
-    transform 0.2s ease,
-    color 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .social-icons a:hover {
@@ -62,7 +59,8 @@
   color: #b9c9c1;
 }
 
-/* MITAD BLANCA */
+/* ===================== MITAD DERECHA INFO ===================== */
+
 .contact-right {
   width: 50%;
   background-color: #ffffff;
@@ -72,7 +70,7 @@
   padding: 0 4rem;
 }
 
-/* BLOQUES DE INFO */
+/* BLOQUES INFO */
 .info-item {
   display: flex;
   align-items: flex-start;
@@ -85,15 +83,13 @@
   color: #7ad155;
 }
 
-/* TÍTULOS INFO */
 .info-item h3 {
   font-family: "Bebas Neue", sans-serif;
   font-size: 24px;
-  margin: 0 0 0rem 0;
   font-weight: 400;
+  margin: 0;
 }
 
-/* TEXTO INFO */
 .info-item p {
   margin: 0;
   color: #444444;
@@ -110,34 +106,43 @@
   min-height: 100vh;
 }
 
-/* IZQUIERDA - FORMULARIO (GRIS CLARO) */
+/* ===================== IZQUIERDA FORM ===================== */
+
 .location-left {
   width: 50%;
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start; /*  CLAVE */
   padding: 6rem;
+  gap: 2rem; /* ordena título y form */
 }
 
 .location-title {
   font-family: "Bebas Neue", sans-serif;
   font-size: 40px;
-  margin-bottom: 2.5rem;
   color: #000000;
   font-weight: 400;
+  max-width: 400px;   /*  */
+  line-height: 1.1;  /* */
 }
+
 
 /* FORMULARIO */
 .contact-form {
   width: 100%;
+  max-width: 600px; /* evita estiramiento raro */
 }
+
+
 .form-row {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
+/* INPUTS */
 .form-input {
   width: 100%;
   padding: 1rem 1.2rem;
@@ -146,13 +151,14 @@
   outline: none;
   font-size: 16px;
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 10px; /* 👈 más redonditos */
+  border-radius: 10px;
 }
+
 .form-input::placeholder {
   color: #555555;
 }
 
-/* MENSAJE GRANDE */
+/* TEXTAREA */
 .form-textarea {
   width: 100%;
   min-height: 180px;
@@ -163,14 +169,35 @@
   resize: none;
   font-size: 16px;
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 20px; /* 👈 más redondito */
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .form-textarea::placeholder {
   color: #555555;
 }
 
-/* DERECHA - MAPA (VERDE) */
+/* BOTÓN */
+.contact-btn {
+  align-self: flex-start;
+  padding: 12px 32px;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Bebas Neue", sans-serif;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.contact-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+/* ===================== DERECHA MAPA ===================== */
+
 .location-right {
   width: 50%;
   background-color: #006839;
@@ -187,11 +214,11 @@
   margin-bottom: 2rem;
 }
 
-/* CONTENEDOR MAPA */
+/* MAPA */
 .map-container {
   width: 100%;
   height: 350px;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
@@ -202,37 +229,8 @@
   border: none;
 }
 
-/* ===================== RESPONSIVE ===================== */
 
-@media (max-width: 768px) {
-  .location-split {
-    flex-direction: column;
-  }
-
-  .location-left,
-  .location-right {
-    width: 100%;
-    padding: 2rem;
-  }
-
-  .form-row {
-    flex-direction: column;
-  }
-}
-
-/* ===================== FOOTER ===================== */
-
-.footer {
-  background-color: #006839;
-  color: #ffffff;
-  text-align: center;
-  padding: 1.5rem;
-  font-family: "Bebas Neue", sans-serif;
-}
-
-/* ===================== RESPONSIVE ===================== */
-
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .direct-contact {
     flex-direction: column;
   }
@@ -240,14 +238,83 @@
   .contact-left,
   .contact-right {
     width: 100%;
-    padding: 2rem;
+    padding: 4rem;
   }
 
-  .social-icons {
-    justify-content: center;
+  .location-split {
+    flex-direction: column;
+  }
+
+  .location-left,
+  .location-right {
+    width: 100%;
+    padding: 4rem;
+  }
+
+  .contact-title {
+    font-size: 56px;
   }
 
   .contact-subtitle {
-    font-size: 28px;
+    font-size: 26px;
+  }
+
+  .location-title,
+  .map-title {
+    font-size: 34px;
   }
 }
+
+
+@media (max-width: 768px) {
+  /* CONTENEDORES */
+  .contact,
+  .direct-contact,
+  .location-split {
+    min-height: auto;
+  }
+
+  /* SECCIONES */
+  .contact-left,
+  .contact-right,
+  .location-left,
+  .location-right {
+    padding: 3rem 2rem;
+  }
+
+  /* TÍTULOS */
+  .contact-title {
+    font-size: 44px;
+  }
+
+  .contact-subtitle {
+    font-size: 22px;
+    margin-bottom: 2.5rem;
+  }
+
+  .location-title,
+  .map-title {
+    font-size: 30px;
+  }
+
+  /* FORM */
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 15px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* MAPA */
+  .map-container {
+    height: 260px;
+  }
+}
+

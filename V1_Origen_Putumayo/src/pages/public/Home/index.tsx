@@ -22,10 +22,11 @@ const Home: React.FC = () => {
   // responsive
   const [visible, setVisible] = useState(3);
   const [cardW, setCardW] = useState(320);
+  
 
   const GAP = 18;
 
-  // 🔁 detectar tamaño de pantalla
+  // detectar tamaño de pantalla
   useEffect(() => {
     const onResize = () => {
       const w = window.innerWidth;
