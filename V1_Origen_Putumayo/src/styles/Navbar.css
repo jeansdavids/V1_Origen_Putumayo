@@ -1,0 +1,204 @@
+/* ========================================
+   NAVBAR STYLES - Diseño profesional de navegación
+   ======================================== */
+
+/* IMPORTAR FUENTE BEBAS NEUE */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* ESTILOS GLOBALES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL DEL NAVBAR
+   ======================================== */
+.navbar {
+  background: #f9f9f9;
+  padding: 0.75rem 4rem; /* un poco más bajo → más jerarquía */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(194, 139, 139, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   LOGO (protagonista por aire y escala)
+   ======================================== */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 120px; /* desktop */
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo img:hover {
+  transform: scale(1.05);
+}
+
+/* ========================================
+   MENÚ DE NAVEGACIÓN
+   ======================================== */
+.navbar-menu {
+  display: flex;
+  gap: 3.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+/* ITEMS DEL MENÚ */
+.navbar-item {
+  position: relative;
+}
+
+.navbar-item a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 200;
+  color: #000000;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+/* EFECTO HOVER - Línea animada */
+.navbar-item a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: #1c814b;
+  transition: width 0.3s ease;
+}
+
+.navbar-item a:hover {
+  color: #1c814b;
+}
+
+.navbar-item a:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   ACCIONES DERECHA (☰ + 🛒)
+   ======================================== */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* BOTÓN HAMBURGUESA */
+.navbar-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #333;            /* un poco más suave que negro */
+  font-size: 26px;
+  transition: color 0.3s ease;
+}
+
+.navbar-toggle:hover {
+  color: #1c814b;
+}
+
+/* ========================================
+   BOTÓN CARRITO
+   ======================================== */
+.navbar-cartBtn {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #333;            /* baja competencia con el logo */
+  padding: 0.5rem;
+}
+
+.navbar-cartBtn:hover {
+  color: #1c814b;
+}
+
+.navbar-cartBtn i {
+  font-size: 24px;
+}
+
+/* Badge */
+.navbar-cartBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #8cc342;
+  color: #006839;
+  font-size: 11px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .navbar-menu {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* CLAVE: logo no cae a 50px */
+  .navbar-logo img {
+    height: 68px; /* jerarquía correcta en mobile */
+  }
+
+  .navbar-item a {
+    font-size: 0.9rem;
+  }
+
+  .navbar-actions {
+    gap: 10px;
+  }
+
+  .navbar-toggle {
+    font-size: 28px;
+  }
+
+  .navbar-cartBtn i {
+    font-size: 24px;
+  }
+}
