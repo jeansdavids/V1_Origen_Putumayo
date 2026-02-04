@@ -8,12 +8,11 @@ import "../../../styles/Products.css/ProductCard.css";
  * ProductCard
  *
  * Objetivo UX:
- * - Mostrar solo información esencial para decisión rápida
- * - Jerarquía clara: imagen → nombre → chips → precio → CTA
- *
- * Comportamiento:
- * - Click en la card: navega al detalle
- * - Click en CTA: agrega al carrito sin navegar
+ * - Mobile-first
+ * - Mostrar solo lo esencial: imagen, nombre, precio, carrito
+ * - Click en card: navega al detalle
+ * - Click en carrito: agrega al carrito sin navegar
+ * - Iconos exclusivamente de Bootstrap Icons
  */
 const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   const navigate = useNavigate();
@@ -54,26 +53,10 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
         }).format(numericPrice);
 
   /* =========================
-     CATEGORÍA / DISPONIBILIDAD
+     DISPONIBILIDAD
   ========================= */
-  const category = product?.category || product?.categoryName || null;
-
   const availabilityRaw = String(product?.availability || "").toLowerCase();
-  const availabilityLabel =
-    availabilityRaw === "available"
-      ? "Disponible"
-      : availabilityRaw === "out_of_stock"
-      ? "Sin stock"
-      : availabilityRaw === "on_demand"
-      ? "Bajo pedido"
-      : null;
-
-  const isOutOfStock = availabilityLabel === "Sin stock";
-
-  /* =========================
-     CHIPS (máx. 2)
-  ========================= */
-  const chips = [category, availabilityLabel].filter(Boolean).slice(0, 2);
+  const isOutOfStock = availabilityRaw === "out_of_stock";
 
   /* =========================
      HANDLERS
@@ -115,20 +98,11 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
       {/* Contenido */}
       <div className="pCard__body">
         {/* Nombre */}
-        <h3 className="pCard__name">{product?.name || "Producto"}</h3>
+        <h3 className="pCard__name">
+          {product?.name || "Producto"}
+        </h3>
 
-        {/* Chips */}
-        {chips.length > 0 && (
-          <div className="pCard__chips">
-            {chips.map((chip) => (
-              <span key={chip} className="pCard__chip">
-                {chip}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Footer: precio + CTA (único precio del card) */}
+        {/* Footer: precio + carrito */}
         <div className="pCard__footer">
           <div className="pCard__price">{priceLabel}</div>
 
@@ -138,8 +112,9 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
             onClick={handleAddToCart}
             disabled={isOutOfStock}
             aria-disabled={isOutOfStock}
+            aria-label="Agregar al carrito"
           >
-            +
+            <i class="bi bi-cart-plus"></i>
           </button>
         </div>
       </div>
