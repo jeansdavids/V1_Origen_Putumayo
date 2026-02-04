@@ -123,12 +123,7 @@ const Products: React.FC = () => {
     });
   }, [products, query, activeCategory]);
 
-  const clearFilters = (): void => {
-    setQuery("");
-    setActiveCategory("Todos");
-  };
-
-  const filtersAreClean = query.trim() === "" && activeCategory === "Todos";
+  
 
   return (
     <main className="products">
@@ -137,38 +132,28 @@ const Products: React.FC = () => {
         <h1 className="products-title">ENCUENTRA LO QUE NECESITAS</h1>
 
         <div className="products-searchWrap">
-          <div className="products-search">
-            <span className="products-searchIcon" aria-hidden="true" />
-            <input
-              className="products-searchInput"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Busca productos del territorio..."
-              aria-label="Buscar productos"
-            />
-            <button className="products-searchBtn" type="button" aria-hidden="true">
-              Buscar
-            </button>
-          </div>
-        </div>
+  <div className="products-search">
+    <i className="bi bi-search products-searchIcon" aria-hidden="true" />
+    <input
+      className="products-searchInput"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder="Busca productos del territorio..."
+      aria-label="Buscar productos"
+    />
+  </div>
+</div>
+
 
         {/* MOBILE: categorías horizontales debajo del buscador (desktop se oculta por CSS) */}
         <div className="products-mobileSticky" aria-label="Filtros rápidos">
           <div className="products-mobileMetaRow">
-            <span className="products-mobileMetaLabel">Resultados</span>
-            <span className="products-badge" aria-label={`Resultados: ${filtered.length}`}>
-              {filtered.length}
-            </span>
+  <span className="products-mobileMetaLabel">Resultados</span>
+  <span className="products-badge" aria-label={`Resultados: ${filtered.length}`}>
+    {filtered.length}
+  </span>
+</div>
 
-            <button
-              className="products-mobileClearBtn"
-              type="button"
-              onClick={clearFilters}
-              disabled={filtersAreClean}
-            >
-              Limpiar
-            </button>
-          </div>
 
           <div className="products-mobileCatsRail" aria-label="Categorías">
             {categories.map((c) => {
@@ -218,13 +203,7 @@ const Products: React.FC = () => {
 
               {err && <div className="products-error">Error: {err}</div>}
 
-              <button
-                className="products-clearBtn"
-                onClick={clearFilters}
-                disabled={filtersAreClean}
-              >
-                Limpiar filtros
-              </button>
+              
             </div>
           </div>
         </aside>

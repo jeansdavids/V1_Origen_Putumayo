@@ -1,11 +1,12 @@
 /* =========================================================
    PRODUCT CARD (pCard)
-   Mobile-first, compacto
+   Mobile-first, minimal y editorial
 
-   Objetivos UX:
-   - Mobile: alta densidad, lectura rápida
-   - Desktop: mayor claridad de acción
-   - Jerarquía clara: imagen → nombre → chips → precio → CTA
+   UX decidido:
+   - Mobile: imagen + nombre + precio + carrito
+   - Sin chips
+   - Botón carrito icon-only (Bootstrap Icons)
+   - Sin botones circulares
    ========================================================= */
 
 
@@ -14,12 +15,10 @@
    ========================================================= */
 .pCard {
   width: 100%;
-  max-width: 100%;
-  border-radius: 6px;
   background: #ffffff;
+  border-radius: 6px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-sizing: border-box;
   cursor: pointer;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
@@ -32,11 +31,10 @@
 
 /* =========================================================
    IMAGE
-   - Mobile: imagen contenida, no dominante
    ========================================================= */
 .pCard__imgWrap {
   width: 100%;
-  height: 130px;
+  height: 140px;
   background: #e5e5e5;
   overflow: hidden;
 }
@@ -46,7 +44,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.35s ease;
 }
 
 .pCard:hover .pCard__img {
@@ -59,13 +57,12 @@
    ========================================================= */
 .pCard__body {
   padding: 12px 14px 14px;
-  box-sizing: border-box;
 }
 
 
 /* =========================================================
    NAME
-   - Máximo 2 líneas para mantener altura uniforme
+   - Máx 2 líneas
    ========================================================= */
 .pCard__name {
   margin: 0 0 6px;
@@ -88,35 +85,11 @@
 
 
 /* =========================================================
-   CHIPS (categoría / disponibilidad)
-   - Máximo 2 chips
-   ========================================================= */
-.pCard__chips {
-  display: inline-flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 6px;
-}
-
-.pCard__chip {
-  height: 18px;
-  padding: 0 8px;
-  border-radius: 999px;
-  background: rgba(0, 104, 57, 0.12);
-  color: #006839;
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
    FOOTER
-   - Precio + CTA
+   - Precio + carrito
    ========================================================= */
 .pCard__footer {
-  margin-top: 10px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -136,31 +109,29 @@
 
 /* =========================================================
    CART BUTTON
-   - Mobile: botón circular rápido
-   - Desktop: botón con texto
+   - Icon-only
+   - Sin fondo, sin borde
    ========================================================= */
 .pCard__cartBtn {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
   border: none;
-  background: #006839;
-  color: #ffffff;
-  font-size: 18px;
+  background: none;
+  padding: 6px;
+  color: #006839;
+  font-size: 20px;
   line-height: 1;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: color 0.2s ease, transform 0.15s ease;
 }
 
 .pCard__cartBtn:hover {
-  background: #0f790f;
+  color: #0f790f;
 }
 
 .pCard__cartBtn:active {
-  transform: scale(0.92);
+  transform: scale(0.9);
 }
 
 
@@ -169,36 +140,30 @@
    ========================================================= */
 .pCard__cartBtn:disabled,
 .pCard__cartBtn[aria-disabled="true"] {
-  background: #cfcfcf;
+  color: #b5b5b5;
   cursor: not-allowed;
-  opacity: 0.85;
   transform: none;
 }
 
 
 /* =========================================================
-   DESKTOP / TABLET ADJUSTMENTS
+   TABLET / DESKTOP
+   - Misma estructura, más aire
    ========================================================= */
 @media (min-width: 768px) {
   .pCard__imgWrap {
-    height: 180px;
+    height: 190px;
   }
 
   .pCard__name {
     font-size: 20px;
   }
 
-  /* Desktop CTA más expresivo */
-  .pCard__cartBtn {
-    width: auto;
-    height: 42px;
-    padding: 0 14px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 700;
+  .pCard__price {
+    font-size: 15px;
   }
 
-  .pCard__cartBtn::after {
-    content: " Agregar";
+  .pCard__cartBtn {
+    font-size: 22px;
   }
 }
