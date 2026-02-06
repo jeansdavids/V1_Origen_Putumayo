@@ -1,22 +1,28 @@
 // @ts-nocheck
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../features/cart/CartContext";
 import "../../../styles/Products.css/ProductCard.css";
+import AddToCartDrawer from "../../cart/AddToCartDrawer";
 
 /**
  * ProductCard
  *
  * Objetivo UX:
  * - Mobile-first
- * - Mostrar solo lo esencial: imagen, nombre, precio, carrito
+ * - Mostrar solo lo esencial
  * - Click en card: navega al detalle
- * - Click en carrito: agrega al carrito sin navegar
- * - Iconos exclusivamente de Bootstrap Icons
+ * - Click en carrito: abre selector de cantidad
+ * - Toast al confirmar agregado
+ * - Bootstrap Icons
  */
 const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, openCart } = useCart();
+
+
+  const [openQty, setOpenQty] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   if (!product) return null;
 
@@ -65,60 +71,106 @@ const ProductCard = ({ product, getImg, linkBase = "/products" }) => {
     if (id) navigate(`${linkBase}/${id}`);
   };
 
-  const handleAddToCart = (e) => {
+  const handleOpenQty = (e) => {
     e.stopPropagation();
     if (isOutOfStock) return;
+    setOpenQty(true);
+  };
 
-    addToCart({
-      id: String(id),
-      name: product?.name || "Producto",
-      price: numericPrice,
-      image: getImg(product),
-    });
+  const handleConfirmAdd = (qty) => {
+    addToCart(
+      {
+        id: String(id),
+        name: product?.name || "Producto",
+        price: numericPrice,
+        image: getImg(product),
+      },
+      qty
+    );
+
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 5000);
   };
 
   return (
-    <article
-      className="pCard"
-      onClick={handleNavigate}
-      role="button"
-      tabIndex={0}
-    >
-      {/* Imagen */}
-      <div className="pCard__imgWrap">
-        <img
-          className="pCard__img"
-          src={getImg(product)}
-          alt={product?.name || "Producto"}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      {/* Contenido */}
-      <div className="pCard__body">
-        {/* Nombre */}
-        <h3 className="pCard__name">
-          {product?.name || "Producto"}
-        </h3>
-
-        {/* Footer: precio + carrito */}
-        <div className="pCard__footer">
-          <div className="pCard__price">{priceLabel}</div>
-
-          <button
-            className="pCard__cartBtn"
-            type="button"
-            onClick={handleAddToCart}
-            disabled={isOutOfStock}
-            aria-disabled={isOutOfStock}
-            aria-label="Agregar al carrito"
-          >
-            <i class="bi bi-cart-plus"></i>
-          </button>
+    <>
+      <article
+        className="pCard"
+        onClick={handleNavigate}
+        role="button"
+        tabIndex={0}
+      >
+        {/* Imagen */}
+        <div className="pCard__imgWrap">
+          <img
+            className="pCard__img"
+            src={getImg(product)}
+            alt={product?.name || "Producto"}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-      </div>
-    </article>
+
+        {/* Contenido */}
+        <div className="pCard__body">
+          {/* Nombre */}
+          <h3 className="pCard__name">
+            {product?.name || "Producto"}
+          </h3>
+
+          {/* Footer */}
+          <div className="pCard__footer">
+            <div className="pCard__price">{priceLabel}</div>
+
+            <button
+              className="pCard__cartBtn"
+              type="button"
+              onClick={handleOpenQty}
+              disabled={isOutOfStock}
+              aria-disabled={isOutOfStock}
+              aria-label="Agregar al carrito"
+            >
+              <i className="bi bi-cart-plus"></i>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      {/* Drawer de cantidad */}
+      {openQty && (
+        <AddToCartDrawer
+          product={{
+            id: String(id),
+            name: product?.name || "Producto",
+            price: numericPrice,
+            image: getImg(product),
+          }}
+          onConfirm={handleConfirmAdd}
+          onClose={() => setOpenQty(false)}
+        />
+      )}
+
+      {/* Toast */}
+      {showToast && (
+  <div className="cartToast">
+    <span className="cartToast__msg">
+      ¡Añadido!
+    </span>
+
+    <button
+      className="cartToast__action"
+      onClick={() => {
+        setShowToast(false);
+        openCart();   // AQUÍ SE ABRE EL CARRITO
+      }}
+    >
+      Ir al carrito →
+    </button>
+  </div>
+)}
+
+  
+    </>
   );
 };
 

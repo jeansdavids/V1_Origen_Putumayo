@@ -10,6 +10,7 @@ const CartDrawer: React.FC = () => {
     isOpen,
     closeCart,
     removeFromCart,
+    updateQuantity,
     subtotal,
   } = useCart();
 
@@ -18,13 +19,13 @@ const CartDrawer: React.FC = () => {
   if (!isOpen) return null;
 
   const handleCheckout = () => {
-    closeCart();          // cerrar drawer
+    closeCart();           // cerrar drawer
     navigate("/checkout"); // ir a checkout
   };
 
   return (
     <>
-      {/* Overlay con blur */}
+      {/* Overlay */}
       <div className="cart-overlay" onClick={closeCart} />
 
       {/* Drawer */}
@@ -53,6 +54,7 @@ const CartDrawer: React.FC = () => {
           ) : (
             items.map((item) => (
               <div key={item.id} className="cart-item">
+                {/* Imagen */}
                 {item.image && (
                   <img
                     src={item.image}
@@ -61,13 +63,44 @@ const CartDrawer: React.FC = () => {
                   />
                 )}
 
+                {/* Info */}
                 <div className="cart-itemInfo">
                   <span className="cart-itemName">{item.name}</span>
-                  <span className="cart-itemQty">
-                    Cantidad: {item.quantity}
+                  <span className="cart-itemUnitPrice">
+                    {new Intl.NumberFormat("es-CO", {
+                      style: "currency",
+                      currency: "COP",
+                      maximumFractionDigits: 0,
+                    }).format(item.price)}{" "}
+                    c/u
                   </span>
+
+                  {/* Cantidad + / − */}
+                  <div className="cart-itemQtyControls">
+                    <button
+                      className="cart-qtyBtn"
+                      onClick={() => updateQuantity(item.id, -1)}
+                      aria-label="Disminuir cantidad"
+                      disabled={item.quantity === 1}
+                    >
+                      −
+                    </button>
+
+                    <span className="cart-itemQtyValue">
+                      {item.quantity}
+                    </span>
+
+                    <button
+                      className="cart-qtyBtn"
+                      onClick={() => updateQuantity(item.id, 1)}
+                      aria-label="Aumentar cantidad"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
 
+                {/* Acciones */}
                 <div className="cart-itemActions">
                   <span className="cart-itemPrice">
                     {new Intl.NumberFormat("es-CO", {
@@ -103,7 +136,6 @@ const CartDrawer: React.FC = () => {
               </strong>
             </div>
 
-            {/* 👇 BOTÓN CLAVE */}
             <button
               className="cart-checkoutBtn"
               onClick={handleCheckout}
