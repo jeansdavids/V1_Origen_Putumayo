@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useMemo, useState } from "react";
 
 /* ESTILOS */
@@ -8,11 +7,15 @@ import "../../../styles/Products.css/styles.css";
 import ProductCard from "../../../features/products/components/ProductCard";
 import { getPublicProducts } from "../../../services/products.service";
 
+// Importamos el tipo base desde el componente para asegurar compatibilidad
+import type { Product as ProductCardType } from "../../../features/products/components/ProductCard";
+
 /*
   Tipos mínimos para evitar `any` y cumplir con reglas de lint.
   Ajusta campos si tu API usa otros nombres.
+  Extendemos de ProductCardType para asegurar que pasamos lo que la tarjeta espera.
 */
-type Product = {
+interface Product extends ProductCardType {
   product_id: string;
   name?: string;
   category?: string;
@@ -22,7 +25,7 @@ type Product = {
   company_name?: string;
   companyName?: string;
   images?: string[];
-};
+}
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -73,7 +76,7 @@ const Products: React.FC = () => {
     Fallback de imagen:
     - Si no hay images o viene vacío, se usa placeholder
   */
-  const getImg = (p: Product): string => {
+  const getImg = (p: ProductCardType): string => {
     if (!p.images || p.images.length === 0) return "/home/placeholder.png";
     return p.images[0];
   };
