@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NavbarLayout from "./components/common/NavbarLayout";
+import FooterLayout from "./components/common/FooterLayout";
 import Home from "./pages/public/Home";
 import History from "./pages/public/History";
 import Products from "./pages/public/Products";
@@ -14,15 +15,16 @@ const App: React.FC = () => {
   return (
     <CartProvider>
       <NavbarLayout>
-        <CartDrawer />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-        </Routes>
+        <FooterLayout>
+          <CartDrawer />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+          </Routes>
+        </FooterLayout>
       </NavbarLayout>
     </CartProvider>
   );
