@@ -34,7 +34,7 @@ const Home: React.FC = () => {
       if (w < 640) {
         setVisible(1);
         setCardW(280);
-      } else if (w < 1024) {
+      } else if (w < 1100) {
         setVisible(2);
         setCardW(300);
       } else {
@@ -144,6 +144,7 @@ const Home: React.FC = () => {
                 <div
                   className="Destacado-card"
                   key={product.product_id ?? product.id}
+                  style={{ width: cardW }}
                 >
                   <ProductCard
                     product={product}

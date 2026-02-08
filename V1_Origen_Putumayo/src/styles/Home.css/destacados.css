@@ -22,58 +22,58 @@
 }
 
 .Destacado-title {
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
-  font-size: 55px; /* Tamaño grande */
-  font-weight: 400; /* Peso normal */
-  color: #111111; /* Color oscuro */
-  margin: 0; /* Sin margen */
-  margin-bottom: 20px; /* Espaciado inferior */
-  text-transform: capitalize; /* Primera letra mayúscula */
-  letter-spacing: 1.5px; /* Espaciado entre letras */
-  line-height: 1.3; /* A
-  ltura de línea */
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 55px;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 20px;
+  letter-spacing: 1.5px;
+  line-height: 1.3;
 }
 
-/* SPAN DENTRO DEL TÍTULO */
 .Destacado-title span {
-  display: block; /* En nueva línea */
-  color: #1e5a37; /* Color verde */
-  font-size: 65px; /* Tamaño más grande */
-  font-weight: 400; /* Peso */
-  letter-spacing: 2px; /* Más espaciado */
-  text-transform: capitalize; /* Capitaliza palabras */
-}
-.Destacado-title span {
+  display: block;
+  color: #1e5a37;
+  font-size: 65px;
   font-weight: 900;
+  letter-spacing: 2px;
 }
 
 .Destacado-text {
-   font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   opacity: 0.85;
 }
 
 /* =====================================================
-   CARRUSEL (LA CLAVE)
+   CARRUSEL
    ===================================================== */
 
 .Destacado-carousel {
   position: relative;
   width: 100%;
-  overflow: hidden; /* evita que se pase */
+  overflow: hidden;
 }
 
 /* ventana visible */
 .Destacado-track {
   width: 100%;
-  overflow: hidden; /* evita que se pase */
+  overflow-x: auto;                 /* 🔥 swipe */
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-/* riel que se mueve */
+.Destacado-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* riel */
 .Destacado-rail {
   display: flex;
   gap: 18px;
+  width: max-content;               /* 🔥 CLAVE */
   transition: transform 0.45s ease;
   will-change: transform;
 }
@@ -95,14 +95,11 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 44px;
   height: 44px;
-
   border-radius: 50%;
   border: 1px solid #ddd;
   background: #fff;
-
   font-size: 22px;
   cursor: pointer;
   z-index: 10;
@@ -154,5 +151,10 @@
 
   .Destacado-card {
     width: 280px;
+  }
+
+  /* 🔥 ocultar flechas en móvil */
+  .Destacado-arrow {
+    display: none;
   }
 }

@@ -1,4 +1,7 @@
 import "../../../styles/Contact.css/styles.css";
+import.meta.env.VITE_WHATSAPP_URL
+
+
 
 export default function OrigenSection() {
   return (
@@ -16,12 +19,12 @@ export default function OrigenSection() {
 
           <div className="social-icons">
             <a
-              href="https://wa.me/573000000000"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i className="bi bi-whatsapp"></i>
-            </a>
+  href={import.meta.env.VITE_APP_WHATSAPP_URL}
+  target="_blank"
+  rel="noreferrer"
+>
+  <i className="bi bi-whatsapp"></i>
+</a>
 
             <a
               href="https://www.facebook.com/"
