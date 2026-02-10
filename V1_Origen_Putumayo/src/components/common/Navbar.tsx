@@ -13,8 +13,10 @@ const Navbar = () => {
     <nav className="navbar">
       {/* Logo */}
       <div className="navbar-logo">
-        <img src={logo} alt="Logo" />
-      </div>
+  <Link to="/" onClick={() => setMenuOpen(false)}>
+    <img src={logo} alt="Logo" />
+  </Link>
+</div>
 
       {/* Menu */}
       <ul className={`navbar-menu ${menuOpen ? "active" : ""}`}>
@@ -28,8 +30,14 @@ const Navbar = () => {
           <Link to="/history">Historia</Link>
         </li>
         <li className="navbar-item" onClick={() => setMenuOpen(false)}>
-          <Link to="/turismo">Turismo</Link>
-        </li>
+  <a
+    href="https://ecoturismoputumayo.com"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Turismo
+  </a>
+</li>
         <li className="navbar-item" onClick={() => setMenuOpen(false)}>
           <Link to="/contacto">Contacto</Link>
         </li>

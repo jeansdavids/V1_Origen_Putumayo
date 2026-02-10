@@ -27,7 +27,7 @@ export default function OrigenSection() {
 </a>
 
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/share/1DHPg42SSV/"
               target="_blank"
               rel="noreferrer"
             >
@@ -35,12 +35,13 @@ export default function OrigenSection() {
             </a>
 
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/origenputumayo/"
               target="_blank"
               rel="noreferrer"
             >
               <i className="bi bi-instagram"></i>
             </a>
+
 
             <a
               href="https://www.youtube.com/"
@@ -166,10 +167,7 @@ ${message}
         </div>
       </div>
 
-      {/* ================= FOOTER ================= */}
-      <footer className="footer">
-        <p>© 2026 - Todos los derechos reservados</p>
-      </footer>
+    
     </section>
   );
 }

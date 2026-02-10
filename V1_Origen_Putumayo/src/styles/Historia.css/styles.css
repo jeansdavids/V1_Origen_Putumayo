@@ -17,7 +17,7 @@
 
 .history-hero {
   position: relative;
-  height: 560px; /* Altura fija del hero */
+  height: 640px; /* Altura fija del hero */
   background-color: #b5b4b4; /* Color de respaldo */
   /* background-image: url('ruta-a-tu-imagen.jpg'); <--- Agrega tu imagen de fondo aquí */
   background-size: cover; /* Cubre todo el espacio */
@@ -138,22 +138,64 @@
   font-weight: 400;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* ========================================
+   RESPONSIVE – CELULARES
+   ======================================== */
+@media (max-width: 480px) {
+
+  /* HERO */
+  .history-hero {
+    height: auto;                 /* Quita altura fija */
+    min-height: 60vh;             /* Mantiene impacto visual */
+    padding: 40px 16px;
+  }
+
   .hero-title {
-    font-size: 40px;
+    font-size: 32px;
+    letter-spacing: 2px;
+    line-height: 1.15;
   }
-  
+
+  /* SECCIÓN PROPÓSITO */
+  .history-purpose {
+    padding: 50px 16px;
+    gap: 40px;
+  }
+
   .purpose-header h2 {
-    font-size: 40px;
+    font-size: 34px;
+    letter-spacing: 1.5px;
   }
-  
+
+  .purpose-header p {
+    font-size: 16px;
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  /* TARJETAS */
   .purpose-cards {
-    flex-direction: column;
+     display: flex;
+    flex-direction: column;   /* 👈 fuerza columna */
     align-items: center;
   }
-  
+
   .card {
-    width: 100%;
+     width: 100%;              /* ocupa todo el ancho */
+    max-width: 100%;
+  }
+
+  .card h3 {
+    font-size: 28px;
+  }
+
+  .card p {
+    font-size: 15px;
+  }
+
+  /* TEXTO FINAL */
+  .closing-text {
+    font-size: 22px;
+    letter-spacing: 0.8px;
   }
 }

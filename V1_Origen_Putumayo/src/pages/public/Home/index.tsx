@@ -167,23 +167,30 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ECOTURISMO */}
-      <section className="EcoturismoPutumayo">
-        <div className="EcoturismoPutumayo-container">
-          <h2 className="EcoturismoPutumayo-title">
-            Explora el putumayo en <br />
-            <span>Ecoturismo putumayo</span>
-          </h2>
-          <p className="EcoturismoPutumayo-text">
-            descubre las maravillas del putumayo, un paraiso
-            <br />
-            natural lleno de aventuras y biodiversidad
-          </p>
-          <Link className="EcoturismoPutumayo-btn" to="/ecoturismo">
-            Turismo
-          </Link>
-        </div>
-      </section>
+   {/* ECOTURISMO */}
+<section className="EcoturismoPutumayo">
+  <div className="EcoturismoPutumayo-container">
+    <h2 className="EcoturismoPutumayo-title">
+      Explora el putumayo en <br />
+      <span>Ecoturismo putumayo</span>
+    </h2>
+
+    <p className="EcoturismoPutumayo-text">
+      descubre las maravillas del putumayo, un paraiso
+      <br />
+      natural lleno de aventuras y biodiversidad
+    </p>
+
+    <a
+      className="EcoturismoPutumayo-btn"
+      href="https://www.ecoturismoputumayo.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Turismo
+    </a>
+  </div>
+</section>
 
       {/* HISTORIA */}
       <section className="hIStoria">

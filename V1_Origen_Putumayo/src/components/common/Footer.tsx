@@ -1,5 +1,6 @@
 import "../../styles/Footer.css";
 import logo from "../../assets/images/logo.png";
+import.meta.env.VITE_WHATSAPP_URL
 
 const Footer = () => {
   return (
@@ -16,10 +17,13 @@ const Footer = () => {
           </p>
 
           <div className="footer-icons">
-            <a href="https://wa.me/573147546809" target="_blank" rel="noreferrer">
-              <i className="bi bi-whatsapp"></i>
-            </a>
-
+                      <a
+            href={import.meta.env.VITE_APP_WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="bi bi-whatsapp"></i>
+          </a>
             <a
               href="https://www.instagram.com/origenputumayo/"
               target="_blank"

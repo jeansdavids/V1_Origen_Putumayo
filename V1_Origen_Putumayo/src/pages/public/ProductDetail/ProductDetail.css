@@ -1,6 +1,6 @@
-/* src/styles/ProductDetail.css */
-
-/* Contenedor principal */
+/* ================================
+   CONTENEDOR PRINCIPAL
+================================ */
 .pd-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -10,7 +10,7 @@
   color: #333;
 }
 
-/* Centrado de contenido en móviles */
+/* Centrado de contenido */
 .pd-center {
   display: flex;
   flex-direction: column;
@@ -21,155 +21,352 @@
   padding-top: 4rem;
 }
 
-/* Botón de regreso */
+/* ================================
+   BOTÓN VOLVER
+================================ */
 .pd-back-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  color: #888;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: color 0.2s, transform 0.2s;
+  gap: 10px;
+
+  padding: 10px 16px;
+  margin-bottom: 1.75rem;
+
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 12px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #344054;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: 
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease;
 }
 
 .pd-back-btn:hover {
-  color: #000;
-  transform: translateX(-3px);
+  background: #f9fafb;
+  color: #111827;
+  transform: translateX(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* Grid de imagen y detalles */
+.pd-back-btn:active {
+  transform: translateX(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ================================
+   GRID PRINCIPAL
+================================ */
 .pd-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
+/* Desktop / Tablet grande */
 @media (min-width: 768px) {
   .pd-grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-    gap: 4rem;
+    grid-template-columns: 1.1fr 0.9fr; /* imagen un poco más grande */
+    gap: 4.5rem;
+    align-items: flex-start;
   }
 }
 
-/* Sección de imagen */
+/* Desktop grande */
+@media (min-width: 1024px) {
+  .pd-grid {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+  }
+}
+
+
+/* ================================
+   IMAGEN
+================================ */
 .pd-image-section {
-  background-color: #fafafa;
-  border-radius: 16px;
-  overflow: hidden;
+  position: relative;
+  background: linear-gradient(145deg, #f9fafb, #eef1f4);
+  border-radius: 22px;
+  padding: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+  box-shadow:
+    0 20px 40px rgba(255, 255, 255, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.pd-image-section:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Imagen principal */
 .pd-main-image {
   width: 100%;
-  height: auto;
-  max-height: 500px;
+  max-height: 520px;
   object-fit: contain;
-  transition: transform 0.3s;
-}
+  z-index: 2;
 
+  transition: transform 0.4s ease, filter 0.3s ease;
+}
 .pd-main-image:hover {
   transform: scale(1.05);
+  
 }
 
-/* Sección de información */
+
+/* ================================
+   INFO PRODUCTO
+================================ */
 .pd-info-section {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 2rem;
 }
 
-/* Título y marca */
+/* =========================
+   TÍTULO
+========================= */
 .pd-title {
-  font-size: 2.25rem;
-  font-weight: 700;
+  font-size: 2.4rem;
+  font-weight: 800;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #1f2937;
 }
 
+/* =========================
+   MARCA / PRODUCTOR
+========================= */
 .pd-brand {
-  font-size: 1rem;
-  color: #666;
+  font-size: 0.95rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .pd-brand span {
-  color: #000;
+  color: #111827;
   font-weight: 600;
 }
 
-/* Precio */
+/* =========================
+   PRECIO
+========================= */
 .pd-price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #27ae60; /* Verde vibrante */
-  margin: 0.5rem 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #5f7258;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-/* Descripción y metadatos */
-.pd-description h3 {
-  font-size: 1.125rem;
-  margin-bottom: 0.5rem;
+/* Detalle visual del precio */
+.pd-price::before {
+  content: "Precio";
+  font-size: 0.75rem;
   font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+
+/* ================================
+   DESCRIPCIÓN / META
+================================ */
+/* =========================
+   DESCRIPCIÓN
+========================= */
+.pd-description {
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  border: 1px solid #eef0f2;
+}
+
+.pd-description h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
 }
 
 .pd-description p {
-  line-height: 1.6;
-  color: #555;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  color: #374151;
   margin: 0;
 }
 
+/* =========================
+   META / INFO EXTRA
+========================= */
 .pd-meta {
-  font-size: 0.9rem;
-  color: #555;
-  background: #f4f4f4;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
   padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
+
+  border: 1px solid #e5e7eb;
 }
 
-/* Botones */
+.pd-meta strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+
+/* ================================
+   ACCIONES (CANTIDAD + BOTÓN)
+================================ */
+.pd-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+/* Selector cantidad */
+.pd-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d0d5dd;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.pd-qty button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: #f4f6f8;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pd-qty button:hover {
+  background: #e5e7eb;
+}
+
+.pd-qty span {
+  min-width: 44px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #344054;
+}
+
+/* ================================
+   BOTÓN CARRITO
+================================ */
 .pd-btn-primary {
-  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 24px;
+  min-height: 44px;
+
+  background: #6b7f63;
   color: #fff;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
   border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .pd-btn-primary:hover {
-  background-color: #333;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  background: #5f7258;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
+.pd-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ================================
+   BOTÓN SECUNDARIO
+================================ */
 .pd-btn-secondary {
-  background-color: transparent;
+  background: transparent;
   border: 1px solid #ccc;
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .pd-btn-secondary:hover {
-  background-color: #f5f5f5;
+  background: #f5f5f5;
   border-color: #999;
-  transform: translateY(-1px);
 }
 
-/* Botones en escritorio */
-@media (min-width: 768px) {
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .pd-title {
+    font-size: 1.9rem;
+  }
+
+  .pd-price {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pd-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pd-qty {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .pd-btn-primary {
-    width: auto;
+    width: 100%;
+    font-size: 15px;
   }
 }

@@ -18,15 +18,15 @@
 /* CONTENEDOR DEL HERO */
 .home-hero {
   position: relative;
-  width: 99vw;          /* 🔥 ocupa todo el ancho */
-  height: 100vh;         /* 🔥 alto de pantalla */
+  width: 100%;                /* elimina scroll horizontal */
+  min-height: 85vh;           /* flexible */
   
-  
-  background-image: url("../../assets/images/Home_Origen_Putumayo .png"); /* imagen de fondo */
-  background-size: cover;     /* ahora sí */
+  background-image: url("../../assets/images/Home_Origen_Putumayo .png");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 
 /* OVERLAY - Oscurece la imagen de fondo */
 .home-hero__overlay {
@@ -118,45 +118,42 @@
 }
 
 /* ========================================
-   RESPONSIVE - Adapta a diferentes pantallas
+   CELULARES
    ======================================== */
-
-/* PANTALLAS MEDIANAS (hasta 820px) */
-@media (max-width: 820px) {
-  .home-hero {
-    height: 420px; /* Altura media */
-  }
-
-  .home-hero__title {
-    font-size: 48px; /* Reduce tamaño de título */
-    letter-spacing: 2px; /* Reduce espaciado */
-  }
-
-  .home-hero__subtitle {
-    font-size: 18px; /* Tamaño para tablet */
-    margin-top: 15px; /* Espaciado */
-  }
-}
-
-/* PANTALLAS PEQUEÑAS (hasta 480px) */
 @media (max-width: 480px) {
   .home-hero {
-    height: 300px; /* Altura pequeña */
+    min-height: 65vh;                 /* mantiene proporción */
+    padding: 40px 16px;               /* aire en móvil */
+    background-size: cover;           /* asegura imagen correcta */
+    background-position: center top;  /* mejor encuadre */
   }
 
   .home-hero__title {
-    font-size: 28px; /* Reduce más el título */
-    letter-spacing: 1px; /* Reduce espaciado */
+    font-size: 30px;
+    letter-spacing: 1.1px;
+    line-height: 1.15;
+    text-align: center;
   }
 
   .home-hero__subtitle {
-    font-size: 14px; /* Reduce subtítulo */
-    margin-top: 10px; /* Reduce margen */
+    font-size: 15px;
+    margin-top: 12px;
+    line-height: 1.45;
+    text-align: center;
   }
 
   .home-hero__btn {
-    height: 35px; /* Altura reducida */
-    padding: 0 14px; /* Padding menor */
-    font-size: 10px; /* Fuente más pequeña */
+    height: auto;
+    padding: 12px 24px;               /* mejor UX táctil */
+    font-size: 13px;
+    border-radius: 6px;
+  }
+
+    .home-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
   }
 }
+
