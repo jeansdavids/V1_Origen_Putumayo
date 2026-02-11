@@ -4,6 +4,7 @@
 import React, {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -16,22 +17,89 @@ interface CartContextValue {
   subtotal: number;
   openCart: () => void;
   closeCart: () => void;
-  addToCart: (
-    item: Omit<CartItem, "quantity">,
-    quantity?: number
-  ) => void;
-  updateQuantity: (id: string, delta: number) => void; // ✅ NUEVO
+  addToCart: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
+  updateQuantity: (id: string, delta: number) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
 
+/* =========================
+   LOCAL STORAGE
+========================= */
+const CART_STORAGE_KEY = "origen_cart_v1";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function clampQuantity(q: unknown): number {
+  if (typeof q !== "number" || !Number.isFinite(q)) return 1;
+  const n = Math.floor(q);
+  return n < 1 ? 1 : n;
+}
+
+function loadCartFromStorage(): CartItem[] {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return [];
+
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    const sanitized: CartItem[] = [];
+
+    for (const item of parsed) {
+      if (!isRecord(item)) continue;
+
+      const id = item["id"];
+      const name = item["name"];
+      const price = item["price"];
+      const image = item["image"];
+      const quantity = item["quantity"];
+
+      if (typeof id !== "string" || id.trim().length === 0) continue;
+      if (typeof name !== "string" || name.trim().length === 0) continue;
+      if (typeof price !== "number" || !Number.isFinite(price)) continue;
+
+      // image es opcional: si viene, debe ser string
+      if (typeof image !== "undefined" && typeof image !== "string") continue;
+
+      sanitized.push({
+        id,
+        name,
+        price,
+        image,
+        quantity: clampQuantity(quantity),
+      });
+    }
+
+    return sanitized;
+  } catch {
+    return [];
+  }
+}
+
+function saveCartToStorage(items: CartItem[]) {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // si falla (modo incógnito/cuota/permisos), no rompemos la app
+  }
+}
+
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  // Cargar carrito desde storage una sola vez
+  const [items, setItems] = useState<CartItem[]>(() => loadCartFromStorage());
   const [isOpen, setIsOpen] = useState(false);
+
+  // Guardar carrito cada vez que cambie
+  useEffect(() => {
+    saveCartToStorage(items);
+  }, [items]);
 
   /* =========================
      UI STATE
@@ -46,18 +114,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     item: Omit<CartItem, "quantity">,
     quantity: number = 1
   ) => {
+    const safeQty =
+      Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : 1;
+
     setItems((prev) => {
       const existing = prev.find((i) => i.id === item.id);
 
       if (existing) {
         return prev.map((i) =>
-          i.id === item.id
-            ? { ...i, quantity: i.quantity + quantity }
-            : i
+          i.id === item.id ? { ...i, quantity: i.quantity + safeQty } : i
         );
       }
 
-      return [...prev, { ...item, quantity }];
+      return [...prev, { ...item, quantity: safeQty }];
     });
   };
 
@@ -65,11 +134,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
      UPDATE QUANTITY (+ / −)
   ========================= */
   const updateQuantity = (id: string, delta: number) => {
+    const safeDelta = Number.isFinite(delta) ? Math.trunc(delta) : 0;
+
     setItems((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
 
-        const nextQty = item.quantity + delta;
+        const nextQty = item.quantity + safeDelta;
 
         // Nunca bajar de 1
         if (nextQty < 1) return item;
@@ -112,7 +183,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     openCart,
     closeCart,
     addToCart,
-    updateQuantity, // ✅ EXPORTADO
+    updateQuantity,
     removeFromCart,
     clearCart,
   };
