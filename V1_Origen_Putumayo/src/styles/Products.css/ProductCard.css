@@ -34,10 +34,11 @@
    ========================================================= */
 .pCard__imgWrap {
   width: 100%;
-  height: 140px;
+  aspect-ratio: 3 / 4 ; /* proporción ideal para tus fotos */
   background: #e5e5e5;
   overflow: hidden;
 }
+
 
 .pCard__img {
   width: 100%;
@@ -147,11 +148,18 @@
 
 /* =========================================================
    TABLET / DESKTOP
-   - Misma estructura, más aire
+   - Proporción más horizontal
+   - Mantiene impacto visual
    ========================================================= */
 @media (min-width: 768px) {
+
   .pCard__imgWrap {
-    height: 190px;
+    aspect-ratio: 4 / 3; /* Más horizontal para desktop */
+  }
+
+  .pCard__img {
+    object-fit: cover; /* Mantiene fuerza visual */
+    object-position: center center; /* Ajustable si corta arriba */
   }
 
   .pCard__name {
