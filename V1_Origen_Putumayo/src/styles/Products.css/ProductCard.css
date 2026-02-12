@@ -174,3 +174,32 @@
     font-size: 22px;
   }
 }
+
+/* =========================================================
+   CHECK ANIMATION (HOME ADD FEEDBACK)
+========================================================= */
+
+.pCard__cartBtn i {
+  transition: 
+    transform 0.25s ease,
+    opacity 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Estado cuando cambia a check */
+.pCard__cartBtn i.bi-check-lg {
+  color: #16a34a; /* verde elegante */
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* Animación pop suave */
+@keyframes checkPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+.pCard__cartBtn i.bi-check-lg {
+  animation: checkPop 0.3s ease;
+}

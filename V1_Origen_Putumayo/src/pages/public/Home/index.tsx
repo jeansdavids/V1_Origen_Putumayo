@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -11,22 +10,24 @@ import "../../../styles/Home.css/contacto.css";
 
 /* COMPONENTES / SERVICIOS */
 import ProductCard from "../../../features/products/components/ProductCard";
+import type { Product } from "../../../features/products/components/ProductCard";
 import { getPublicProducts } from "../../../services/products.service";
 
 const Home: React.FC = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  // carrusel
-  const [index, setIndex] = useState(0);
-
-  // responsive
-  const [visible, setVisible] = useState(3);
-  const [cardW, setCardW] = useState(320);
-  
+  /* =========================================================
+     CARRUSEL STATE
+  ========================================================= */
+  const [index, setIndex] = useState<number>(0);
+  const [visible, setVisible] = useState<number>(3);
+  const [cardW, setCardW] = useState<number>(320);
 
   const GAP = 18;
 
-  // detectar tamaño de pantalla
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
   useEffect(() => {
     const onResize = () => {
       const w = window.innerWidth;
@@ -48,35 +49,35 @@ const Home: React.FC = () => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // cargar productos
+  /* =========================================================
+     CARGAR PRODUCTOS
+  ========================================================= */
   useEffect(() => {
     getPublicProducts()
-      .then((data) => setProducts(Array.isArray(data) ? data : []))
-      .catch((err) => {
+      .then((data: Product[]) =>
+        setProducts(Array.isArray(data) ? data : [])
+      )
+      .catch((err: unknown) => {
         console.error("Error cargando productos públicos:", err);
         setProducts([]);
       });
   }, []);
 
-  // destacados
-  const topProducts = products.filter((p) => p && p.is_top === true);
-  const featuredProducts = (topProducts.length ? topProducts : products).slice(
-    0,
-    10
-  );
+  /* =========================================================
+     DESTACADOS
+  ========================================================= */
+  const topProducts = products.filter((p) => p?.is_top === true);
 
-  // índice máximo real
-  const maxIndex = useMemo(() => {
+  const featuredProducts = (
+    topProducts.length ? topProducts : products
+  ).slice(0, 10);
+
+  const maxIndex = useMemo<number>(() => {
     return Math.max(0, featuredProducts.length - visible);
   }, [featuredProducts.length, visible]);
 
-  // reajustar índice si cambia cantidad
-  useEffect(() => {
-    setIndex((i) => Math.min(i, maxIndex));
-  }, [maxIndex]);
-
-  const getImg = (p) => {
-    if (!p || !Array.isArray(p.images) || p.images.length === 0) {
+  const getImg = (p: Product): string => {
+    if (!p?.images || p.images.length === 0) {
       return "/home/placeholder.png";
     }
     return p.images[0];
@@ -84,14 +85,20 @@ const Home: React.FC = () => {
 
   const offset = index * (cardW + GAP);
 
+  /* =========================================================
+     RENDER
+  ========================================================= */
   return (
     <main className="home">
-      {/* HERO */}
+      {/* ================= HERO ================= */}
       <section
         className="home-hero"
-        style={{ backgroundImage: "url(../../assets/images/Home_Origen_Putumayo\ .png)" }}
+        style={{
+          backgroundImage: `url(/assets/images/Home_Origen_Putumayo.png)`,
+        }}
       >
         <div className="home-hero__overlay" />
+
         <div className="home-hero__content">
           <h1 className="home-hero__title">
             DESCUBRE LAS <br />
@@ -111,7 +118,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* DESTACADOS */}
+      {/* ================= DESTACADOS ================= */}
       <section className="Destacado">
         <div className="Destacado-container">
           <h2 className="Destacado-title">
@@ -126,10 +133,14 @@ const Home: React.FC = () => {
         </div>
 
         <div className="Destacado-carousel">
-          {/* flecha izquierda */}
+          {/* Flecha izquierda */}
           <button
             className="Destacado-arrow Destacado-arrow--left"
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            onClick={() =>
+              setIndex((i) =>
+                Math.max(0, Math.min(i - 1, maxIndex))
+              )
+            }
             disabled={index === 0}
           >
             ‹
@@ -138,7 +149,10 @@ const Home: React.FC = () => {
           <div className="Destacado-track">
             <div
               className="Destacado-rail"
-              style={{ transform: `translateX(-${offset}px)` }}
+              style={{
+                transform: `translateX(-${offset}px)`,
+                transition: "transform 0.4s ease",
+              }}
             >
               {featuredProducts.map((product) => (
                 <div
@@ -150,16 +164,21 @@ const Home: React.FC = () => {
                     product={product}
                     getImg={getImg}
                     linkBase="/products"
+                    mode="home"
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* flecha derecha */}
+          {/* Flecha derecha */}
           <button
             className="Destacado-arrow Destacado-arrow--right"
-            onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+            onClick={() =>
+              setIndex((i) =>
+                Math.max(0, Math.min(i + 1, maxIndex))
+              )
+            }
             disabled={index >= maxIndex}
           >
             ›
@@ -167,38 +186,39 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-   {/* ECOTURISMO */}
-<section className="EcoturismoPutumayo">
-  <div className="EcoturismoPutumayo-container">
-    <h2 className="EcoturismoPutumayo-title">
-      Explora el putumayo en <br />
-      <span>Ecoturismo putumayo</span>
-    </h2>
+      {/* ================= ECOTURISMO ================= */}
+      <section className="EcoturismoPutumayo">
+        <div className="EcoturismoPutumayo-container">
+          <h2 className="EcoturismoPutumayo-title">
+            Explora el Putumayo en <br />
+            <span>Ecoturismo Putumayo</span>
+          </h2>
 
-    <p className="EcoturismoPutumayo-text">
-      descubre las maravillas del putumayo, un paraiso
-      <br />
-      natural lleno de aventuras y biodiversidad
-    </p>
+          <p className="EcoturismoPutumayo-text">
+            Descubre las maravillas del Putumayo, un paraíso
+            <br />
+            natural lleno de aventuras y biodiversidad
+          </p>
 
-    <a
-      className="EcoturismoPutumayo-btn"
-      href="https://www.ecoturismoputumayo.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Turismo
-    </a>
-  </div>
-</section>
+          <a
+            className="EcoturismoPutumayo-btn"
+            href="https://www.ecoturismoputumayo.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Turismo
+          </a>
+        </div>
+      </section>
 
-      {/* HISTORIA */}
+      {/* ================= HISTORIA ================= */}
       <section className="hIStoria">
         <div className="hIStoria-container">
           <h2 className="hIStoria-title">
-            desde nuestras <br />
-            <span>raices al mundo</span>
+            Desde nuestras <br />
+            <span>raíces al mundo</span>
           </h2>
+
           <p className="hIStoria-text">
             Nacimos en la esencia de la naturaleza,
             <br />
@@ -206,26 +226,29 @@ const Home: React.FC = () => {
             <br />
             que protegen y honran su entorno.
           </p>
+
           <Link className="hIStoria-btn" to="/history">
-            conoce nuestra historia
+            Conoce nuestra historia
           </Link>
         </div>
       </section>
 
-      {/* CONTACTO */}
+      {/* ================= CONTACTO ================= */}
       <section className="contacto">
         <div className="contacto-container">
           <h2 className="contacto-title">
             Estamos para <br />
             <span>ayudarte</span>
           </h2>
+
           <p className="contacto-text">
-            nuestro equipo esta listo para ayudarte
+            Nuestro equipo está listo para ayudarte
             <br />
             de forma clara y oportuna
           </p>
+
           <Link className="contacto-btn" to="/contacto">
-            contacto
+            Contacto
           </Link>
         </div>
       </section>
