@@ -3,9 +3,11 @@
    ===================================================== */
 
 .Destacado {
-  max-width: 1440px;
+  max-width: 2000px;
   margin: 0 auto;
-  padding: 80px 0;
+  padding: 100px 0;
+  background: #f6f4ef;
+  border-radius: 0px;
 
   display: grid;
   grid-template-columns: 380px 1fr;
@@ -54,12 +56,28 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  padding: 0 60px;
+}
+
+/* halo visual detrás del carrusel */
+.Destacado-carousel::before {
+  content: "";
+  position: absolute;
+  inset: -40px -80px;
+  background: radial-gradient(
+    circle at center,
+    rgba(30, 90, 55, 0.08),
+    transparent 70%
+  );
+  z-index: 0;
 }
 
 /* ventana visible */
 .Destacado-track {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  overflow-x: auto;                 /* 🔥 swipe */
+  overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -73,7 +91,7 @@
 .Destacado-rail {
   display: flex;
   gap: 18px;
-  width: max-content;               /* 🔥 CLAVE */
+  width: max-content;
   transition: transform 0.45s ease;
   will-change: transform;
 }
@@ -84,7 +102,18 @@
 
 .Destacado-card {
   flex: 0 0 auto;
-  width: 320px;
+  width: 400px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* efecto interacción */
+.Destacado-rail:hover .Destacado-card {
+  opacity: 0.6;
+}
+
+.Destacado-card:hover {
+  opacity: 1 !important;
+  transform: translateY(-6px);
 }
 
 /* =====================================================
@@ -95,26 +124,34 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #fff;
-  font-size: 22px;
+  border: none;
+  background: #1e5a37;
+  color: #ffffff;
+  font-size: 20px;
   cursor: pointer;
   z-index: 10;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.Destacado-arrow:hover {
+  transform: translateY(-50%) scale(1.08);
 }
 
 .Destacado-arrow--left {
-  left: 8px;
+  left: 20px;
 }
 
 .Destacado-arrow--right {
-  right: 8px;
+  right: 20px;
 }
 
 .Destacado-arrow:disabled {
@@ -129,6 +166,8 @@
 @media (max-width: 1024px) {
   .Destacado {
     grid-template-columns: 1fr;
+    border-radius: 0;
+    margin: 80px 0;
   }
 
   .Destacado-container {
@@ -145,6 +184,17 @@
    ===================================================== */
 
 @media (max-width: 640px) {
+
+  .Destacado {
+    margin: 0;
+    padding: 60px 0;
+    border-radius: 0;
+  }
+
+  .Destacado-container {
+    padding: 0 20px;
+  }
+
   .Destacado-title {
     font-size: 32px;
   }
@@ -153,8 +203,23 @@
     width: 280px;
   }
 
-  /* 🔥 ocultar flechas en móvil */
+  .Destacado-carousel {
+    padding: 0 20px;
+  }
+
   .Destacado-arrow {
     display: none;
   }
+
+  /* === Quitar efecto hover/opacidad en mobile === */
+
+  .Destacado-rail:hover .Destacado-card {
+    opacity: 1;
+  }
+
+  .Destacado-card:hover {
+    opacity: 1 !important;
+    transform: none;
+  }
 }
+
