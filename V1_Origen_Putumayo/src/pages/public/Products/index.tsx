@@ -132,7 +132,7 @@ const Products: React.FC = () => {
     <main className="products">
       {/* HERO / SEARCH */}
       <section className="products-hero" aria-label="Productos">
-        <h1 className="products-title">ENCUENTRA LO QUE NECESITAS</h1>
+        <h1 className="products-title">ENCUENTRA LO QUE NECESITES</h1>
 
         <div className="products-searchWrap">
   <div className="products-search">
@@ -141,7 +141,7 @@ const Products: React.FC = () => {
       className="products-searchInput"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      placeholder="Busca productos del territorio..."
+      placeholder="Busca productos..."
       aria-label="Buscar productos"
     />
   </div>

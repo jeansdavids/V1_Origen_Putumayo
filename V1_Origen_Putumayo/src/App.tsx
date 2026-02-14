@@ -13,7 +13,7 @@ import Contacto from "./pages/public/Contacto";
 
 const App: React.FC = () => {
   const location = useLocation();
-
+// Scrollea hacia arriba cuando cambia la ruta
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
