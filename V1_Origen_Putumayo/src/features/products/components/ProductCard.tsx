@@ -21,6 +21,9 @@ export interface Product {
   availability?: string;
   images?: string[];
   is_top?: boolean;
+  company_name?: string;
+  description?: string;
+  location?: string;
 }
 
 /* =========================================================

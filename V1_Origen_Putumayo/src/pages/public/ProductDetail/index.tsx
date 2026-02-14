@@ -11,26 +11,32 @@ const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // 👇 TRAEMOS openCart OTRA VEZ
   const { addToCart, openCart } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
-    getPublicProducts()
-      .then((data: any) => {
+    const fetchProduct = async () => {
+      try {
+        const data: Product[] = await getPublicProducts();
+
         const products = Array.isArray(data) ? data : [];
-        const found = products.find((p: any) =>
+
+        const found = products.find((p: Product) =>
           String(p.product_id || p.productId || p.id) === id
         );
-        setProduct(found || null);
 
-        
-      })
-      .catch((err) => console.error("Error cargando producto:", err))
-      .finally(() => setLoading(false));
+        setProduct(found || null);
+      } catch (err) {
+        console.error("Error cargando producto:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
   if (loading) {
@@ -77,10 +83,10 @@ const ProductDetail: React.FC = () => {
   }).format(price);
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
+
   const decreaseQty = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
-  // 👇 AQUÍ ESTÁ LA CLAVE
   const handleAddToCart = () => {
     addToCart(
       {
@@ -92,7 +98,7 @@ const ProductDetail: React.FC = () => {
       quantity
     );
 
-    openCart(); // 👈 ABRE EL CARRITO AUTOMÁTICAMENTE
+    openCart();
   };
 
   return (
