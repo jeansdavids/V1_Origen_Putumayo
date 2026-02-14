@@ -31,14 +31,16 @@ const CartDrawer: React.FC = () => {
             aria-label="Cerrar carrito"
             type="button"
           >
-            ✕
+            <i className="bi bi-x-lg"></i>
           </button>
         </header>
 
         <div className="cart-content">
           {items.length === 0 ? (
             <div className="cart-empty">
-              <span className="cart-emptyIcon">🛒</span>
+              <span className="cart-emptyIcon">
+                <i className="bi bi-cart3"></i>
+              </span>
               <p className="cart-emptyTitle">Tu carrito está vacío</p>
               <p className="cart-emptyText">
                 Agrega productos para comenzar tu compra
@@ -47,51 +49,70 @@ const CartDrawer: React.FC = () => {
           ) : (
             items.map((item) => (
               <div key={item.id} className="cart-item">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="cart-itemImg"
-                  />
-                )}
+                
+                {/* ZONA CLICKEABLE */}
+                <div
+                  className="cart-itemClickable"
+                  onClick={() => {
+                    closeCart();
+                    navigate(`/products/${item.id}`);
+                  }}
+                >
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="cart-itemImg"
+                    />
+                  )}
 
-                <div className="cart-itemInfo">
-                  <span className="cart-itemName">{item.name}</span>
+                  <div className="cart-itemInfo">
+                    <span className="cart-itemName">{item.name}</span>
 
-                  <span className="cart-itemUnitPrice">
-                    {new Intl.NumberFormat("es-CO", {
-                      style: "currency",
-                      currency: "COP",
-                      maximumFractionDigits: 0,
-                    }).format(item.price)}{" "}
-                    c/u
-                  </span>
+                    <span className="cart-itemUnitPrice">
+                      {new Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        maximumFractionDigits: 0,
+                      }).format(item.price)}{" "}
+                      c/u
+                    </span>
+                  </div>
+                </div>
 
+                {/* CONTROLES */}
+                <div className="cart-itemActions">
                   <div className="cart-itemQtyControls">
                     <button
                       className="cart-qtyBtn"
-                      onClick={() => updateQuantity(item.id, -1)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateQuantity(item.id, -1);
+                      }}
                       aria-label="Disminuir cantidad"
                       disabled={item.quantity === 1}
                       type="button"
                     >
-                      −
+                      <i className="bi bi-dash"></i>
                     </button>
 
-                    <span className="cart-itemQtyValue">{item.quantity}</span>
+                    <span className="cart-itemQtyValue">
+                      {item.quantity}
+                    </span>
 
                     <button
                       className="cart-qtyBtn"
-                      onClick={() => updateQuantity(item.id, 1)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateQuantity(item.id, 1);
+                      }}
                       aria-label="Aumentar cantidad"
                       type="button"
                     >
-                      +
+                      <i className="bi bi-plus"></i>
                     </button>
                   </div>
-                </div>
 
-                <div className="cart-itemActions">
                   <span className="cart-itemPrice">
                     {new Intl.NumberFormat("es-CO", {
                       style: "currency",
@@ -102,10 +123,13 @@ const CartDrawer: React.FC = () => {
 
                   <button
                     className="cart-removeBtn"
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeFromCart(item.id);
+                    }}
                     type="button"
                   >
-                    Quitar
+                    <i className="bi bi-trash3"></i>
                   </button>
                 </div>
               </div>
@@ -132,6 +156,7 @@ const CartDrawer: React.FC = () => {
               type="button"
               disabled={items.length === 0}
             >
+              <i className="bi bi-credit-card me-2"></i>
               Finalizar compra
             </button>
           </footer>
