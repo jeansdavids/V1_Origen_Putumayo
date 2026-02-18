@@ -24,20 +24,17 @@
 }
 
 /* ==========================================
-   BOTÓN VOLVER (más limpio)
+   BOTÓN VOLVER
    ========================================== */
 .pd-back-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   background: transparent;
   border: none;
-
   font-size: 0.9rem;
   font-weight: 500;
   color: #6b7280;
-
   cursor: pointer;
   transition: color 0.2s ease, transform 0.15s ease;
   margin-bottom: 2.5rem;
@@ -66,12 +63,13 @@
 }
 
 /* ==========================================
-   IMAGEN (más limpia, sin gradientes)
+   IMAGEN
    ========================================== */
 .pd-image-section {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  gap: 1.8rem;
 }
 
 .pd-main-image {
@@ -87,6 +85,61 @@
 }
 
 /* ==========================================
+   VARIANTES (GRAMAJES)
+   Debajo de la imagen
+   ========================================== */
+
+.pd-variants {
+  width: 100%;
+  max-width: 420px;
+}
+
+.pd-variants-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.pd-variants-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pd-variant-btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 70px;
+}
+
+.pd-variant-btn:hover {
+  border-color: #1c814b;
+  background: #f0f7f3;
+  transform: translateY(-2px);
+}
+
+.pd-variant-btn.active {
+  background: #1c814b;
+  border-color: #1c814b;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(28, 129, 75, 0.25);
+}
+
+.pd-variant-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================
    INFO
    ========================================== */
 .pd-info-section {
@@ -95,7 +148,6 @@
   gap: 2.5rem;
 }
 
-/* TÍTULO */
 .pd-title {
   font-size: 2.6rem;
   font-weight: 700;
@@ -104,7 +156,6 @@
   margin: 0;
 }
 
-/* PRODUCTOR + UBICACIÓN */
 .pd-brand {
   font-size: 0.95rem;
   color: #6b7280;
@@ -118,7 +169,6 @@
   color: #111827;
 }
 
-/* PRECIO PROTAGONISTA */
 .pd-price {
   font-size: 2.6rem;
   font-weight: 800;
@@ -127,7 +177,7 @@
 }
 
 /* ==========================================
-   DESCRIPCIÓN (editorial, sin caja)
+   DESCRIPCIÓN
    ========================================== */
 .pd-description {
   max-width: 540px;
@@ -149,7 +199,6 @@
   margin: 0;
 }
 
-/* META */
 .pd-meta {
   font-size: 0.9rem;
   color: #6b7280;
@@ -169,7 +218,6 @@
   flex-wrap: wrap;
 }
 
-/* CANTIDAD — estilo Apple */
 .pd-qty {
   display: flex;
   align-items: center;
@@ -198,24 +246,20 @@
   font-size: 15px;
 }
 
-/* BOTÓN PRINCIPAL — Premium */
+/* BOTÓN PRINCIPAL */
 .pd-btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-
   padding: 16px 32px;
   border-radius: 999px;
   border: none;
-
   background: #1c814b;
   color: #ffffff;
-
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.01em;
-
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
@@ -231,7 +275,6 @@
   box-shadow: none;
 }
 
-/* BOTÓN SECUNDARIO */
 .pd-btn-secondary {
   background: transparent;
   border: 1px solid #e5e7eb;
@@ -269,5 +312,13 @@
   .pd-qty {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .pd-variants {
+    max-width: 100%;
+  }
+
+  .pd-variants-buttons {
+    justify-content: center;
   }
 }
