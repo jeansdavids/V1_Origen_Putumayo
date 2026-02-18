@@ -5,6 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getPublicProducts } from "../../../services/products.service";
 import { useCart } from "../../../features/cart/CartContext";
 import type { Product } from "../../../features/products/components/ProductCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icons } from "../../../lib/icons";
 import "../../../pages/public/ProductDetail/ProductDetail.css";
 
 const ProductDetail: React.FC = () => {
@@ -21,7 +23,6 @@ const ProductDetail: React.FC = () => {
     const fetchProduct = async () => {
       try {
         const data: Product[] = await getPublicProducts();
-
         const products = Array.isArray(data) ? data : [];
 
         const found = products.find((p: Product) =>
@@ -55,6 +56,7 @@ const ProductDetail: React.FC = () => {
           className="pd-btn-secondary"
           onClick={() => navigate("/products")}
         >
+          <FontAwesomeIcon icon={Icons.back} style={{ marginRight: "8px" }} />
           Volver a productos
         </button>
       </div>
@@ -83,7 +85,6 @@ const ProductDetail: React.FC = () => {
   }).format(price);
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
-
   const decreaseQty = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
@@ -104,7 +105,8 @@ const ProductDetail: React.FC = () => {
   return (
     <main className="pd-container">
       <button className="pd-back-btn" onClick={() => navigate(-1)}>
-        &larr; Volver
+        <FontAwesomeIcon icon={Icons.back} style={{ marginRight: "8px" }} />
+        Volver
       </button>
 
       <div className="pd-grid">
@@ -121,6 +123,7 @@ const ProductDetail: React.FC = () => {
 
           {product.company_name && (
             <p className="pd-brand">
+              <FontAwesomeIcon icon={Icons.store} style={{ marginRight: "6px" }} />
               Productor: <span>{product.company_name}</span>
             </p>
           )}
@@ -128,7 +131,10 @@ const ProductDetail: React.FC = () => {
           <span className="pd-price">{formattedPrice}</span>
 
           <div className="pd-description">
-            <h3>Descripción</h3>
+            <h3>
+              <FontAwesomeIcon icon={Icons.description} style={{ marginRight: "6px" }} />
+              Descripción
+            </h3>
             <p>
               {product.description ||
                 "Sin descripción disponible para este producto."}
@@ -137,19 +143,30 @@ const ProductDetail: React.FC = () => {
 
           {product.location && (
             <div className="pd-meta">
+              <FontAwesomeIcon icon={Icons.location} style={{ marginRight: "6px" }} />
               <strong>Ubicación:</strong> {product.location}
             </div>
           )}
 
           <div className="pd-actions">
             <div className="pd-qty">
-              <button onClick={decreaseQty}>−</button>
+              <button onClick={decreaseQty}>
+                <FontAwesomeIcon icon={Icons.minus} />
+              </button>
+
               <span>{quantity}</span>
-              <button onClick={increaseQty}>+</button>
+
+              <button onClick={increaseQty}>
+                <FontAwesomeIcon icon={Icons.plus} />
+              </button>
             </div>
 
             <button className="pd-btn-primary" onClick={handleAddToCart}>
-              🛒 Agregar al carrito
+              <FontAwesomeIcon
+                icon={Icons.cart}
+                style={{ marginRight: "8px" }}
+              />
+              Agregar al carrito
             </button>
           </div>
         </div>
