@@ -11,11 +11,14 @@
 
 /* CONTENEDOR PRINCIPAL */
 .EcoturismoPutumayo {
-  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); /* Gradiente sutil */
-  padding: 80px 20px; /* Espaciado vertical y horizontal */
+  padding: 250px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url('../../assets/images/Eco_turismo.webp');
+  background-size: cover;
+ 
+
 }
 
 /* CONTENEDOR INTERIOR */
@@ -30,7 +33,7 @@
   font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
   font-size: 65px; /* Tamaño grande */
   font-weight: 400; /* Peso normal */
-  color: #111111; /* Color oscuro */
+  color: #ffffff; /* Color oscuro */
   margin: 0; /* Sin margen */
   margin-bottom: 15px; /* Espaciado inferior */
   text-transform: capitalize; /* Primera letra mayúscula */
@@ -41,7 +44,7 @@
 /* SPAN DENTRO DEL TÍTULO */
 .EcoturismoPutumayo-title span {
   display: block; /* En nueva línea */
-  color: #1e5a37; /* Color verde */
+  color: #f7f7f7; /* Color verde */
   font-size: 65px; /* Tamaño más grande */
   font-weight: 400; /* Peso */
   letter-spacing: 2px; /* Más espaciado */
@@ -52,13 +55,14 @@
 .EcoturismoPutumayo-text {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
   font-size: 16px; /* Tamaño medio */
-  color: #555555; /* Gris oscuro */
+  color: #ffffff; /* Gris oscuro */
   margin: 0; /* Sin margen */
   margin-bottom: 30px; /* Espaciado inferior */
   line-height: 1.7; /* Altura de línea generosa */
   letter-spacing: 0.5px; /* Pequeño espaciado */
   text-transform: capitalize; /* Capitaliza palabras */
   font-weight: 400; /* Peso normal */
+  
 }
 
 /* BOTÓN TURISMO */

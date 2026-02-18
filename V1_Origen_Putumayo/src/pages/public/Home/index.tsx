@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import heroImage from "../../../assets/images/ImgHome/Home_Principal.webp";
+
 
 /* ESTILOS */
 import "../../../styles/Home.css/styles.css";
@@ -91,29 +93,27 @@ const Home: React.FC = () => {
   return (
     <main className="home">
       {/* ================= HERO ================= */}
-      <section
-        className="home-hero"
-        style={{
-          backgroundImage: `url(/assets/images/Home_Origen_Putumayo.png)`,
-        }}
-      >
+     <section
+  className="home-hero"
+  style={{ backgroundImage: `url(${heroImage})` }}
+>
         <div className="home-hero__overlay" />
 
         <div className="home-hero__content">
           <h1 className="home-hero__title">
-            DESCUBRE LAS <br />
-            RIQUEZAS DE NUESTRA <br />
-            TIERRA
+        DESCUBRE LAS <br />
+        RIQUEZAS DE NUESTRA <br />
+        TIERRA
           </h1>
 
           <p className="home-hero__subtitle">
-            DESCUBRE PRODUCTOS QUE REFLEJAN LA RIQUEZA NATURAL,
-            <br />
-            CULTURAL Y HUMANA DE NUESTROS TERRITORIOS
+        DESCUBRE PRODUCTOS QUE REFLEJAN LA RIQUEZA NATURAL,
+        <br />
+        CULTURAL Y HUMANA DE NUESTROS TERRITORIOS
           </p>
 
           <Link className="home-hero__btn" to="/products">
-            COMPRA AQUÍ
+        COMPRA AQUÍ
           </Link>
         </div>
       </section>
@@ -234,24 +234,32 @@ const Home: React.FC = () => {
       </section>
 
       {/* ================= CONTACTO ================= */}
-      <section className="contacto">
-        <div className="contacto-container">
-          <h2 className="contacto-title">
-            Estamos para <br />
-            <span>ayudarte</span>
-          </h2>
+      {/* ================= CONTACTO ================= */}
+<section className="contacto">
+  <div className="contacto-container">
 
-          <p className="contacto-text">
-            Nuestro equipo está listo para ayudarte
-            <br />
-            de forma clara y oportuna
-          </p>
+    <div className="contacto-content">
+      
+      <h2 className="contacto-title">
+        Estamos para <br />
+        <span>ayudarte</span>
+      </h2>
 
-          <Link className="contacto-btn" to="/contacto">
-            Contacto
-          </Link>
-        </div>
-      </section>
+      <p className="contacto-text">
+        Nuestro equipo está listo para ayudarte
+        <br />
+        de forma clara y oportuna
+      </p>
+
+      <Link className="contacto-btn" to="/contacto">
+        Contacto
+      </Link>
+
+    </div>
+
+  </div>
+</section>
+
     </main>
   );
 };
