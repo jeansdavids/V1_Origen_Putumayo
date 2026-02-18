@@ -37,6 +37,11 @@ const Navbar = () => {
 
       {/* Acciones derecha: hamburguesa + carrito */}
       <div className="navbar-actions">
+        {/* Login Button - Desktop */}
+        <Link to="/login" className="navbar-loginBtn" aria-label="Iniciar Sesión">
+          <i className="bi bi-person-circle"></i>
+        </Link>
+
         {/* Hamburguesa */}
         <button
           className="navbar-toggle"

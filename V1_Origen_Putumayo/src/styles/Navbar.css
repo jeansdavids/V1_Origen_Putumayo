@@ -17,7 +17,8 @@
    ======================================== */
 .navbar {
   background: #f9f9f9;
-  padding: 0.75rem 4rem; /* un poco más bajo → más jerarquía */
+  padding: 0.75rem 4rem;
+  /* un poco más bajo → más jerarquía */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +38,8 @@
 }
 
 .navbar-logo img {
-  height: 120px; /* desktop */
+  height: 120px;
+  /* desktop */
   width: auto;
   object-fit: contain;
   cursor: pointer;
@@ -115,7 +117,8 @@
   align-items: center;
   justify-content: center;
 
-  color: #333;            /* un poco más suave que negro */
+  color: #333;
+  /* un poco más suave que negro */
   font-size: 26px;
   transition: color 0.3s ease;
 }
@@ -125,26 +128,30 @@
 }
 
 /* ========================================
-   BOTÓN CARRITO
+   BOTÓN LOGIN Y CARRITO
    ======================================== */
+.navbar-loginBtn,
 .navbar-cartBtn {
   position: relative;
   background: transparent;
   border: none;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  color: #333;            /* baja competencia con el logo */
+  color: #333;
   padding: 0.5rem;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  /* Para el Link */
 }
 
+.navbar-loginBtn:hover,
 .navbar-cartBtn:hover {
   color: #1c814b;
 }
 
+.navbar-loginBtn i,
 .navbar-cartBtn i {
   font-size: 24px;
 }
@@ -183,7 +190,8 @@
 
   /* CLAVE: logo no cae a 50px */
   .navbar-logo img {
-    height: 68px; /* jerarquía correcta en mobile */
+    height: 68px;
+    /* jerarquía correcta en mobile */
   }
 
   .navbar-item a {
