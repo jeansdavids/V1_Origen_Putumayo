@@ -24,6 +24,9 @@ export interface Product {
   company_name?: string;
   description?: string;
   location?: string;
+  variant_group?: string | null;
+  weight_value?: number | null;
+  weight_unit?: string | null;
 }
 
 /* =========================================================

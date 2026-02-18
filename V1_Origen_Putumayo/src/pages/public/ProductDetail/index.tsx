@@ -16,6 +16,7 @@ const ProductDetail: React.FC = () => {
   const { addToCart, openCart } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [variants, setVariants] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -30,6 +31,22 @@ const ProductDetail: React.FC = () => {
         );
 
         setProduct(found || null);
+ 
+        if (found?.variant_group) {
+          const related = products
+            .filter(
+              (p: Product) =>
+                p.variant_group === found.variant_group
+            )
+            .sort(
+              (a: Product, b: Product) =>
+                (a.weight_value || 0) - (b.weight_value || 0)
+            );
+
+          setVariants(related);
+        } else {
+          setVariants([]);
+        }
       } catch (err) {
         console.error("Error cargando producto:", err);
       } finally {
@@ -102,6 +119,10 @@ const ProductDetail: React.FC = () => {
     openCart();
   };
 
+  const currentId = String(
+    product.product_id || product.productId || product.id
+  );
+
   return (
     <main className="pd-container">
       <button className="pd-back-btn" onClick={() => navigate(-1)}>
@@ -116,6 +137,38 @@ const ProductDetail: React.FC = () => {
             alt={product.name || "Producto"}
             className="pd-main-image"
           />
+
+          {/* VARIANTES */}
+          {variants.length > 1 && (
+            <div className="pd-variants">
+              
+
+              <div className="pd-variants-buttons">
+                {variants.map((v) => {
+                  const variantId = String(
+                    v.product_id || v.productId || v.id
+                  );
+
+                  const isActive = variantId === currentId;
+
+                  return (
+                    <button
+                      key={variantId}
+                      className={`pd-variant-btn ${
+                        isActive ? "active" : ""
+                      }`}
+                      onClick={() =>
+                        navigate(`/products/${variantId}`)
+                      }
+                    >
+                      {v.weight_value}
+                      {v.weight_unit}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="pd-info-section">
@@ -123,7 +176,10 @@ const ProductDetail: React.FC = () => {
 
           {product.company_name && (
             <p className="pd-brand">
-              <FontAwesomeIcon icon={Icons.store} style={{ marginRight: "6px" }} />
+              <FontAwesomeIcon
+                icon={Icons.store}
+                style={{ marginRight: "6px" }}
+              />
               Productor: <span>{product.company_name}</span>
             </p>
           )}
@@ -132,7 +188,10 @@ const ProductDetail: React.FC = () => {
 
           <div className="pd-description">
             <h3>
-              <FontAwesomeIcon icon={Icons.description} style={{ marginRight: "6px" }} />
+              <FontAwesomeIcon
+                icon={Icons.description}
+                style={{ marginRight: "6px" }}
+              />
               Descripción
             </h3>
             <p>
@@ -143,7 +202,10 @@ const ProductDetail: React.FC = () => {
 
           {product.location && (
             <div className="pd-meta">
-              <FontAwesomeIcon icon={Icons.location} style={{ marginRight: "6px" }} />
+              <FontAwesomeIcon
+                icon={Icons.location}
+                style={{ marginRight: "6px" }}
+              />
               <strong>Ubicación:</strong> {product.location}
             </div>
           )}
