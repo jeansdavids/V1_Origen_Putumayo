@@ -100,65 +100,42 @@
   transform: translateY(0); /* Vuelve a su posición */
 }
 
+
+
 /* ========================================
-   RESPONSIVE - Adapta a diferentes pantallas
+   CELULARES
    ======================================== */
-
-/* PANTALLAS MEDIANAS (hasta 820px) */
-@media (max-width: 820px) {
-  .contacto {
-    padding: 60px 20px; /* Reduce espaciado */
-  }
-
-  .contacto-title {
-    font-size: 40px; /* Reduce tamaño del título */
-    margin-bottom: 15px;
-  }
-
-  .contacto-title span {
-    font-size: 48px; /* Reduce tamaño del span */
-    letter-spacing: 1px;
-  }
-
-  .contacto-text {
-    font-size: 15px; /* Reduce tamaño texto */
-    margin-bottom: 25px;
-  }
-
-  .contacto-btn {
-    height: 44px; /* Altura reducida */
-    padding: 0 28px; /* Padding menor */
-    font-size: 14px; /* Fuente más pequeña */
-  }
-}
-
-/* PANTALLAS PEQUEÑAS (hasta 480px) */
 @media (max-width: 480px) {
   .contacto {
-    padding: 40px 15px; /* Reduce espaciado más */
+    padding: 50px 16px;           /* aire cómodo */
   }
 
   .contacto-title {
-    font-size: 28px; /* Reduce más el título */
-    margin-bottom: 10px;
-    letter-spacing: 0.5px;
+    font-size: 32px;              /* recupera impacto */
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    line-height: 1.2;
   }
 
   .contacto-title span {
-    font-size: 34px; /* Reduce el span */
-    letter-spacing: 1px;
+    font-size: 38px;
+    letter-spacing: 1.5px;
   }
 
   .contacto-text {
-    font-size: 13px; /* Reduce texto */
+    font-size: 14px;              /* más legible */
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
+    text-transform: none;         /* 👈 clave para móvil */
   }
 
   .contacto-btn {
-    height: 40px; /* Altura más pequeña */
-    padding: 0 24px; /* Padding menor */
-    font-size: 12px; /* Fuente muy pequeña */
-    letter-spacing: 0.8px;
+    height: auto;                 /* flexible */
+    padding: 14px 28px;           /* UX táctil */
+    font-size: 14px;
+    letter-spacing: 1px;
+    border-radius: 10px;
   }
 }
+
+

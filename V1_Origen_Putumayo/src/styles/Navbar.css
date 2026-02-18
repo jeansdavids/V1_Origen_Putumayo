@@ -1,11 +1,11 @@
 /* ========================================
-   NAVBAR STYLES - Diseño profesional de navegación
+   NAVBAR STYLES - Diseño profesional
    ======================================== */
 
-/* IMPORTAR FUENTE BEBAS NEUE */
+/* IMPORTAR FUENTE */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-/* ESTILOS GLOBALES */
+/* RESET BÁSICO */
 * {
   margin: 0;
   padding: 0;
@@ -13,16 +13,19 @@
 }
 
 /* ========================================
-   CONTENEDOR PRINCIPAL DEL NAVBAR
+   CONTENEDOR PRINCIPAL
    ======================================== */
 .navbar {
   background: #f9f9f9;
   padding: 0.75rem 4rem;
+<<<<<<< HEAD
   /* un poco más bajo → más jerarquía */
+=======
+>>>>>>> origin/Dev
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 12px rgba(194, 139, 139, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -30,7 +33,7 @@
 }
 
 /* ========================================
-   LOGO (protagonista por aire y escala)
+   LOGO
    ======================================== */
 .navbar-logo {
   display: flex;
@@ -39,7 +42,10 @@
 
 .navbar-logo img {
   height: 120px;
+<<<<<<< HEAD
   /* desktop */
+=======
+>>>>>>> origin/Dev
   width: auto;
   object-fit: contain;
   cursor: pointer;
@@ -51,7 +57,7 @@
 }
 
 /* ========================================
-   MENÚ DE NAVEGACIÓN
+   MENÚ
    ======================================== */
 .navbar-menu {
   display: flex;
@@ -60,7 +66,6 @@
   align-items: center;
 }
 
-/* ITEMS DEL MENÚ */
 .navbar-item {
   position: relative;
 }
@@ -69,7 +74,7 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.3rem;
   font-weight: 200;
-  color: #000000;
+  color: #000;
   text-decoration: none;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
@@ -77,7 +82,7 @@
   display: inline-block;
 }
 
-/* EFECTO HOVER - Línea animada */
+/* Línea animada */
 .navbar-item a::after {
   content: '';
   position: absolute;
@@ -98,7 +103,7 @@
 }
 
 /* ========================================
-   ACCIONES DERECHA (☰ + 🛒)
+   ACCIONES DERECHA
    ======================================== */
 .navbar-actions {
   display: flex;
@@ -106,29 +111,41 @@
   gap: 14px;
 }
 
-/* BOTÓN HAMBURGUESA */
+/* ========================================
+   BOTÓN HAMBURGUESA
+   ======================================== */
 .navbar-toggle {
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
 
   color: #333;
   /* un poco más suave que negro */
   font-size: 26px;
   transition: color 0.3s ease;
+=======
+  color: #333;
+  font-size: 24px;
+  transition: all 0.2s ease;
+>>>>>>> origin/Dev
 }
 
 .navbar-toggle:hover {
   color: #1c814b;
+  transform: translateY(-1px);
 }
 
 /* ========================================
+<<<<<<< HEAD
    BOTÓN LOGIN Y CARRITO
+=======
+   BOTÓN CARRITO (mejorado)
+>>>>>>> origin/Dev
    ======================================== */
 .navbar-loginBtn,
 .navbar-cartBtn {
@@ -139,40 +156,63 @@
   display: flex;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   color: #333;
   padding: 0.5rem;
   transition: color 0.3s ease;
   text-decoration: none;
   /* Para el Link */
+=======
+
+  padding: 0.6rem;
+  border-radius: 50%;
+
+  color: #333;
+  font-size: 22px;
+
+  transition: all 0.2s ease;
+>>>>>>> origin/Dev
 }
 
 .navbar-loginBtn:hover,
 .navbar-cartBtn:hover {
   color: #1c814b;
+  background-color: rgba(28, 129, 75, 0.08);
+  transform: translateY(-2px);
 }
 
+<<<<<<< HEAD
 .navbar-loginBtn i,
 .navbar-cartBtn i {
   font-size: 24px;
 }
 
 /* Badge */
+=======
+/* Badge moderno */
+>>>>>>> origin/Dev
 .navbar-cartBadge {
   position: absolute;
   top: -6px;
   right: -6px;
+
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
+
   border-radius: 999px;
-  background: #8cc342;
-  color: #006839;
+
+  background: #1c814b;
+  color: #ffffff;
+
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* ========================================
@@ -188,10 +228,12 @@
     flex-wrap: wrap;
   }
 
-  /* CLAVE: logo no cae a 50px */
   .navbar-logo img {
     height: 68px;
+<<<<<<< HEAD
     /* jerarquía correcta en mobile */
+=======
+>>>>>>> origin/Dev
   }
 
   .navbar-item a {
@@ -203,10 +245,29 @@
   }
 
   .navbar-toggle {
-    font-size: 28px;
+    font-size: 26px;
   }
 
-  .navbar-cartBtn i {
-    font-size: 24px;
+  .navbar-cartBtn {
+    font-size: 20px;
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+/* ========================================
+   ANIMACIÓN CARRITO
+   ======================================== */
+@keyframes cartBounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25); }
+  50% { transform: scale(0.9); }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.cart-bounce {
+  animation: cartBounce 0.4s ease;
+}
+>>>>>>> origin/Dev

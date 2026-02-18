@@ -1,4 +1,7 @@
 import "../../../styles/Contact.css/styles.css";
+import.meta.env.VITE_WHATSAPP_URL
+
+
 
 export default function OrigenSection() {
   return (
@@ -16,15 +19,15 @@ export default function OrigenSection() {
 
           <div className="social-icons">
             <a
-              href="https://wa.me/573000000000"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i className="bi bi-whatsapp"></i>
-            </a>
+  href={import.meta.env.VITE_APP_WHATSAPP_URL}
+  target="_blank"
+  rel="noreferrer"
+>
+  <i className="bi bi-whatsapp"></i>
+</a>
 
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/share/1DHPg42SSV/"
               target="_blank"
               rel="noreferrer"
             >
@@ -32,12 +35,13 @@ export default function OrigenSection() {
             </a>
 
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/origenputumayo/"
               target="_blank"
               rel="noreferrer"
             >
               <i className="bi bi-instagram"></i>
             </a>
+
 
             <a
               href="https://www.youtube.com/"
@@ -163,10 +167,7 @@ ${message}
         </div>
       </div>
 
-      {/* ================= FOOTER ================= */}
-      <footer className="footer">
-        <p>© 2026 - Todos los derechos reservados</p>
-      </footer>
+    
     </section>
   );
 }
