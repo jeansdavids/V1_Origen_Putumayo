@@ -2,6 +2,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./CartContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icons } from "../../lib/icons";
 import "../../styles/CartDrawer.css";
 
 const CartDrawer: React.FC = () => {
@@ -31,7 +33,7 @@ const CartDrawer: React.FC = () => {
             aria-label="Cerrar carrito"
             type="button"
           >
-            <i className="bi bi-x-lg"></i>
+            <FontAwesomeIcon icon={Icons.close} />
           </button>
         </header>
 
@@ -39,7 +41,7 @@ const CartDrawer: React.FC = () => {
           {items.length === 0 ? (
             <div className="cart-empty">
               <span className="cart-emptyIcon">
-                <i className="bi bi-cart3"></i>
+                <FontAwesomeIcon icon={Icons.cart} />
               </span>
               <p className="cart-emptyTitle">Tu carrito está vacío</p>
               <p className="cart-emptyText">
@@ -50,7 +52,6 @@ const CartDrawer: React.FC = () => {
             items.map((item) => (
               <div key={item.id} className="cart-item">
                 
-                {/* ZONA CLICKEABLE */}
                 <div
                   className="cart-itemClickable"
                   onClick={() => {
@@ -80,7 +81,6 @@ const CartDrawer: React.FC = () => {
                   </div>
                 </div>
 
-                {/* CONTROLES */}
                 <div className="cart-itemActions">
                   <div className="cart-itemQtyControls">
                     <button
@@ -93,7 +93,7 @@ const CartDrawer: React.FC = () => {
                       disabled={item.quantity === 1}
                       type="button"
                     >
-                      <i className="bi bi-dash"></i>
+                      <FontAwesomeIcon icon={Icons.minus} />
                     </button>
 
                     <span className="cart-itemQtyValue">
@@ -109,7 +109,7 @@ const CartDrawer: React.FC = () => {
                       aria-label="Aumentar cantidad"
                       type="button"
                     >
-                      <i className="bi bi-plus"></i>
+                      <FontAwesomeIcon icon={Icons.plus} />
                     </button>
                   </div>
 
@@ -127,9 +127,10 @@ const CartDrawer: React.FC = () => {
                       e.stopPropagation();
                       removeFromCart(item.id);
                     }}
+                    aria-label="Eliminar producto"
                     type="button"
                   >
-                    <i className="bi bi-trash3"></i>
+                    <FontAwesomeIcon icon={Icons.trash} />
                   </button>
                 </div>
               </div>
@@ -156,7 +157,10 @@ const CartDrawer: React.FC = () => {
               type="button"
               disabled={items.length === 0}
             >
-              <i className="bi bi-credit-card me-2"></i>
+              <FontAwesomeIcon
+                icon={Icons.cart}
+                style={{ marginRight: "8px" }}
+              />
               Finalizar compra
             </button>
           </footer>
