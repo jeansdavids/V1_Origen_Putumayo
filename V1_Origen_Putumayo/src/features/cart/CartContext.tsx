@@ -15,6 +15,12 @@ interface CartContextValue {
   isOpen: boolean;
   totalItems: number;
   subtotal: number;
+
+  // NUEVO: notificación
+  lastAddedItem: CartItem | null;
+  showSuccess: boolean;
+  setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+
   openCart: () => void;
   closeCart: () => void;
   addToCart: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
@@ -63,7 +69,6 @@ function loadCartFromStorage(): CartItem[] {
       if (typeof name !== "string" || name.trim().length === 0) continue;
       if (typeof price !== "number" || !Number.isFinite(price)) continue;
 
-      // image es opcional: si viene, debe ser string
       if (typeof image !== "undefined" && typeof image !== "string") continue;
 
       sanitized.push({
@@ -85,18 +90,25 @@ function saveCartToStorage(items: CartItem[]) {
   try {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   } catch {
-    // si falla (modo incógnito/cuota/permisos), no rompemos la app
+    // no romper la app si falla
   }
 }
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  // Cargar carrito desde storage una sola vez
-  const [items, setItems] = useState<CartItem[]>(() => loadCartFromStorage());
+  const [items, setItems] = useState<CartItem[]>(() =>
+    loadCartFromStorage()
+  );
+
   const [isOpen, setIsOpen] = useState(false);
 
-  // Guardar carrito cada vez que cambie
+  // NUEVO: estados para notificación
+  const [lastAddedItem, setLastAddedItem] =
+    useState<CartItem | null>(null);
+
+  const [showSuccess, setShowSuccess] = useState(false);
+
   useEffect(() => {
     saveCartToStorage(items);
   }, [items]);
@@ -115,23 +127,41 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     quantity: number = 1
   ) => {
     const safeQty =
-      Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : 1;
+      Number.isFinite(quantity) && quantity > 0
+        ? Math.floor(quantity)
+        : 1;
+
+    const newItem: CartItem = {
+      ...item,
+      quantity: safeQty,
+    };
 
     setItems((prev) => {
       const existing = prev.find((i) => i.id === item.id);
 
       if (existing) {
         return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + safeQty } : i
+          i.id === item.id
+            ? { ...i, quantity: i.quantity + safeQty }
+            : i
         );
       }
 
-      return [...prev, { ...item, quantity: safeQty }];
+      return [...prev, newItem];
     });
+
+    // NUEVO: disparar notificación
+    setLastAddedItem(newItem);
+    setShowSuccess(true);
+
+    // auto cerrar notificación
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 4500);
   };
 
   /* =========================
-     UPDATE QUANTITY (+ / −)
+     UPDATE QUANTITY
   ========================= */
   const updateQuantity = (id: string, delta: number) => {
     const safeDelta = Number.isFinite(delta) ? Math.trunc(delta) : 0;
@@ -142,7 +172,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
         const nextQty = item.quantity + safeDelta;
 
-        // Nunca bajar de 1
         if (nextQty < 1) return item;
 
         return {
@@ -180,6 +209,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     isOpen,
     totalItems,
     subtotal,
+
+    lastAddedItem,
+    showSuccess,
+    setShowSuccess,
+
     openCart,
     closeCart,
     addToCart,

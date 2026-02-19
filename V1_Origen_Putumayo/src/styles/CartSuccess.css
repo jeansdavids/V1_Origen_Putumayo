@@ -1,0 +1,180 @@
+/* =========================================
+   MOBILE TOAST
+========================================= */
+
+.cartSuccess-toast {
+  position: fixed;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #065f46;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 3000;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  animation: fadeSlideDown 0.2s ease;
+}
+
+/* =========================================
+   DESKTOP PANEL (VERSIÓN COMPACTA)
+========================================= */
+
+.cartSuccess-panel {
+  position: fixed;
+  top: 90px; /* No desde arriba total */
+  right: 24px;
+  width: 360px;
+  max-width: 95%;
+  height: auto; /* No 100vh */
+  background: #fdfcf8;
+  padding: 18px 20px;
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRightCompact 0.25s ease;
+}
+
+/* Cerrar */
+.cartSuccess-close {
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #9ca3af;
+  align-self: flex-end;
+  margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+
+.cartSuccess-close:hover {
+  color: #111827;
+}
+
+/* Header */
+.cartSuccess-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #065f46;
+  margin-bottom: 14px;
+}
+
+.cartSuccess-icon {
+  font-size: 1rem;
+}
+
+/* Producto */
+.cartSuccess-product {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cartSuccess-product img {
+  width: 65px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cartSuccess-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.cartSuccess-price {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #065f46;
+}
+
+/* Botones */
+.cartSuccess-primary {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  background: #065f46;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cartSuccess-primary:hover {
+  background: #054e3a;
+  transform: translateY(-1px);
+}
+
+.cartSuccess-secondary {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #065f46;
+  background: transparent;
+  color: #065f46;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cartSuccess-secondary:hover {
+  background: rgba(6, 95, 70, 0.05);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 767px) {
+  .cartSuccess-panel {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .cartSuccess-toast {
+    display: none;
+  }
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes slideInRightCompact {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

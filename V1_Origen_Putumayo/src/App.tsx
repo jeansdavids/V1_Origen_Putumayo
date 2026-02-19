@@ -9,11 +9,13 @@ import CheckoutPage from "./pages/public/checkout/CheckoutPage";
 import ProductDetail from "./pages/public/ProductDetail";
 import { CartProvider } from "./features/cart/CartContext";
 import CartDrawer from "./features/cart/CartDrawer";
+import CartSuccess from "./features/cart/CartSuccess"; // NUEVO
 import Contacto from "./pages/public/Contacto";
 
 const App: React.FC = () => {
   const location = useLocation();
-// Scrollea hacia arriba cuando cambia la ruta
+
+  // Scroll hacia arriba cuando cambia la ruta
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -22,7 +24,9 @@ const App: React.FC = () => {
     <CartProvider>
       <NavbarLayout>
         <FooterLayout>
+          {/* Componentes globales del carrito */}
           <CartDrawer />
+          <CartSuccess /> {/* NUEVO */}
 
           <Routes>
             <Route path="/" element={<Home />} />
