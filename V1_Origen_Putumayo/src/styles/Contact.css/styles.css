@@ -107,10 +107,9 @@
 }
 
 /* ===================== IZQUIERDA FORM ===================== */
-
 .location-left {
   width: 50%;
-  background: linear-gradient(180deg, #f6f6f6 0%, #eeeeee 100%);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -123,7 +122,7 @@
 .location-title {
   font-family: "Bebas Neue", sans-serif;
   font-size: 48px;
-  color: #111;
+  color: #006839;
   font-weight: 400;
   max-width: 420px;
   line-height: 1.05;
@@ -147,23 +146,22 @@
 .form-input {
   width: 100%;
   padding: 1rem 1.2rem;
-  background-color: #ffffff;
-  border: 1px solid transparent;
+  background-color: #f6f6f6;
+  border: 2px solid #e0e0e0;
   outline: none;
   font-size: 15px;
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 14px;
+  border-radius: 8px;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input::placeholder {
-  color: #888;
+  color: #999;
 }
 
-/* FOCUS */
 .form-input:focus {
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  border-color: #7ad155;
+  box-shadow: 0 0 0 3px rgba(122, 209, 85, 0.1);
 }
 
 /* TEXTAREA */
@@ -171,34 +169,34 @@
   width: 100%;
   min-height: 160px;
   padding: 1rem 1.2rem;
-  background-color: #ffffff;
-  border: 1px solid transparent;
+  background-color: #f6f6f6;
+  border: 2px solid #e0e0e0;
   outline: none;
   resize: none;
   font-size: 15px;
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 18px;
+  border-radius: 8px;
   margin-bottom: 1.8rem;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-textarea::placeholder {
-  color: #888;
+  color: #999;
 }
 
 .form-textarea:focus {
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  border-color: #7ad155;
+  box-shadow: 0 0 0 3px rgba(122, 209, 85, 0.1);
 }
 
 /* BOTÓN */
 .contact-btn {
   align-self: flex-start;
   padding: 14px 42px;
-  background-color: #000;
+  background-color: #006839;
   color: #fff;
   border: none;
-  border-radius: 40px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   font-family: "Bebas Neue", sans-serif;
@@ -207,9 +205,9 @@
 }
 
 .contact-btn:hover {
-  opacity: 0.95;
+  opacity: 0.9;
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 25px rgba(0, 104, 57, 0.25);
 }
 
 

@@ -6,28 +6,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 .history {
-  background: #ffffff; /* Fondo blanco */
-  color: #111111; /* Color de texto oscuro */
+  background: #ffffff;
+  color: #111111;
   width: 100%;
 }
 
 /* ========================================
    SECCIÓN 1 – HERO
-   ======================================== */
+======================================== */
 
 .history-hero {
-  position: relative;
-  height: 640px; /* Altura fija del hero */
-  background-color: #b5b4b4; /* Color de respaldo */
-  /* background-image: url('ruta-a-tu-imagen.jpg'); <--- Agrega tu imagen de fondo aquí */
-  background-size: cover; /* Cubre todo el espacio */
-  background-position: center; /* Centra la imagen */
-  overflow: hidden; /* Oculta contenido que se desborda */
+  width: 100%;
+  height: 90vh; /* Mejor que 100vh para evitar cortes raros */
+  min-height: 900px;
+
+  background-image: url('../../assets/images/Historia.webp');
+  background-size: cover;
+  background-position: center 50%; /* Ajusta el enfoque */
+  background-repeat: no-repeat;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  
+
+  position: relative;
+  overflow: hidden;
 }
+
 
 .hero-title {
   margin: 0;

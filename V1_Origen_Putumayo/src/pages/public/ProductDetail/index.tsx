@@ -125,7 +125,7 @@ const ProductDetail: React.FC = () => {
 
   return (
     <main className="pd-container">
-      <button className="pd-back-btn" onClick={() => navigate(-1)}>
+      <button className="pd-back-btn" onClick={() => navigate("/products")}>
         <FontAwesomeIcon icon={Icons.back} style={{ marginRight: "8px" }} />
         Volver
       </button>
