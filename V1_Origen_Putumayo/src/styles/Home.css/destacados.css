@@ -1,19 +1,14 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');/* CONTENEDOR PRINCIPAL */
-
-
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');
 
 /* =====================================================
    SECCIÓN DESTACADOS
-   ===================================================== */
+===================================================== */
 
 .Destacado {
   max-width: 2000px;
   margin: 0 auto;
   padding: 100px 0;
   background: #f6f4ef;
-  border-radius: 0px;
 
   display: grid;
   grid-template-columns: 380px 1fr;
@@ -23,7 +18,7 @@
 
 /* =====================================================
    TEXTO IZQUIERDA
-   ===================================================== */
+===================================================== */
 
 .Destacado-container {
   padding-left: 80px;
@@ -59,12 +54,15 @@
 
 /* =====================================================
    CARRUSEL
-   ===================================================== */
+===================================================== */
 
 .Destacado-carousel {
   position: relative;
   width: 100%;
   overflow: hidden;
+}
+
+.Destacado-track {
   padding: 0 60px;
 }
 
@@ -90,24 +88,29 @@
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+
+  /* 🔥 evita rebote extraño */
+  overscroll-behavior-x: contain;
 }
 
 .Destacado-track::-webkit-scrollbar {
   display: none;
 }
 
-/* riel */
+/* =====================================================
+   RIEL (CORREGIDO)
+===================================================== */
+
 .Destacado-rail {
   display: flex;
   gap: 18px;
-  width: max-content;
   transition: transform 0.45s ease;
   will-change: transform;
 }
 
 /* =====================================================
    TARJETAS
-   ===================================================== */
+===================================================== */
 
 .Destacado-card {
   flex: 0 0 auto;
@@ -127,7 +130,7 @@
 
 /* =====================================================
    FLECHAS
-   ===================================================== */
+===================================================== */
 
 .Destacado-arrow {
   position: absolute;
@@ -170,12 +173,11 @@
 
 /* =====================================================
    TABLET
-   ===================================================== */
+===================================================== */
 
 @media (max-width: 1024px) {
   .Destacado {
     grid-template-columns: 1fr;
-    border-radius: 0;
     margin: 80px 0;
   }
 
@@ -190,14 +192,13 @@
 
 /* =====================================================
    MOBILE
-   ===================================================== */
+===================================================== */
 
 @media (max-width: 640px) {
 
   .Destacado {
     margin: 0;
     padding: 60px 0;
-    border-radius: 0;
   }
 
   .Destacado-container {
@@ -220,8 +221,6 @@
     display: none;
   }
 
-  /* === Quitar efecto hover/opacidad en mobile === */
-
   .Destacado-rail:hover .Destacado-card {
     opacity: 1;
   }
@@ -231,4 +230,3 @@
     transform: none;
   }
 }
-

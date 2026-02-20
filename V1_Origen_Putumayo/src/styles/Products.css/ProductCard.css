@@ -86,13 +86,11 @@
   line-height: 1.1;
 
   display: -webkit-box;
-
+  -webkit-line-clamp: 2;          /* limita a 2 líneas */
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
 
-.pCard:hover .pCard__name {
-  color: #0f790f;
+  min-height: 2.2em;              /* reserva altura para 2 líneas */
 }
 
 

@@ -3,26 +3,16 @@ import { openWhatsApp } from "../../utils/openWhatsApp";
 
 interface Props {
   message: string;
-  onDone?: () => void;
 }
 
-export default function CheckoutResult({ message, onDone }: Props) {
+export default function CheckoutResult({ message }: Props) {
   const [blocked, setBlocked] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [done, setDone] = useState(false);
-
-  const safeDone = () => {
-    if (done) return;
-    setDone(true);
-    onDone?.();
-  };
 
   const handleOpenWhatsApp = () => {
     const opened = openWhatsApp(message);
     if (!opened) {
       setBlocked(true);
-    } else {
-      safeDone();
     }
   };
 
@@ -30,17 +20,16 @@ export default function CheckoutResult({ message, onDone }: Props) {
     try {
       await navigator.clipboard.writeText(message);
       setCopied(true);
-      safeDone();
     } catch {
-      // Si no pudo copiar, no limpiamos carrito para no perder el mensaje
+      // No hacemos nada
     }
   };
 
   return (
     <section className="checkout-result">
-      <h2 className="checkout-result-title">Pedido listo</h2>
+      <h2 className="checkout-result-title">Pedido registrado</h2>
       <p className="checkout-result-text">
-        Tu pedido está listo para enviarse por WhatsApp.
+        Tu pedido fue guardado correctamente. Ahora puedes enviarlo por WhatsApp.
       </p>
 
       <button className="whatsapp-btn" onClick={handleOpenWhatsApp} type="button">
@@ -50,7 +39,7 @@ export default function CheckoutResult({ message, onDone }: Props) {
       {blocked && (
         <div className="checkout-fallback">
           <p className="checkout-fallback-text">
-            No se pudo abrir WhatsApp automáticamente. Copiá el mensaje y envialo manualmente.
+            No se pudo abrir WhatsApp automáticamente. Copia el mensaje y envíalo manualmente.
           </p>
 
           <button className="copy-btn" onClick={handleCopy} type="button">

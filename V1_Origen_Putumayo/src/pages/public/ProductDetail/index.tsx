@@ -57,6 +57,11 @@ const ProductDetail: React.FC = () => {
     fetchProduct();
   }, [id]);
 
+  // FIX: Resetear cantidad cuando cambia el producto
+  useEffect(() => {
+    setQuantity(1);
+  }, [id]);
+
   if (loading) {
     return (
       <div className="pd-container pd-center">
@@ -114,7 +119,7 @@ const ProductDetail: React.FC = () => {
         image: imageSrc,
       },
       quantity,
-      { notify: false } // 🔥 IMPORTANTE: no mostrar CartSuccess
+      { notify: false }
     );
 
     openCart();

@@ -77,11 +77,6 @@ const Products: React.FC = () => {
     return ["Todos", ...Array.from(set).sort((a, b) => a.localeCompare(b))];
   }, [products]);
 
-  /*
-    🔥 AGRUPACIÓN POR VARIANT_GROUP
-    - Si no tiene variant_group → se muestra normal
-    - Si tiene variant_group → se muestra el de menor weight_value
-  */
   const groupedProducts = useMemo<Product[]>(() => {
     const map = new Map<string, Product>();
 
@@ -110,9 +105,6 @@ const Products: React.FC = () => {
     return Array.from(map.values());
   }, [products]);
 
-  /*
-    FILTRADO SOBRE LOS AGRUPADOS
-  */
   const filtered = useMemo<Product[]>(() => {
     const q = query.trim().toLowerCase();
 
@@ -157,17 +149,18 @@ const Products: React.FC = () => {
           </div>
         </div>
 
+        {/* MOBILE FILTERS */}
         <div className="products-mobileSticky" aria-label="Filtros rápidos">
           <div className="products-mobileMetaRow">
-            <span className="products-mobileMetaLabel">Resultados</span>
-            <span className="products-badge">
-              {filtered.length}
+            <span className="products-mobileMetaLabel">
+              RESULTADOS ({filtered.length})
             </span>
           </div>
 
           <div className="products-mobileCatsRail">
             {categories.map((c) => {
               const isActive = c === activeCategory;
+
               return (
                 <button
                   key={c}
@@ -176,6 +169,11 @@ const Products: React.FC = () => {
                   onClick={() => setActiveCategory(c)}
                 >
                   {c}
+                  {isActive && (
+                    <span className="products-chipCount">
+                      {filtered.length}
+                    </span>
+                  )}
                 </button>
               );
             })}
