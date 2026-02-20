@@ -1,3 +1,9 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');/* CONTENEDOR PRINCIPAL */
+
+
+
 /* =====================================================
    SECCIÓN DESTACADOS
    ===================================================== */
@@ -24,28 +30,31 @@
 }
 
 .Destacado-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 55px;
-  font-weight: 400;
-  color: #111111;
-  margin: 0 0 20px;
-  letter-spacing: 1.5px;
-  line-height: 1.3;
+  font-family: 'Oswald', sans-serif;
+  font-size: 65px;
+  font-weight: 700;
+  color: #060606;
+  margin: 0 0 24px;
+  letter-spacing: 2px;
+  line-height: 1.2;
 }
 
 .Destacado-title span {
   display: block;
   color: #1e5a37;
-  font-size: 65px;
+  font-size: 60px;
   font-weight: 900;
   letter-spacing: 2px;
 }
 
 .Destacado-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  opacity: 0.85;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #333333;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
 }
 
 /* =====================================================

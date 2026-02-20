@@ -27,61 +27,60 @@
 
 /* TÍTULO HISTORIA */
 .hIStoria-title {
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
-  font-size: 55px; /* Tamaño grande */
-  font-weight: 400; /* Peso normal */
-  color: #111111; /* Color oscuro */
-  margin: 0; /* Sin margen */
-  margin-bottom: 20px; /* Espaciado inferior */
-  text-transform: capitalize; /* Primera letra mayúscula */
-  letter-spacing: 1.5px; /* Espaciado entre letras */
-  line-height: 1.3; /* Altura de línea */
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(42px, 6vw, 65px); /* Responsive */
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 2.5px; /* Más equilibrado */
+  line-height: 1.15; /* Más compacto y potente */
+  margin: 0 0 15px 0;
+  text-rendering: optimizeLegibility;
 }
 
 /* SPAN DENTRO DEL TÍTULO */
 .hIStoria-title span {
-  display: block; /* En nueva línea */
-  color: #1e5a37; /* Color verde */
-  font-size: 65px; /* Tamaño más grande */
-  font-weight: 400; /* Peso */
-  letter-spacing: 2px; /* Más espaciado */
-  text-transform: capitalize; /* Capitaliza palabras */
+  display: block;
+  color: #1e5a37;
+  font-size: clamp(42px, 6vw, 65px);
+  font-weight: 600; /* Más coherente que 400 */
+  letter-spacing: 3px;
+  text-transform: uppercase; /* Mantiene coherencia con Oswald */
 }
 
 /* TEXTO DESCRIPTIVO */
 .hIStoria-text {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-  font-size: 16px; /* Tamaño medio */
-  color: #555555; /* Gris oscuro */
-  margin: 0; /* Sin margen */
-  margin-bottom: 30px; /* Espaciado inferior */
-  line-height: 1.8; /* Altura de línea generosa */
-  letter-spacing: 0.5px; /* Pequeño espaciado */
-  font-weight: 400; /* Peso normal */
-  max-width: 800px; /* Ancho máximo del texto */
-  text-align: left; /* Alineado a la izquierda */
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px; /* Mejor lectura */
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.85); /* Más natural */
+  letter-spacing: 0.3px; /* Más fino */
+  line-height: 1.8; /* Más aire */
+  margin: 25px 0 0 0; /* Más equilibrado que 50px */
+  max-width: 520px; /* Un poco más ancho = más cómodo */
 }
 
 /* BOTÓN HISTORIA */
 .hIStoria-btn {
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
-  margin-top: 10px;
-  height: 45px; /* Altura fija */
-  padding: 0 28px; /* Espaciado horizontal */
-  border-radius: 10px; /* Esquinas redondeadas */
-  display: inline-flex; /* Alinea contenido */
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
-  text-decoration: none; /* Sin subrayado */
-  background: #1e5a37; /* Color verde sólido */
-  color: #ffffff; /* Texto blanco */
-  font-weight: 400; /* Peso fuerte */
-  text-transform: uppercase; /* En mayúsculas */
-  font-size: 20px; /* Tamaño pequeño */
-  letter-spacing: 0.35px; /* Espaciado de letras */
-  border: 1px solid rgba(0, 0, 0, 0.22); /* Borde oscuro */
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22); /* Sombra */
-  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; /* Transiciones suaves */
+ font-family: 'Oswald', sans-serif;
+  margin-top: 40px;
+  height: 45px;
+  padding: 0 24px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: #1e5a37;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 200ms ease;
+  cursor: pointer;
 }
 
 /* ESTADO HOVER - Al pasar el mouse */
