@@ -2,7 +2,7 @@ import "../../styles/Navbar.css";
 import "../../styles/navbarcel.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../../features/cart/CartContext";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo1.png";
 import { useState, useEffect, useRef } from "react";
 
 const Navbar = () => {
