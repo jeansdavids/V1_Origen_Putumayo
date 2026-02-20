@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { createOrderRequest } from "../../services/orderRequest";
 
 import type {
   CustomerSnapshot,
@@ -10,23 +9,24 @@ import type {
 interface Props {
   items: OrderItemSnapshot[];
   onSuccess?: (customer: CustomerSnapshot) => void;
+  loading?: boolean;
 }
 
 const documentTypes: DocumentType[] = ["CC", "TI", "CE", "PASAPORTE"];
 
-export default function CheckoutForm({ items, onSuccess }: Props) {
-  const [loading, setLoading] = useState(false);
+export default function CheckoutForm({
+  items,
+  onSuccess,
+  loading = false,
+}: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const [form, setForm] = useState<CustomerSnapshot>({
     full_name: "",
-    phone: "",
     address: "",
     city: "",
     document_type: "CC",
     document_id: "",
-    references: "",
-    notes: "",
   });
 
   const update = (k: keyof CustomerSnapshot, v: string) =>
@@ -34,34 +34,21 @@ export default function CheckoutForm({ items, onSuccess }: Props) {
 
   const isValid =
     form.full_name.length >= 3 &&
-    /^\d{7,}$/.test(form.phone) &&
     form.address.length >= 5 &&
     form.city.length > 0 &&
     form.document_id.length >= 5 &&
     items.length > 0;
 
-  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!isValid || loading) return;
 
     try {
-      setLoading(true);
       setError(null);
-
-      await createOrderRequest({
-        customer: form,
-        items_json: items,
-      });
-
       onSuccess?.(form);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Error creando la orden");
-      }
-    } finally {
-      setLoading(false);
+    } catch {
+      setError("Error procesando el pedido");
     }
   };
 
@@ -74,14 +61,6 @@ export default function CheckoutForm({ items, onSuccess }: Props) {
         placeholder="Nombre completo"
         value={form.full_name}
         onChange={(e) => update("full_name", e.target.value)}
-        required
-      />
-
-      <input
-        className="checkout-input"
-        placeholder="Teléfono"
-        value={form.phone}
-        onChange={(e) => update("phone", e.target.value.replace(/\D/g, ""))}
         required
       />
 
@@ -104,7 +83,9 @@ export default function CheckoutForm({ items, onSuccess }: Props) {
       <select
         className="checkout-input"
         value={form.document_type}
-        onChange={(e) => update("document_type", e.target.value as DocumentType)}
+        onChange={(e) =>
+          update("document_type", e.target.value as DocumentType)
+        }
       >
         {documentTypes.map((d) => (
           <option key={d} value={d}>
@@ -121,24 +102,14 @@ export default function CheckoutForm({ items, onSuccess }: Props) {
         required
       />
 
-      <textarea
-        className="checkout-textarea"
-        placeholder="Referencias (opcional)"
-        value={form.references ?? ""}
-        onChange={(e) => update("references", e.target.value)}
-      />
-
-      <textarea
-        className="checkout-textarea"
-        placeholder="Notas (opcional)"
-        value={form.notes ?? ""}
-        onChange={(e) => update("notes", e.target.value)}
-      />
-
       {error && <p className="checkout-error">{error}</p>}
 
-      <button className="checkout-submit" type="submit" disabled={!isValid || loading}>
-        {loading ? "Enviando…" : "Confirmar pedido"}
+      <button
+        className="checkout-submit"
+        type="submit"
+        disabled={!isValid || loading}
+      >
+        {loading ? "Procesando pedido..." : "Confirmar pedido"}
       </button>
     </form>
   );
