@@ -58,10 +58,11 @@ export default function OrigenSection() {
           <div className="info-item">
             <i className="bi bi-whatsapp"></i>
             <div>
-              <h3>Customer Support</h3>
+              <h3>WhatsApp</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque vel lacus nec justo placerat.
+                Contáctanos directamente al
+          +57 314 754 6809
+          Estaremos felices de atenderte.
               </p>
             </div>
           </div>
@@ -69,10 +70,11 @@ export default function OrigenSection() {
           <div className="info-item">
             <i className="bi bi-envelope"></i>
             <div>
-              <h3>Email Us</h3>
+              <h3>Email </h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque vel lacus nec justo placerat.
+                corporacionorigenputumayo@gmail.com
+
+Horario de respuesta: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
               </p>
             </div>
           </div>

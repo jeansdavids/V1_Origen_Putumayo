@@ -38,11 +38,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* DERECHA */}
-        <ul className="footer-menu">
-          <li className="footer-item">Historia</li>
-          <li className="footer-item">Contacto</li>
-        </ul>
+        
       </div>
 
       {/* ===== LINEA ===== */}
