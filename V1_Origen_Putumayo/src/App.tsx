@@ -16,6 +16,11 @@ import { CartProvider } from "./features/cart/CartContext";
 import CartDrawer from "./features/cart/CartDrawer";
 import { AuthProvider } from "./context/AuthContext";
 
+import AdminRoute from "./components/common/AdminRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+// ... existing imports
+
 const App: React.FC = () => {
   const location = useLocation();
 
@@ -38,6 +43,14 @@ const App: React.FC = () => {
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/checkout" element={<CheckoutPage />} />
+
+              {/* Admin Routes */}
+              <Route path="/admin" element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              } />
+
             </Routes>
 
           </FooterLayout>

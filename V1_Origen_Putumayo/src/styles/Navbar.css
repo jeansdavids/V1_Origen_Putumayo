@@ -18,10 +18,6 @@
 .navbar {
   background: #f9f9f9;
   padding: 0.75rem 4rem;
-<<<<<<< HEAD
-  /* un poco más bajo → más jerarquía */
-=======
->>>>>>> origin/Dev
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,10 +38,6 @@
 
 .navbar-logo img {
   height: 120px;
-<<<<<<< HEAD
-  /* desktop */
-=======
->>>>>>> origin/Dev
   width: auto;
   object-fit: contain;
   cursor: pointer;
@@ -122,17 +114,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
-
   color: #333;
-  /* un poco más suave que negro */
   font-size: 26px;
-  transition: color 0.3s ease;
-=======
-  color: #333;
-  font-size: 24px;
   transition: all 0.2s ease;
->>>>>>> origin/Dev
 }
 
 .navbar-toggle:hover {
@@ -141,11 +125,7 @@
 }
 
 /* ========================================
-<<<<<<< HEAD
    BOTÓN LOGIN Y CARRITO
-=======
-   BOTÓN CARRITO (mejorado)
->>>>>>> origin/Dev
    ======================================== */
 .navbar-loginBtn,
 .navbar-cartBtn {
@@ -156,13 +136,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
-  color: #333;
-  padding: 0.5rem;
-  transition: color 0.3s ease;
-  text-decoration: none;
-  /* Para el Link */
-=======
 
   padding: 0.6rem;
   border-radius: 50%;
@@ -171,7 +144,7 @@
   font-size: 22px;
 
   transition: all 0.2s ease;
->>>>>>> origin/Dev
+  text-decoration: none;
 }
 
 .navbar-loginBtn:hover,
@@ -181,16 +154,7 @@
   transform: translateY(-2px);
 }
 
-<<<<<<< HEAD
-.navbar-loginBtn i,
-.navbar-cartBtn i {
-  font-size: 24px;
-}
-
-/* Badge */
-=======
 /* Badge moderno */
->>>>>>> origin/Dev
 .navbar-cartBadge {
   position: absolute;
   top: -6px;
@@ -230,10 +194,6 @@
 
   .navbar-logo img {
     height: 68px;
-<<<<<<< HEAD
-    /* jerarquía correcta en mobile */
-=======
->>>>>>> origin/Dev
   }
 
   .navbar-item a {
@@ -251,23 +211,68 @@
   .navbar-cartBtn {
     font-size: 20px;
   }
-<<<<<<< HEAD
-}
-=======
 }
 
 /* ========================================
    ANIMACIÓN CARRITO
    ======================================== */
 @keyframes cartBounce {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.25); }
-  50% { transform: scale(0.9); }
-  70% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.25);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .cart-bounce {
   animation: cartBounce 0.4s ease;
 }
->>>>>>> origin/Dev
+
+/* ========================================
+   USER INFO
+   ======================================== */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-username {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+.navbar-logoutBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  color: #d9534f;
+  /* Color rojizo para logout */
+  font-size: 1.3rem;
+  transition: all 0.2s ease;
+}
+
+.navbar-logoutBtn:hover {
+  transform: scale(1.1);
+  color: #c9302c;
+}
