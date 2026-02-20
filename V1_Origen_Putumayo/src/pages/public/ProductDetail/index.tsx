@@ -31,7 +31,7 @@ const ProductDetail: React.FC = () => {
         );
 
         setProduct(found || null);
- 
+
         if (found?.variant_group) {
           const related = products
             .filter(
@@ -113,7 +113,8 @@ const ProductDetail: React.FC = () => {
         price: price,
         image: imageSrc,
       },
-      quantity
+      quantity,
+      { notify: false } // 🔥 IMPORTANTE: no mostrar CartSuccess
     );
 
     openCart();
@@ -138,11 +139,8 @@ const ProductDetail: React.FC = () => {
             className="pd-main-image"
           />
 
-          {/* VARIANTES */}
           {variants.length > 1 && (
             <div className="pd-variants">
-              
-
               <div className="pd-variants-buttons">
                 {variants.map((v) => {
                   const variantId = String(
