@@ -10,20 +10,27 @@ import React, {
 } from "react";
 import type { CartItem } from "./types";
 
+interface AddToCartOptions {
+  notify?: boolean;
+}
+
 interface CartContextValue {
   items: CartItem[];
   isOpen: boolean;
   totalItems: number;
   subtotal: number;
 
-  // NUEVO: notificación
   lastAddedItem: CartItem | null;
   showSuccess: boolean;
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 
   openCart: () => void;
   closeCart: () => void;
-  addToCart: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
+  addToCart: (
+    item: Omit<CartItem, "quantity">,
+    quantity?: number,
+    options?: AddToCartOptions
+  ) => void;
   updateQuantity: (id: string, delta: number) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
@@ -68,7 +75,6 @@ function loadCartFromStorage(): CartItem[] {
       if (typeof id !== "string" || id.trim().length === 0) continue;
       if (typeof name !== "string" || name.trim().length === 0) continue;
       if (typeof price !== "number" || !Number.isFinite(price)) continue;
-
       if (typeof image !== "undefined" && typeof image !== "string") continue;
 
       sanitized.push({
@@ -103,7 +109,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // NUEVO: estados para notificación
   const [lastAddedItem, setLastAddedItem] =
     useState<CartItem | null>(null);
 
@@ -124,8 +129,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   ========================= */
   const addToCart = (
     item: Omit<CartItem, "quantity">,
-    quantity: number = 1
+    quantity: number = 1,
+    options?: AddToCartOptions
   ) => {
+    const notify = options?.notify ?? true;
+
     const safeQty =
       Number.isFinite(quantity) && quantity > 0
         ? Math.floor(quantity)
@@ -150,14 +158,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       return [...prev, newItem];
     });
 
-    // NUEVO: disparar notificación
-    setLastAddedItem(newItem);
-    setShowSuccess(true);
+    if (notify) {
+      setLastAddedItem(newItem);
+      setShowSuccess(true);
 
-    // auto cerrar notificación
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 4500);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 4500);
+    }
   };
 
   /* =========================

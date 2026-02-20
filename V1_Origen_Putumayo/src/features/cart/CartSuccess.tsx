@@ -32,13 +32,26 @@ const CartSuccess: React.FC = () => {
   if (!showSuccess || !lastAddedItem) return null;
 
   /* =========================
-     MOBILE VERSION (Toast)
+     MOBILE VERSION (Compact + Image)
   ========================= */
   if (!isDesktop) {
     return (
       <div className="cartSuccess-toast">
-        <FontAwesomeIcon icon={faCheckCircle} />
-        <span>Producto añadido a tu carrito</span>
+        <img
+          src={lastAddedItem.image}
+          alt={lastAddedItem.name}
+          className="cartSuccess-toastImage"
+        />
+
+        <div className="cartSuccess-toastContent">
+          <p className="cartSuccess-toastTitle">
+            {lastAddedItem.name}
+          </p>
+
+          <span className="cartSuccess-toastSub">
+            Añadido al carrito
+          </span>
+        </div>
       </div>
     );
   }
@@ -46,6 +59,7 @@ const CartSuccess: React.FC = () => {
   /* =========================
      DESKTOP VERSION (Panel)
   ========================= */
+
   const formattedPrice = lastAddedItem.price.toLocaleString(
     "es-CO",
     {

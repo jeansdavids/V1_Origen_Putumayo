@@ -22,6 +22,55 @@
 }
 
 /* =========================================
+   MOBILE – COMPACT IMAGE VERSION
+========================================= */
+
+.cartSuccess-toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  left: auto;
+  transform: none;
+  background: #e8f5ef;
+  border: 1px solid #cce6dc;
+  color: #065f46;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 3000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  animation: fadeSlideDown 0.2s ease;
+}
+
+.cartSuccess-toastImage {
+  width: 40px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cartSuccess-toastContent {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.cartSuccess-toastTitle {
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.cartSuccess-toastSub {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+
+/* =========================================
    DESKTOP PANEL (VERSIÓN COMPACTA)
 ========================================= */
 

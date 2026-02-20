@@ -46,12 +46,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   mode = "catalog",
 }) => {
   const navigate = useNavigate();
-  const { addToCart, openCart } = useCart();
+  const { addToCart } = useCart();
 
   const [openQty, setOpenQty] = useState<boolean>(false);
-  const [showToast, setShowToast] = useState<boolean>(false);
-
-  //  NUEVO ESTADO PARA ANIMACIÓN CHECK
   const [added, setAdded] = useState<boolean>(false);
 
   if (!product) return null;
@@ -110,7 +107,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     e.stopPropagation();
     if (isOutOfStock) return;
 
-    //  HOME → agregar directo + animación check
+    // HOME → agregar directo + animación check
     if (mode === "home") {
       addToCart(
         {
@@ -122,14 +119,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
         1
       );
 
-      //  Activar animación check
       setAdded(true);
-      setTimeout(() => setAdded(false), 3000);
+      setTimeout(() => setAdded(false), 2500);
 
       return;
     }
 
-    //  CATÁLOGO → abrir drawer
+    // CATÁLOGO → abrir drawer
     setOpenQty(true);
   };
 
@@ -143,11 +139,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
       },
       qty
     );
-
-    if (mode === "catalog") {
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 5000);
-    }
   };
 
   /* =========================================================
@@ -187,7 +178,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
               aria-disabled={isOutOfStock}
               aria-label="Agregar al carrito"
             >
-              {/* ICONO DINÁMICO */}
               <i
                 className={`bi ${
                   added ? "bi-check-lg" : "bi-cart-plus"
@@ -209,22 +199,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onConfirm={handleConfirmAdd}
           onClose={() => setOpenQty(false)}
         />
-      )}
-
-      {showToast && mode === "catalog" && (
-        <div className="cartToast">
-          <span className="cartToast__msg">¡Añadido!</span>
-
-          <button
-            className="cartToast__action"
-            onClick={() => {
-              setShowToast(false);
-              openCart();
-            }}
-          >
-            Ir al carrito →
-          </button>
-        </div>
       )}
     </>
   );
