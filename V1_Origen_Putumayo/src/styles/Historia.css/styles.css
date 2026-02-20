@@ -117,12 +117,8 @@
 
   padding: 60px 40px;
 
-  background: linear-gradient(
-    145deg,
-    #ffffff,
-    #f8f8f8
-  );
-
+  background: #c2c2c2;
+  color: #111111;
   border-radius: 28px;
 
   box-shadow:
@@ -140,8 +136,8 @@
 .card:hover {
   transform: translateY(-10px);
   box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.10),
-    0 8px 20px rgba(0, 0, 0, 0.06);
+    0 30px 60px lch(37.15% 51.63 143.06 / 0.1),
+    0 8px 20px rgba(37.15% 51.63 143.06 / 0.1);
 }
 
 /* Título misión / visión */
