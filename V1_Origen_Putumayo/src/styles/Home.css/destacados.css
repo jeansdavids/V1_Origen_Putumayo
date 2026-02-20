@@ -62,8 +62,22 @@
   overflow: hidden;
 }
 
+/* 🔥 padding solo para desktop */
 .Destacado-track {
-  padding: 0 60px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+
+  padding: 0 60px; /* desktop */
+}
+
+.Destacado-track::-webkit-scrollbar {
+  display: none;
 }
 
 /* halo visual detrás del carrusel */
@@ -79,26 +93,8 @@
   z-index: 0;
 }
 
-/* ventana visible */
-.Destacado-track {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-
-  /* 🔥 evita rebote extraño */
-  overscroll-behavior-x: contain;
-}
-
-.Destacado-track::-webkit-scrollbar {
-  display: none;
-}
-
 /* =====================================================
-   RIEL (CORREGIDO)
+   RIEL
 ===================================================== */
 
 .Destacado-rail {
@@ -118,7 +114,6 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* efecto interacción */
 .Destacado-rail:hover .Destacado-card {
   opacity: 0.6;
 }
@@ -213,8 +208,9 @@
     width: 280px;
   }
 
-  .Destacado-carousel {
-    padding: 0 20px;
+  /* 🔥 IMPORTANTE: quitar padding lateral en mobile */
+  .Destacado-track {
+    padding: 0;
   }
 
   .Destacado-arrow {
