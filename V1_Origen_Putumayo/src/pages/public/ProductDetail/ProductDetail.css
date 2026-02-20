@@ -1,0 +1,329 @@
+/* ==========================================
+   PRODUCT DETAIL — NIVEL 3 PREMIUM
+   ========================================== */
+
+/* CONTENEDOR PRINCIPAL */
+.pd-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  min-height: 70vh;
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+}
+
+/* CENTRADO */
+.pd-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding-top: 5rem;
+}
+
+/* ==========================================
+   BOTÓN VOLVER
+   ========================================== */
+.pd-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.15s ease;
+  margin-bottom: 2.5rem;
+}
+
+.pd-back-btn:hover {
+  color: #111827;
+  transform: translateX(-3px);
+}
+
+/* ==========================================
+   GRID
+   ========================================== */
+.pd-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+}
+
+@media (min-width: 900px) {
+  .pd-grid {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+/* ==========================================
+   IMAGEN
+   ========================================== */
+.pd-image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.pd-main-image {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 18px;
+  transition: transform 0.4s ease;
+}
+
+.pd-main-image:hover {
+  transform: scale(1.03);
+}
+
+/* ==========================================
+  VARIANTES (GRAMAJES)
+  Debajo de la imagen
+  ========================================== */
+
+.pd-variants {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.pd-variants-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.pd-variants-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pd-variant-btn {
+  padding: 11px 20px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 75px;
+  text-align: center;
+}
+
+.pd-variant-btn:hover {
+  border-color: #1c814b;
+  background: #f0f7f3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(28, 129, 75, 0.12);
+}
+
+.pd-variant-btn.active {
+  background: #1c814b;
+  border-color: #1c814b;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(28, 129, 75, 0.25);
+}
+
+.pd-variant-btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================
+   INFO
+   ========================================== */
+.pd-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.pd-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.pd-brand {
+  font-size: 0.95rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pd-brand span {
+  font-weight: 600;
+  color: #111827;
+}
+
+.pd-price {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #1c814b;
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================
+   DESCRIPCIÓN
+   ========================================== */
+.pd-description {
+  max-width: 540px;
+}
+
+.pd-description h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  margin-bottom: 0.8rem;
+}
+
+.pd-description p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #374151;
+  margin: 0;
+}
+
+.pd-meta {
+  font-size: 0.9rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================
+   ACCIONES
+   ========================================== */
+.pd-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pd-qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.pd-qty button {
+  background: transparent;
+  border: none;
+  padding: 12px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pd-qty button:hover {
+  background: #f0f0f0;
+}
+
+.pd-qty span {
+  padding: 0 22px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* BOTÓN PRINCIPAL */
+.pd-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border-radius: 999px;
+  border: none;
+  background: #1c814b;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.pd-btn-primary:hover {
+  background: #176a3d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pd-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.pd-btn-secondary {
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pd-btn-secondary:hover {
+  background: #f5f5f5;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+  .pd-title {
+    font-size: 2rem;
+  }
+
+  .pd-price {
+    font-size: 2rem;
+  }
+
+  .pd-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pd-btn-primary {
+    width: 100%;
+  }
+
+  .pd-qty {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .pd-variants {
+    max-width: 100%;
+  }
+
+  .pd-variants-buttons {
+    justify-content: center;
+  }
+}

@@ -107,94 +107,109 @@
 }
 
 /* ===================== IZQUIERDA FORM ===================== */
-
 .location-left {
   width: 50%;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start; /*  CLAVE */
-  padding: 6rem;
-  gap: 2rem; /* ordena título y form */
+  align-items: flex-start;
+  padding: 5rem 4.5rem;
+  gap: 2.5rem;
 }
 
+/* TITULO */
 .location-title {
   font-family: "Bebas Neue", sans-serif;
-  font-size: 40px;
-  color: #000000;
+  font-size: 48px;
+  color: #006839;
   font-weight: 400;
-  max-width: 400px;   /*  */
-  line-height: 1.1;  /* */
+  max-width: 420px;
+  line-height: 1.05;
+  letter-spacing: 1px;
 }
-
 
 /* FORMULARIO */
 .contact-form {
   width: 100%;
-  max-width: 600px; /* evita estiramiento raro */
+  max-width: 560px;
 }
 
-
+/* FILAS */
 .form-row {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 /* INPUTS */
 .form-input {
   width: 100%;
   padding: 1rem 1.2rem;
-  background-color: #d9d9d9;
-  border: none;
+  background-color: #f6f6f6;
+  border: 2px solid #e0e0e0;
   outline: none;
-  font-size: 16px;
+  font-size: 15px;
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 10px;
+  border-radius: 8px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-input::placeholder {
-  color: #555555;
+  color: #999;
+}
+
+.form-input:focus {
+  border-color: #7ad155;
+  box-shadow: 0 0 0 3px rgba(122, 209, 85, 0.1);
 }
 
 /* TEXTAREA */
 .form-textarea {
   width: 100%;
-  min-height: 180px;
+  min-height: 160px;
   padding: 1rem 1.2rem;
-  background-color: #d9d9d9;
-  border: none;
+  background-color: #f6f6f6;
+  border: 2px solid #e0e0e0;
   outline: none;
   resize: none;
-  font-size: 16px;
+  font-size: 15px;
   font-family: "Bebas Neue", sans-serif;
-  border-radius: 20px;
-  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.8rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-textarea::placeholder {
-  color: #555555;
+  color: #999;
+}
+
+.form-textarea:focus {
+  border-color: #7ad155;
+  box-shadow: 0 0 0 3px rgba(122, 209, 85, 0.1);
 }
 
 /* BOTÓN */
 .contact-btn {
   align-self: flex-start;
-  padding: 12px 32px;
-  background-color: #000000;
-  color: #ffffff;
+  padding: 14px 42px;
+  background-color: #006839;
+  color: #fff;
   border: none;
-  border-radius: 30px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   font-family: "Bebas Neue", sans-serif;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  letter-spacing: 1px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
 
 .contact-btn:hover {
-  opacity: 0.85;
-  transform: translateY(-2px);
+  opacity: 0.9;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 104, 57, 0.25);
 }
+
 
 /* ===================== DERECHA MAPA ===================== */
 
@@ -317,4 +332,7 @@
     height: 260px;
   }
 }
+
+
+
 

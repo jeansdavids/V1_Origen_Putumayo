@@ -3,9 +3,7 @@
    ======================================== */
 
 /* IMPORTAR FUENTE BEBAS NEUE */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
-/* CONTENEDOR PRINCIPAL */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');/* CONTENEDOR PRINCIPAL */
 .home {
   background: #ffffff; /* Fondo blanco */
   color: #111111; /* Color de texto oscuro */
@@ -16,17 +14,19 @@
    ======================================== */
 
 /* CONTENEDOR DEL HERO */
+
+
 .home-hero {
   position: relative;
-  width: 99vw;          /* 🔥 ocupa todo el ancho */
-  height: 100vh;         /* 🔥 alto de pantalla */
-  
-  
-  background-image: url("../../assets/images/Home_Origen_Putumayo .png"); /* imagen de fondo */
-  background-size: cover;     /* ahora sí */
-  background-position: center;
+  width: 100%;
+  height: 85vh;
+
+  background-size: cover;
+  background-position: center 30%;
   background-repeat: no-repeat;
+  
 }
+
 
 /* OVERLAY - Oscurece la imagen de fondo */
 .home-hero__overlay {
@@ -34,7 +34,7 @@
   inset: 0; /* Cubre todo el contenedor */
   background: rgba(0, 0, 0, 0.35); /* Color sólido negro con opacidad */
 }
-
+ 
 /* CONTENIDO DEL HERO */
 .home-hero__content {
   position: relative;
@@ -52,31 +52,29 @@
 
 /* TÍTULO PRINCIPAL DEL HÉROE */
 .home-hero__title {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(44px, 6.5vw, 72px); /* Responsive real */
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2.5px; /* Más equilibrado */
+  line-height: 1.1; /* Más impacto */
   margin: 0;
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
-  color: #ffffff; /* Color blanco */
-  font-weight: 100; /* Peso de fuente ligero */
-  text-transform: uppercase; /* Convierte a mayúsculas */
-  letter-spacing: 3.5px; /* Espaciado entreñ letras */
-  line-height: 1.2; /* Altura de línea compacta */
-  font-size: 65px; /* Tamaño grande */
-  text-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); /* Sombra del texto */
-  font-stretch: condensed; /* Fuente más condensada */
+  text-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); /* Más profundidad */
+  max-width: 900px; /* Controla la línea */
 }
 
 /* SUBTÍTULO DEL HÉROE */
 .home-hero__subtitle {
- font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
-  color: rgba(255, 255, 255, 0.92); /* Blanco con ligera transparencia */
-  margin: 0;
-  margin-top: 20px; /* Baja el subtítulo */
-  max-width: 460px; /* Ancho máximo del texto */
-  font-weight: 300; /* Peso fuerte */
-  text-transform: uppercase; /* En mayúsculas */
-  letter-spacing: 0.35px; /* Espaciado de letras */
-  font-size: 16px; /* Tamaño pequeño */
-  line-height: 1.55; /* Altura de línea generosa */
-  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); /* Sombra sutil */
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px; /* Más presencia */
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.3px; /* Más natural */
+  line-height: 1.8; /* Más aire */
+  margin: 25px 0 0 0;
+  max-width: 520px; /* Más cómodo de leer */
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 /* ========================================
@@ -85,24 +83,25 @@
 
 /* BOTÓN PRINCIPAL DEL HERO */
 .home-hero__btn {
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
+  font-family: 'Oswald', sans-serif;
   margin-top: 10px;
-  height: 45px; /* Altura fija */
-  padding: 0 18px; /* Espaciado horizontal */
-  border-radius: 10px; /* Esquinas redondeadas */
-  display: inline-flex; /* Alinea contenido */
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
-  text-decoration: none; /* Sin subrayado */
-  background: #1e5a37; /* Color verde sólido */
-  color: #ffffff; /* Texto blanco */
-  font-weight: 400; /* Peso fuerte */
-  text-transform: uppercase; /* En mayúsculas */
-  font-size: 20px; /* Tamaño pequeño */
-  letter-spacing: 0.35px; /* Espaciado de letras */
-  border: 1px solid rgba(0, 0, 0, 0.22); /* Borde oscuro */
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22); /* Sombra */
-  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease; /* Transiciones suaves */
+  height: 45px;
+  padding: 0 24px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: #1e5a37;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 200ms ease;
+  cursor: pointer;
 }
 
 /* ESTADO HOVER - Al pasar el mouse */
@@ -118,45 +117,111 @@
 }
 
 /* ========================================
-   RESPONSIVE - Adapta a diferentes pantallas
-   ======================================== */
+  TABLETS (768px y menores)
+  ======================================== */
+@media (max-width: 768px) {
 
-/* PANTALLAS MEDIANAS (hasta 820px) */
-@media (max-width: 820px) {
   .home-hero {
-    height: 420px; /* Altura media */
+    height: 70vh;
+    background-attachment: scroll;
+  }
+
+  .home-hero__content {
+    padding: 40px 20px;
+    gap: 25px;
   }
 
   .home-hero__title {
-    font-size: 48px; /* Reduce tamaño de título */
-    letter-spacing: 2px; /* Reduce espaciado */
+    font-size: clamp(34px, 6vw, 48px);
+    letter-spacing: 2px;
   }
 
   .home-hero__subtitle {
-    font-size: 18px; /* Tamaño para tablet */
-    margin-top: 15px; /* Espaciado */
-  }
-}
-
-/* PANTALLAS PEQUEÑAS (hasta 480px) */
-@media (max-width: 480px) {
-  .home-hero {
-    height: 300px; /* Altura pequeña */
-  }
-
-  .home-hero__title {
-    font-size: 28px; /* Reduce más el título */
-    letter-spacing: 1px; /* Reduce espaciado */
-  }
-
-  .home-hero__subtitle {
-    font-size: 14px; /* Reduce subtítulo */
-    margin-top: 10px; /* Reduce margen */
+    font-size: 16px; /* No lo hagas tan pequeño */
+    line-height: 1.7;
+    max-width: 90%;
   }
 
   .home-hero__btn {
-    height: 35px; /* Altura reducida */
-    padding: 0 14px; /* Padding menor */
-    font-size: 10px; /* Fuente más pequeña */
+    padding: 12px 26px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+}
+/* ========================================
+  CELULARES MEDIANOS (600px y menores)
+  ======================================== */
+@media (max-width: 480px) {
+
+  .home-hero {
+    height: 65vh;
+  }
+
+  .home-hero__overlay {
+    background: rgba(0, 0, 0, 0.5); /* Un poco más fuerte */
+  }
+
+  .home-hero__content {
+    padding: 30px 18px;
+    gap: 20px;
+  }
+
+  .home-hero__title {
+    font-size: clamp(26px, 8vw, 34px);
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+  }
+
+  .home-hero__subtitle {
+    font-size: 15px; /* Nunca menos de 14px para buena UX */
+    line-height: 1.6;
+  }
+
+  
+  .home-hero__btn {
+    padding: 11px 22px;
+    font-size: 13px;
+    border-radius: 7px;
+  }
+}
+/* ========================================
+  CELULARES PEQUEÑOS (480px y menores)
+  ======================================== */
+@media (max-width: 480px) {
+  .home-hero {
+   height: 55vh;
+   background-attachment: scroll;
+   background-position: center center;
+  }
+
+  .home-hero__overlay {
+   background: rgba(0, 0, 0, 0.45);
+  }
+
+  .home-hero__content {
+   padding: 25px 12px;
+   gap: 15px;
+   padding-top: 35px;
+  }
+
+  .home-hero__title {
+   font-size: 24px;
+   letter-spacing: 1px;
+   line-height: 1.15;
+   text-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .home-hero__subtitle {
+   font-size: 11px;
+   margin-top: 3px;
+   line-height: 1.3;
+   max-width: 100%;
+   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .home-hero__btn {
+   padding: 10px 18px;
+   font-size: 11px;
+   border-radius: 5px;
   }
 }
