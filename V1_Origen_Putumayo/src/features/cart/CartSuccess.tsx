@@ -14,6 +14,8 @@ const CartSuccess: React.FC = () => {
     setShowSuccess,
     totalItems,
     openCart,
+    pauseSuccessTimer,
+    resumeSuccessTimer,
   } = useCart();
 
   const [isDesktop, setIsDesktop] = useState(
@@ -32,7 +34,7 @@ const CartSuccess: React.FC = () => {
   if (!showSuccess || !lastAddedItem) return null;
 
   /* =========================
-     MOBILE VERSION (Compact + Image)
+     MOBILE VERSION
   ========================= */
   if (!isDesktop) {
     return (
@@ -57,7 +59,7 @@ const CartSuccess: React.FC = () => {
   }
 
   /* =========================
-     DESKTOP VERSION (Panel)
+     DESKTOP VERSION
   ========================= */
 
   const formattedPrice = lastAddedItem.price.toLocaleString(
@@ -70,7 +72,11 @@ const CartSuccess: React.FC = () => {
   );
 
   return (
-    <div className="cartSuccess-panel">
+    <div
+      className="cartSuccess-panel"
+      onMouseEnter={pauseSuccessTimer}
+      onMouseLeave={resumeSuccessTimer}
+    >
       <button
         className="cartSuccess-close"
         onClick={() => setShowSuccess(false)}
@@ -100,13 +106,6 @@ const CartSuccess: React.FC = () => {
           </p>
         </div>
       </div>
-
-      <button
-        className="cartSuccess-primary"
-        onClick={openCart}
-      >
-        Realizar pedido
-      </button>
 
       <button
         className="cartSuccess-secondary"

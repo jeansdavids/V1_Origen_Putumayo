@@ -6,6 +6,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import type { CartItem } from "./types";
@@ -24,6 +25,9 @@ interface CartContextValue {
   showSuccess: boolean;
   setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 
+  pauseSuccessTimer: () => void;
+  resumeSuccessTimer: () => void;
+
   openCart: () => void;
   closeCart: () => void;
   addToCart: (
@@ -38,10 +42,11 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-/* =========================
-   LOCAL STORAGE
-========================= */
 const CART_STORAGE_KEY = "origen_cart_v1";
+
+/* =========================
+   HELPERS
+========================= */
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -72,22 +77,22 @@ function loadCartFromStorage(): CartItem[] {
       const image = item["image"];
       const quantity = item["quantity"];
 
-      if (typeof id !== "string" || id.trim().length === 0) continue;
-      if (typeof name !== "string" || name.trim().length === 0) continue;
-      if (typeof price !== "number" || !Number.isFinite(price)) continue;
-      if (typeof image !== "undefined" && typeof image !== "string") continue;
+      if (typeof id !== "string") continue;
+      if (typeof name !== "string") continue;
+      if (typeof price !== "number") continue;
 
       sanitized.push({
         id,
         name,
         price,
-        image,
+        image: typeof image === "string" ? image : "",
         quantity: clampQuantity(quantity),
       });
     }
 
     return sanitized;
-  } catch {
+  } catch (error) {
+    console.warn("Error loading cart from storage:", error);
     return [];
   }
 }
@@ -95,10 +100,14 @@ function loadCartFromStorage(): CartItem[] {
 function saveCartToStorage(items: CartItem[]) {
   try {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  } catch {
-    // no romper la app si falla
+  } catch (error) {
+    console.warn("Error saving cart to storage:", error);
   }
 }
+
+/* =========================
+   PROVIDER
+========================= */
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -108,25 +117,74 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   const [isOpen, setIsOpen] = useState(false);
-
   const [lastAddedItem, setLastAddedItem] =
     useState<CartItem | null>(null);
-
   const [showSuccess, setShowSuccess] = useState(false);
+
+  /* =========================
+     TIMER PROFESIONAL
+  ========================= */
+
+  const timeoutRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const remainingTimeRef = useRef<number>(4500);
+
+  const clearTimer = () => {
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  const startTimer = () => {
+    clearTimer();
+    startTimeRef.current = Date.now();
+
+    timeoutRef.current = window.setTimeout(() => {
+      setShowSuccess(false);
+    }, remainingTimeRef.current);
+  };
+
+  const pauseSuccessTimer = () => {
+    if (timeoutRef.current === null) return;
+
+    const elapsed = Date.now() - startTimeRef.current;
+    remainingTimeRef.current = Math.max(
+      0,
+      remainingTimeRef.current - elapsed
+    );
+
+    clearTimer();
+  };
+
+  const resumeSuccessTimer = () => {
+    if (remainingTimeRef.current <= 0) {
+      setShowSuccess(false);
+      return;
+    }
+
+    startTimer();
+  };
+
+  /* =========================
+     EFFECTS
+  ========================= */
 
   useEffect(() => {
     saveCartToStorage(items);
   }, [items]);
 
   /* =========================
-     UI STATE
+     UI ACTIONS
   ========================= */
+
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
   /* =========================
-     ADD TO CART
+     CART ACTIONS
   ========================= */
+
   const addToCart = (
     item: Omit<CartItem, "quantity">,
     quantity: number = 1,
@@ -162,37 +220,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       setLastAddedItem(newItem);
       setShowSuccess(true);
 
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 4500);
+      remainingTimeRef.current = 4500;
+      startTimer();
     }
   };
 
-  /* =========================
-     UPDATE QUANTITY
-  ========================= */
   const updateQuantity = (id: string, delta: number) => {
-    const safeDelta = Number.isFinite(delta) ? Math.trunc(delta) : 0;
-
     setItems((prev) =>
-      prev.map((item) => {
-        if (item.id !== id) return item;
-
-        const nextQty = item.quantity + safeDelta;
-
-        if (nextQty < 1) return item;
-
-        return {
-          ...item,
-          quantity: nextQty,
-        };
-      })
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
+      )
     );
   };
 
-  /* =========================
-     REMOVE / CLEAR
-  ========================= */
   const removeFromCart = (id: string) => {
     setItems((prev) => prev.filter((i) => i.id !== id));
   };
@@ -202,6 +244,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   /* =========================
      DERIVED VALUES
   ========================= */
+
   const totalItems = useMemo(
     () => items.reduce((sum, i) => sum + i.quantity, 0),
     [items]
@@ -221,6 +264,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     lastAddedItem,
     showSuccess,
     setShowSuccess,
+
+    pauseSuccessTimer,
+    resumeSuccessTimer,
 
     openCart,
     closeCart,
