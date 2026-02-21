@@ -9,13 +9,35 @@
    SECCIÓN HISTORIA
    ======================================== */
 
-/* CONTENEDOR PRINCIPAL */
 .hIStoria {
-  background: #ffffff; /* Fondo blanco */
-  padding: 80px 20px; /* Espaciado vertical y horizontal */
+  position: relative;
+  background-color: #ffffff;
+  padding: 140px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+/* 🔥 Cuadro contenedor */
+.hIStoria::after {
+  content: "";
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 490px;
+  height: 450px;
+
+  background: #f8f9fa; /* marco claro elegante */
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+
+  background-image: url("../../assets/images/Historia_home.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* CONTENEDOR INTERIOR */
