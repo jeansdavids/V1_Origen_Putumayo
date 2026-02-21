@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   }, [items]);
 
   /* =========================
-     TOTAL GENERAL
+     TOTAL GENERAL (solo para WhatsApp)
   ========================= */
   const totalAmount = useMemo(() => {
     return checkoutItems.reduce(
@@ -63,44 +63,40 @@ export default function CheckoutPage() {
   }
 
   /* =========================
-     GUARDAR PEDIDO
-  ========================= */
-  const handleOrderSuccess = async (customer: CustomerSnapshot) => {
-    try {
-      setLoading(true);
+   GUARDAR PEDIDO (VERSIÓN SEGURA)
+========================= */
+const handleOrderSuccess = async (customer: CustomerSnapshot) => {
+  try {
+    setLoading(true);
 
-      const { error } = await supabase
-        .from("order_request")
-        .insert({
-          customer,
-          items_json: checkoutItems,
-          total_amount: totalAmount,
-          internal_notes: null,
-        });
+    const { error } = await supabase.rpc("create_order_request", {
+      p_customer: customer,
+      p_items_json: checkoutItems,
+      p_honeypot: "", // obligatorio
+    });
 
-      if (error) {
-        console.error("Error guardando pedido:", error);
-        alert("Ocurrió un error al guardar el pedido. Intente nuevamente.");
-        return;
-      }
-
-      const msg = buildWhatsAppMessage({
-        customer,
-        items: checkoutItems,
-        totalAmount,
-      });
-
-      // LimpiA el carrito inmediatamente después de guardar
-      clearCart();
-
-      setMessage(msg);
-    } catch (err) {
-      console.error("Error inesperado:", err);
-      alert("Error inesperado al procesar el pedido.");
-    } finally {
-      setLoading(false);
+    if (error) {
+      console.error("Error guardando pedido:", error);
+      alert("Ocurrió un error al guardar el pedido. Intente nuevamente.");
+      return;
     }
-  };
+
+    const msg = buildWhatsAppMessage({
+      customer,
+      items: checkoutItems,
+      totalAmount,
+    });
+
+    clearCart();
+    setMessage(msg);
+
+  } catch (err) {
+    console.error("Error inesperado:", err);
+    alert("Error inesperado al procesar el pedido.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <section>
