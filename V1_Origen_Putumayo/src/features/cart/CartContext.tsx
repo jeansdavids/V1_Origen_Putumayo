@@ -142,6 +142,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     timeoutRef.current = window.setTimeout(() => {
       setShowSuccess(false);
+      remainingTimeRef.current = 4500;
     }, remainingTimeRef.current);
   };
 
@@ -178,7 +179,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
      UI ACTIONS
   ========================= */
 
-  const openCart = () => setIsOpen(true);
+  const openCart = () => {
+    setIsOpen(true);
+
+    // 🔥 Si el toast está visible, lo cerramos
+    if (showSuccess) {
+      setShowSuccess(false);
+      clearTimer();
+      remainingTimeRef.current = 4500;
+    }
+  };
+
   const closeCart = () => setIsOpen(false);
 
   /* =========================
@@ -216,7 +227,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
       return [...prev, newItem];
     });
 
-    if (notify) {
+    /* =========================
+       🔥 NUEVA LÓGICA UX
+       No mostrar toast si el carrito está abierto
+    ========================= */
+
+    if (notify && !isOpen) {
       setLastAddedItem(newItem);
       setShowSuccess(true);
 
