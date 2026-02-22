@@ -8,12 +8,14 @@
   max-width: 2000px;
   margin: 0 auto;
   padding: 100px 0;
-  background: #f6f4ef;
+  background: #ffffff;
 
   display: grid;
   grid-template-columns: 380px 1fr;
   gap: 40px;
   align-items: center;
+
+  border-top: 6px solid #f6f4ef;
 }
 
 /* =====================================================
@@ -24,6 +26,17 @@
   padding-left: 80px;
 }
 
+.Destacado-label {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: #1e5a37;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
 .Destacado-title {
   font-family: 'Oswald', sans-serif;
   font-size: 65px;
@@ -31,7 +44,7 @@
   color: #060606;
   margin: 0 0 24px;
   letter-spacing: 2px;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .Destacado-title span {
@@ -47,7 +60,7 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
-  color: #333333;
+  color: #555555;
   margin-bottom: 32px;
   letter-spacing: 0.5px;
 }
@@ -62,7 +75,7 @@
   overflow: hidden;
 }
 
-/* 🔥 padding solo para desktop */
+/* padding solo para desktop */
 .Destacado-track {
   position: relative;
   z-index: 1;
@@ -73,24 +86,16 @@
   scrollbar-width: none;
   overscroll-behavior-x: contain;
 
-  padding: 0 60px; /* desktop */
+  padding: 20px 60px 30px; /* desktop — vertical para sombras */
 }
 
 .Destacado-track::-webkit-scrollbar {
   display: none;
 }
 
-/* halo visual detrás del carrusel */
+/* quitar halo — el fondo blanco ya da limpieza */
 .Destacado-carousel::before {
-  content: "";
-  position: absolute;
-  inset: -40px -80px;
-  background: radial-gradient(
-    circle at center,
-    rgba(30, 90, 55, 0.08),
-    transparent 70%
-  );
-  z-index: 0;
+  display: none;
 }
 
 /* =====================================================
@@ -111,16 +116,20 @@
 .Destacado-card {
   flex: 0 0 auto;
   width: 400px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
 
+/* al hacer hover en el rail, las demás se atenúan ligeramente */
 .Destacado-rail:hover .Destacado-card {
-  opacity: 0.6;
+  opacity: 0.75;
+  transform: scale(0.98);
 }
 
+/* la tarjeta activa sube y toma sombra prominente */
 .Destacado-card:hover {
   opacity: 1 !important;
-  transform: translateY(-6px);
+  transform: translateY(-8px) scale(1.01) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
 }
 
 /* =====================================================
@@ -131,13 +140,13 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
   border: none;
   background: #1e5a37;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   z-index: 10;
 
@@ -145,24 +154,26 @@
   align-items: center;
   justify-content: center;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(30, 90, 55, 0.25);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .Destacado-arrow:hover {
-  transform: translateY(-50%) scale(1.08);
+  background: #164a2c;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 24px rgba(30, 90, 55, 0.4);
 }
 
 .Destacado-arrow--left {
-  left: 20px;
+  left: 16px;
 }
 
 .Destacado-arrow--right {
-  right: 20px;
+  right: 16px;
 }
 
 .Destacado-arrow:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
@@ -194,6 +205,7 @@
   .Destacado {
     margin: 0;
     padding: 60px 0;
+    border-top: none;
   }
 
   .Destacado-container {
@@ -208,9 +220,9 @@
     width: 280px;
   }
 
-  /* 🔥 IMPORTANTE: quitar padding lateral en mobile */
+  /* IMPORTANTE: quitar padding lateral en mobile */
   .Destacado-track {
-    padding: 0;
+    padding: 16px 0 24px;
   }
 
   .Destacado-arrow {
@@ -219,10 +231,12 @@
 
   .Destacado-rail:hover .Destacado-card {
     opacity: 1;
+    transform: none;
   }
 
   .Destacado-card:hover {
     opacity: 1 !important;
-    transform: none;
+    transform: none !important;
+    box-shadow: none;
   }
 }
