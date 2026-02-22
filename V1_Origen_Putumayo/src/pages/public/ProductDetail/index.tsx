@@ -7,10 +7,11 @@ import { useCart } from "../../../features/cart/CartContext";
 import type { Product } from "../../../features/products/components/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icons } from "../../../lib/icons";
+import { generateSlug } from "../../../utils/format";
 import "../../../pages/public/ProductDetail/ProductDetail.css";
 
 const ProductDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
   const { addToCart, openCart } = useCart();
@@ -26,9 +27,10 @@ const ProductDetail: React.FC = () => {
         const data: Product[] = await getPublicProducts();
         const products = Array.isArray(data) ? data : [];
 
-        const found = products.find((p: Product) =>
-          String(p.product_id || p.productId || p.id) === id
-        );
+        const found = products.find((p: Product) => {
+          const productId = String(p.product_id || p.productId || p.id);
+          return generateSlug(p.name ?? "producto", productId) === slug;
+        });
 
         setProduct(found || null);
 
@@ -55,12 +57,12 @@ const ProductDetail: React.FC = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [slug]);
 
-  // FIX: Resetear cantidad cuando cambia el producto
+  // Resetear cantidad cuando cambia el producto
   useEffect(() => {
     setQuantity(1);
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -151,6 +153,7 @@ const ProductDetail: React.FC = () => {
                   const variantId = String(
                     v.product_id || v.productId || v.id
                   );
+                  const variantSlug = generateSlug(v.name ?? "producto", variantId);
 
                   const isActive = variantId === currentId;
 
@@ -161,7 +164,7 @@ const ProductDetail: React.FC = () => {
                         isActive ? "active" : ""
                       }`}
                       onClick={() =>
-                        navigate(`/products/${variantId}`)
+                        navigate(`/products/${variantSlug}`)
                       }
                     >
                       {v.weight_value}

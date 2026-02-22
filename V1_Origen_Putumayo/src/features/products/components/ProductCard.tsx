@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../features/cart/CartContext";
+import { generateSlug } from "../../../utils/format";
 import "../../../styles/Products.css/ProductCard.css";
 import AddToCartDrawer from "../../cart/AddToCartDrawer";
 
@@ -100,7 +101,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   ========================================================= */
 
   const handleNavigate = () => {
-    if (id) navigate(`${linkBase}/${id}`);
+    if (id) {
+      const slug = generateSlug(product.name ?? "producto", id);
+      navigate(`${linkBase}/${slug}`);
+    }
   };
 
   const handleOpenQty = (e: React.MouseEvent<HTMLButtonElement>) => {
