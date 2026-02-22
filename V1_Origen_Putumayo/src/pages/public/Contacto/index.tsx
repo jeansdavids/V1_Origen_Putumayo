@@ -82,10 +82,10 @@ Horario de respuesta: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
           <div className="info-item">
             <i className="bi bi-geo-alt"></i>
             <div>
-              <h3>Many Locations</h3>
+              <h3>Localización Principal</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque vel lacus nec justo placerat.
+                Estamos ubicados en Carrera 97 bis #58-50, Cali – Valle del Cauca, en el barrio Nacar B.
+                Te esperamos para brindarte la mejor atención.
               </p>
             </div>
           </div>
@@ -161,7 +161,7 @@ ${message}
           <div className="map-container">
             <iframe
               title="Google Maps"
-              src="https://www.google.com/maps?q=Medellín,+Colombia&output=embed"
+              src="https://www.google.com/maps?q=3.371489,-76.507543&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
