@@ -77,7 +77,17 @@ const handleOrderSuccess = async (customer: CustomerSnapshot) => {
 
     if (error) {
       console.error("Error guardando pedido:", error);
-      alert("Ocurrió un error al guardar el pedido. Intente nuevamente.");
+
+      const msg = error.message ?? "";
+
+      if (msg.includes("limit per document")) {
+        alert("Has realizado demasiados pedidos en poco tiempo. Por favor espera unos minutos e intenta nuevamente.");
+      } else if (msg.includes("IP limit")) {
+        alert("Se ha detectado demasiada actividad desde tu conexión. Por favor espera unos minutos e intenta nuevamente.");
+      } else {
+        alert("Ocurrió un error al guardar el pedido. Intenta nuevamente.");
+      }
+
       return;
     }
 
