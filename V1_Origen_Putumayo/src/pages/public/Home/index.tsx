@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import heroImage from "../../../assets/images/ImgHome/Home_Principal.webp";
+import historiaImg from "../../../assets/images/Historia_home.png";
 
 
 /* ESTILOS */
@@ -231,6 +232,12 @@ const Home: React.FC = () => {
             Conoce nuestra historia
           </Link>
         </div>
+
+        <img
+          className="hIStoria-img"
+          src={historiaImg}
+          alt="Historia Putumayo"
+        />
       </section>
 
       {/* ================= CONTACTO ================= */}
