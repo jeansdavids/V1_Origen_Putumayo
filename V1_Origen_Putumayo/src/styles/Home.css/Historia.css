@@ -10,52 +10,44 @@
    ======================================== */
 
 .hIStoria {
-  position: relative;
-  background-color: #ffffff;
-  padding: 140px 20px;
+  background-color: #f6f4ef;
+  padding: 140px 60px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  gap: 60px;
 }
 
-/* 🔥 Cuadro contenedor */
-.hIStoria::after {
-  content: "";
-  position: absolute;
-  right: 80px;
-  top: 50%;
-  transform: translateY(-50%);
-  
-  width: 490px;
-  height: 450px;
-
-  background: #f8f9fa; /* marco claro elegante */
+/* IMAGEN REAL */
+.hIStoria-img {
+  width: 530px;
+  height: 480px;
+  object-fit: cover;
+  object-position: center;
   border-radius: 18px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
-
-  background-image: url("../../assets/images/Historia_home.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.10);
+  flex-shrink: 0;
 }
 
 /* CONTENEDOR INTERIOR */
 .hIStoria-container {
-  max-width: 1080px; /* Ancho máximo */
-  width: 100%; /* Ancho completo */
-  text-align: left; /* Alinea contenido a la izquierda */
+  max-width: 520px;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
 }
 
 /* TÍTULO HISTORIA */
 .hIStoria-title {
   font-family: 'Oswald', sans-serif;
-  font-size: clamp(42px, 6vw, 65px); /* Responsive */
+  font-size: clamp(42px, 6vw, 65px);
   font-weight: 700;
   color: #000000;
   text-transform: uppercase;
-  letter-spacing: 2.5px; /* Más equilibrado */
-  line-height: 1.15; /* Más compacto y potente */
+  letter-spacing: 2.5px;
+  line-height: 1.15;
   margin: 0 0 15px 0;
   text-rendering: optimizeLegibility;
 }
@@ -65,26 +57,26 @@
   display: block;
   color: #1e5a37;
   font-size: clamp(42px, 6vw, 65px);
-  font-weight: 600; /* Más coherente que 400 */
+  font-weight: 600;
   letter-spacing: 3px;
-  text-transform: uppercase; /* Mantiene coherencia con Oswald */
+  text-transform: uppercase;
 }
 
 /* TEXTO DESCRIPTIVO */
 .hIStoria-text {
   font-family: 'Poppins', sans-serif;
-  font-size: 17px; /* Mejor lectura */
+  font-size: 17px;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.85); /* Más natural */
-  letter-spacing: 0.3px; /* Más fino */
-  line-height: 1.8; /* Más aire */
-  margin: 25px 0 0 0; /* Más equilibrado que 50px */
-  max-width: 520px; /* Un poco más ancho = más cómodo */
+  color: rgba(0, 0, 0, 0.85);
+  letter-spacing: 0.3px;
+  line-height: 1.8;
+  margin: 25px 0 0 0;
+  max-width: 520px;
 }
 
 /* BOTÓN HISTORIA */
 .hIStoria-btn {
- font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', sans-serif;
   margin-top: 40px;
   height: 45px;
   padding: 0 24px;
@@ -105,77 +97,120 @@
   cursor: pointer;
 }
 
-/* ESTADO HOVER - Al pasar el mouse */
+/* ESTADO HOVER */
 .hIStoria-btn:hover {
-  transform: translateY(-1px); /* Sube 1px */
-  background: #16492c; /* Verde más oscuro */
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.26); /* Sombra más marcada */
+  transform: translateY(-1px);
+  background: #16492c;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.26);
 }
 
-/* ESTADO ACTIVO - Al hacer click */
+/* ESTADO ACTIVO */
 .hIStoria-btn:active {
-  transform: translateY(0); /* Vuelve a su posición */
+  transform: translateY(0);
 }
 
 /* ========================================
-   RESPONSIVE - Adapta a diferentes pantallas
+   RESPONSIVE
    ======================================== */
 
 /* PANTALLAS MEDIANAS (hasta 820px) */
 @media (max-width: 820px) {
   .hIStoria {
-    padding: 60px 20px; /* Reduce espaciado */
+    padding: 60px 25px;
+    gap: 25px;
+  }
+
+  .hIStoria-img {
+    width: 240px;
+    height: 220px;
+    border-radius: 14px;
   }
 
   .hIStoria-title {
-    font-size: 40px; /* Reduce tamaño del título */
-    margin-bottom: 15px;
+    font-size: 28px;
+    margin-bottom: 10px;
   }
 
   .hIStoria-title span {
-    font-size: 48px; /* Reduce tamaño del span */
+    font-size: 28px;
     letter-spacing: 1px;
   }
 
   .hIStoria-text {
-    font-size: 15px; /* Reduce tamaño texto */
-    margin-bottom: 25px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    max-width: 100%;
   }
 
   .hIStoria-btn {
-    height: 44px; /* Altura reducida */
-    padding: 0 28px; /* Padding menor */
-    font-size: 14px; /* Fuente más pequeña */
+    height: 38px;
+    padding: 0 18px;
+    font-size: 12px;
+    margin-top: 20px;
   }
 }
 
-/* PANTALLAS PEQUEÑAS (hasta 480px) */
-@media (max-width: 480px) {
+/* PANTALLAS PEQUEÑAS (hasta 600px) */
+@media (max-width: 600px) {
   .hIStoria {
-    padding: 40px 15px; /* Reduce espaciado más */
+    padding: 40px 15px;
+    gap: 15px;
+  }
+
+  .hIStoria-img {
+    width: 160px;
+    height: 150px;
+    border-radius: 12px;
   }
 
   .hIStoria-title {
-    font-size: 28px; /* Reduce más el título */
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 8px;
     letter-spacing: 0.5px;
   }
 
   .hIStoria-title span {
-    font-size: 34px; /* Reduce el span */
-    letter-spacing: 1px;
+    font-size: 20px;
+    letter-spacing: 0.5px;
   }
 
   .hIStoria-text {
-    font-size: 13px; /* Reduce texto */
-    line-height: 1.6;
-    margin-bottom: 20px;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    max-width: 100%;
   }
 
   .hIStoria-btn {
-    height: 40px; /* Altura más pequeña */
-    padding: 0 24px; /* Padding menor */
-    font-size: 12px; /* Fuente muy pequeña */
-    letter-spacing: 0.8px;
+    height: 34px;
+    padding: 0 14px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    margin-top: 12px;
+  }
+}
+
+/* PANTALLAS MUY PEQUEÑAS (hasta 380px) */
+@media (max-width: 380px) {
+  .hIStoria {
+    gap: 10px;
+    padding: 35px 12px;
+  }
+
+  .hIStoria-img {
+    width: 130px;
+    height: 120px;
+  }
+
+  .hIStoria-title {
+    font-size: 17px;
+  }
+
+  .hIStoria-title span {
+    font-size: 17px;
+  }
+
+  .hIStoria-text {
+    font-size: 10px;
   }
 }
