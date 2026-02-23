@@ -23,6 +23,8 @@ interface Product extends ProductCardType {
   weight_value?: number | null;
 }
 
+const CATEGORY_ORDER = ["Todos", "Vinos", "Snacks", "Dulces", "Chontaduro", "Chocolate"];
+
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState<string>("");
@@ -74,7 +76,11 @@ const Products: React.FC = () => {
       if (c) set.add(c);
     });
 
-    return ["Todos", ...Array.from(set).sort((a, b) => a.localeCompare(b))];
+    const available = Array.from(set);
+    const ordered = CATEGORY_ORDER.filter((cat) => cat === "Todos" || available.includes(cat));
+    const rest = available.filter((cat) => !CATEGORY_ORDER.includes(cat)).sort((a, b) => a.localeCompare(b));
+
+    return [...ordered, ...rest];
   }, [products]);
 
   const groupedProducts = useMemo<Product[]>(() => {
