@@ -64,9 +64,13 @@ const Products: React.FC = () => {
     };
   }, []);
 
+  // TEMPORAL: Se transforma la URL para usar el endpoint de optimización de Supabase Storage.
+  // Esto es un parche mientras se refactoriza el modelo de datos para guardar solo
+  // la ruta relativa en BD y construir la URL completa desde el código.
   const getImg = (p: ProductCardType): string => {
     if (!p.images || p.images.length === 0) return "/home/placeholder.png";
-    return p.images[0];
+    const url = p.images[0];
+    return url.replace("/object/public/", "/render/image/public/") + "?quality=75"; // PARCHE: solo compresión, sin resize para evitar recorte. Pendiente migrar a solución definitiva (guardar ruta relativa en BD y construir URL con parámetros controlados desde el código).
   };
 
   const categories = useMemo<string[]>(() => {
