@@ -20,20 +20,58 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [isAdmin, setIsAdmin] = useState(false);
 
     const checkAdminStatus = async (userId: string) => {
-        try {
-            const { data, error } = await supabase
-                .from('admin_users')
-                .select('user_id')
-                .eq('user_id', userId)
-                .single();
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-            if (error && error.code !== 'PGRST116') {
-                console.error('Error checking admin status:', error);
+        if (!supabaseUrl || !supabaseKey) {
+            console.error('Missing Supabase configuration');
+            setIsAdmin(false);
+            return;
+        }
+
+        try {
+            console.log('Checking admin status (failsafe fetch)...');
+
+            // 1. Setup timeout
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+            // 2. Direct REST API call
+            const response = await fetch(
+                `${supabaseUrl}/rest/v1/admin_users?user_id=eq.${userId}&select=user_id`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'apikey': supabaseKey,
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    signal: controller.signal
+                }
+            );
+
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                console.error('Failsafe admin check failed:', response.status);
+                // Fallback to library if fetch failed (though unlikely if fetch is working)
+                const { data } = await supabase
+                    .from('admin_users')
+                    .select('user_id')
+                    .eq('user_id', userId)
+                    .single();
+                setIsAdmin(!!data);
+                return;
             }
 
-            setIsAdmin(!!data);
-        } catch (error) {
-            console.error('Error in checkAdminStatus:', error);
+            const data = await response.json();
+            console.log('Admin status response:', data);
+            setIsAdmin(data && data.length > 0);
+
+        } catch (error: any) {
+            console.error('Error in failsafe checkAdminStatus:', error);
+            // If it's a timeout OR network error, we don't want to hang forever
             setIsAdmin(false);
         }
     };
@@ -86,20 +124,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const signOut = async () => {
-        try {
-            console.log('Signing out...');
-            const { error } = await supabase.auth.signOut();
-            if (error) throw error;
+        console.log('Signing out (failsafe)...');
 
-            // Explicitly clear state
-            setUser(null);
-            setSession(null);
-            setIsAdmin(false);
-            console.log('Sign out successful');
+        // 1. Clear local state immediately
+        setUser(null);
+        setSession(null);
+        setIsAdmin(false);
+
+        // 2. Clear Supabase local storage keys manually (failsafe)
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('sb-')) localStorage.removeItem(key);
+        });
+
+        // 3. Try server sign out (don't let it block URL redirect)
+        try {
+            await supabase.auth.signOut();
         } catch (error) {
-            console.error('Error signing out:', error);
-            throw error;
+            console.error('Server sign out failed (ignoring):', error);
         }
+
+        // 4. Force hard redirect
+        window.location.href = '/';
     };
 
     return (
