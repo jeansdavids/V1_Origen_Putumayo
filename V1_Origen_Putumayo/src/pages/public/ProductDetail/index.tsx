@@ -87,10 +87,16 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  const imageSrc =
+  // TEMPORAL: Se transforma la URL para usar el endpoint de optimización de Supabase Storage.
+  // Esto es un parche mientras se refactoriza el modelo de datos para guardar solo
+  // la ruta relativa en BD y construir la URL completa desde el código.
+  const rawImageUrl =
     product.images && product.images.length > 0
       ? product.images[0]
-      : "/home/placeholder.png";
+      : null;
+  const imageSrc = rawImageUrl
+    ? rawImageUrl.replace("/object/public/", "/render/image/public/") + "?quality=75" // PARCHE: solo compresión, sin resize para evitar recorte. Pendiente migrar a solución definitiva (guardar ruta relativa en BD y construir URL con parámetros controlados desde el código).
+    : "/home/placeholder.png";
 
   const rawPrice =
     product.price ??
