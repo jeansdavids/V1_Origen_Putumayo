@@ -56,7 +56,7 @@ const CartDrawer: React.FC = () => {
                   className="cart-itemClickable"
                   onClick={() => {
                     closeCart();
-                    navigate(`/products/${item.id}`);
+                    navigate(`/productos/${item.id}`);
                   }}
                 >
                   {item.image && (

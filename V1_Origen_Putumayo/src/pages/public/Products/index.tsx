@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 /* ESTILOS */
 import "../../../styles/Products.css/styles.css";
@@ -143,6 +144,11 @@ const Products: React.FC = () => {
 
   return (
     <main className="products">
+      <Helmet>
+        <title>Catálogo de Productos | Origen Putumayo</title>
+        <meta name="description" content="Explora nuestro catálogo de productos amazónicos naturales: Sacha Inchi, chocolates de Copoazú, vinos artesanales de Asaí y Coca, Chontaduro, galletas de Chilacuán y más." />
+        <link rel="canonical" href="https://www.origenputumayo.com/productos" />
+      </Helmet>
       <section className="products-hero" aria-label="Productos">
         <h1 className="products-title">ENCUENTRA LO QUE NECESITES</h1>
 
@@ -249,7 +255,7 @@ const Products: React.FC = () => {
                   <ProductCard
                     product={product}
                     getImg={getImg}
-                    linkBase="/products"
+                    linkBase="/productos"
                   />
                 </div>
               ))}
