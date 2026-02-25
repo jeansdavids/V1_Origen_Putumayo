@@ -99,7 +99,7 @@ const Home: React.FC = () => {
   return (
     <main className="home">
       <Helmet>
-        <title>Origen Putumayo | Productos Amazónicos Naturales de Colombia</title>
+        <title>Origen Putumayo</title>
         <meta name="description" content="Descubre productos amazónicos 100% naturales del Putumayo, Colombia: Sacha Inchi, Copoazú, vinos artesanales, Chontaduro y más. Directo de los productores locales." />
         <link rel="canonical" href="https://www.origenputumayo.com/" />
       </Helmet>
