@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import heroImage from "../../../assets/images/ImgHome/Home_Principal.webp";
 import historiaImg from "../../../assets/images/Historia_home.png";
 
@@ -97,6 +98,11 @@ const Home: React.FC = () => {
   ========================================================= */
   return (
     <main className="home">
+      <Helmet>
+        <title>Origen Putumayo | Productos Amazónicos Naturales de Colombia</title>
+        <meta name="description" content="Descubre productos amazónicos 100% naturales del Putumayo, Colombia: Sacha Inchi, Copoazú, vinos artesanales, Chontaduro y más. Directo de los productores locales." />
+        <link rel="canonical" href="https://www.origenputumayo.com/" />
+      </Helmet>
       {/* ================= HERO ================= */}
      <section
   className="home-hero"
@@ -117,7 +123,7 @@ const Home: React.FC = () => {
         CULTURAL Y HUMANA DE NUESTROS TERRITORIOS
           </p>
 
-          <Link className="home-hero__btn" to="/products">
+          <Link className="home-hero__btn" to="/productos">
         COMPRA AQUÍ
           </Link>
         </div>
@@ -168,7 +174,7 @@ const Home: React.FC = () => {
                   <ProductCard
                     product={product}
                     getImg={getImg}
-                    linkBase="/products"
+                    linkBase="/productos"
                     mode="home"
                   />
                 </div>
@@ -232,7 +238,7 @@ const Home: React.FC = () => {
             que protegen y honran su entorno.
           </p>
 
-          <Link className="hIStoria-btn" to="/history">
+          <Link className="hIStoria-btn" to="/historia">
             Conoce nuestra historia
           </Link>
         </div>

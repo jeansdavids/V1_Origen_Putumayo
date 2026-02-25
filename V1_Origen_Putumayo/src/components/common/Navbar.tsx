@@ -39,13 +39,13 @@ const Navbar = () => {
       {/* Menu */}
       <ul className={`navbar-menu ${menuOpen ? "active" : ""}`}>
         <li className="navbar-item" onClick={() => setMenuOpen(false)}>
-          <Link to="/">Home</Link>
+          <Link to="/">Inicio</Link>
         </li>
         <li className="navbar-item" onClick={() => setMenuOpen(false)}>
-          <Link to="/products">Productos</Link>
+          <Link to="/productos">Productos</Link>
         </li>
         <li className="navbar-item" onClick={() => setMenuOpen(false)}>
-          <Link to="/history">Historia</Link>
+          <Link to="/historia">Historia</Link>
         </li>
         <li className="navbar-item" onClick={() => setMenuOpen(false)}>
           <a

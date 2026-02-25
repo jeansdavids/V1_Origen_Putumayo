@@ -1,0 +1,23 @@
+# robots.txt — Origen Putumayo
+# Tienda de productos amazónicos naturales del Putumayo, Colombia
+#
+# Rutas públicas indexables:
+#   /             → Home
+#   /history      → Historia de la empresa
+#   /products     → Catálogo de productos
+#   /products/*   → Detalle de cada producto
+#   /contacto     → Contacto
+
+User-agent: *
+
+# Proceso de compra: no aporta valor en buscadores
+Disallow: /checkout
+
+# Panel de administración: acceso privado
+Disallow: /admin/
+
+# URLs con parámetros de consulta: previene contenido duplicado
+# (filtros, búsquedas, UTM params, etc.)
+Disallow: /*?*
+
+Sitemap: https://www.origenputumayo.com/sitemap.xml

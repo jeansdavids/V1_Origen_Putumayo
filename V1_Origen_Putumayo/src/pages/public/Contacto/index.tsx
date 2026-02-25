@@ -1,11 +1,15 @@
+import { Helmet } from "react-helmet-async";
 import "../../../styles/Contact.css/styles.css";
 import.meta.env.VITE_WHATSAPP_URL
-
-
 
 export default function OrigenSection() {
   return (
     <section className="contact">
+      <Helmet>
+        <title>Contacto | Origen Putumayo</title>
+        <meta name="description" content="Contáctanos por WhatsApp, correo o visítanos en Cali. Estamos disponibles de lunes a viernes de 8:00 a.m. a 5:00 p.m. para atenderte." />
+        <link rel="canonical" href="https://www.origenputumayo.com/contacto" />
+      </Helmet>
       {/* ================= DIRECT CONTACT ================= */}
       <div className="direct-contact">
         {/* MITAD VERDE */}
@@ -96,7 +100,7 @@ Horario de respuesta: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
       <div className="location-split">
         {/* IZQUIERDA - FORMULARIO */}
         <div className="location-left">
-          <h2 className="location-title">Write a Message</h2>
+          <h2 className="location-title">Envíanos un mensaje</h2>
 
           <form
             className="contact-form"
@@ -129,34 +133,34 @@ ${message}
             <div className="form-row">
               <input
                 type="text"
-                placeholder="Name"
+                placeholder="Nombre"
                 className="form-input"
                 required
               />
 
               <input
                 type="email"
-                placeholder="Email Address"
+                placeholder="Correo electrónico"
                 className="form-input"
                 required
               />
             </div>
 
             <textarea
-              placeholder="Write a message"
+              placeholder="Escribe tu mensaje"
               className="form-textarea"
               required
             ></textarea>
 
             <button type="submit" className="contact-btn">
-              Send Message
+              Enviar mensaje
             </button>
           </form>
         </div>
 
         {/* DERECHA - MAPA */}
         <div className="location-right">
-          <h2 className="map-title">Location</h2>
+          <h2 className="map-title">Ubicación</h2>
 
           <div className="map-container">
             <iframe

@@ -31,9 +31,9 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contacto" element={<Contacto />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/historia" element={<History />} />
+            <Route path="/productos" element={<Products />} />
+            <Route path="/productos/:slug" element={<ProductDetail />} />
             <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </FooterLayout>

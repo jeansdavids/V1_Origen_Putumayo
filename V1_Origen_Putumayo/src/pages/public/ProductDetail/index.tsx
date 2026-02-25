@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { getPublicProducts } from "../../../services/products.service";
 import { useCart } from "../../../features/cart/CartContext";
 import type { Product } from "../../../features/products/components/ProductCard";
@@ -78,7 +79,7 @@ const ProductDetail: React.FC = () => {
         <h2>Producto no encontrado</h2>
         <button
           className="pd-btn-secondary"
-          onClick={() => navigate("/products")}
+          onClick={() => navigate("/productos")}
         >
           <FontAwesomeIcon icon={Icons.back} style={{ marginRight: "8px" }} />
           Volver a productos
@@ -137,9 +138,25 @@ const ProductDetail: React.FC = () => {
     product.product_id || product.productId || product.id
   );
 
+  const productName = product.name || "Producto";
+  const productDescription = product.description
+    ? product.description.slice(0, 155)
+    : `Compra ${productName} — producto amazónico natural del Putumayo, Colombia.`;
+  const canonicalUrl = `https://www.origenputumayo.com/productos/${slug}`;
+
   return (
     <main className="pd-container">
-      <button className="pd-back-btn" onClick={() => navigate("/products")}>
+      <Helmet>
+        <title>{productName} | Origen Putumayo</title>
+        <meta name="description" content={productDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        {imageSrc && <meta property="og:image" content={imageSrc} />}
+        <meta property="og:title" content={`${productName} | Origen Putumayo`} />
+        <meta property="og:description" content={productDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="product" />
+      </Helmet>
+      <button className="pd-back-btn" onClick={() => navigate("/productos")}>
         <FontAwesomeIcon icon={Icons.back} style={{ marginRight: "8px" }} />
         Volver
       </button>
@@ -170,7 +187,7 @@ const ProductDetail: React.FC = () => {
                         isActive ? "active" : ""
                       }`}
                       onClick={() =>
-                        navigate(`/products/${variantSlug}`)
+                        navigate(`/productos/${variantSlug}`)
                       }
                     >
                       {v.weight_value}
