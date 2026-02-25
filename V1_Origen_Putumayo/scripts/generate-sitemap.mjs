@@ -43,11 +43,12 @@ function loadEnv(filePath) {
 
 const env = {
   ...loadEnv(resolve(ROOT, ".env")),
-  ...loadEnv(resolve(ROOT, ".env.local")), // .env.local tiene prioridad
+  ...loadEnv(resolve(ROOT, ".env.local")), // .env.local tiene prioridad en local
 };
 
-const SUPABASE_URL = env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = env.VITE_SUPABASE_ANON_KEY;
+// En Vercel las vars vienen como process.env, no como archivo
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL ?? env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY ?? env.VITE_SUPABASE_ANON_KEY;
 const BASE_URL = "https://www.origenputumayo.com";
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
