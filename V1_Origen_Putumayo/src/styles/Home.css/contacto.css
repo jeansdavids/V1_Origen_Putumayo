@@ -27,15 +27,15 @@
 
 /* TÍTULO CONTACTO */
 .contacto-title {
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
-  font-size: 55px; /* Tamaño grande */
-  font-weight: 400; /* Peso normal */
-  color: #111111; /* Color oscuro */
-  margin: 0; /* Sin margen */
-  margin-bottom: 20px; /* Espaciado inferior */
-  text-transform: capitalize; /* Primera letra mayúscula */
-  letter-spacing: 1.5px; /* Espaciado entre letras */
-  line-height: 1.3; /* Altura de línea */
+   font-family: 'Oswald', sans-serif;
+  font-size: 65px;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 3.5px;
+  line-height: 1.2;
+
+  margin: 0;
 }
 
 /* SPAN DENTRO DEL TÍTULO */
@@ -50,13 +50,14 @@
 
 /* TEXTO DESCRIPTIVO */
 .contacto-text {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+  font-family: 'Poppins', sans-serif;
   font-size: 16px; /* Tamaño medio */
   color: #555555; /* Gris oscuro */
   margin: 0; /* Sin margen */
   margin-bottom: 30px; /* Espaciado inferior */
   line-height: 1.8; /* Altura de línea generosa */
   letter-spacing: 0.5px; /* Pequeño espaciado */
+   margin-top: 30px; /* Lo baja */
   font-weight: 400; /* Peso normal */
   max-width: 800px; /* Ancho máximo del texto */
   text-align: center; /* Alineado al centro */
@@ -67,24 +68,25 @@
 
 /* BOTÓN CONTACTO */
 .contacto-btn {
-  display: inline-flex; /* Comportamiento inline-flex */
-  height: 48px; /* Altura fija */
-  padding: 0 32px; /* Espaciado horizontal */
-  border-radius: 8px; /* Esquinas redondeadas */
-  background: #1e5a37; /* Color verde sólido */
-  color: #ffffff; /* Texto blanco */
-  font-family: 'Bebas Neue', sans-serif; /* Fuente Bebas Neue */
-  font-size: 16px; /* Tamaño grande */
-  font-weight: 400; /* Peso normal */
-  text-decoration: none; /* Sin subrayado */
-  text-transform: uppercase; /* En mayúsculas */
-  letter-spacing: 1.5px; /* Espaciado de letras */
-  border: 2px solid #1e5a37; /* Borde color verde */
-  box-shadow: 0 4px 15px rgba(30, 90, 55, 0.2); /* Sombra sutil */
-  transition: all 300ms ease; /* Transición suave */
-  cursor: pointer; /* Puntero de ratón */
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra contenido */
+   font-family: 'Oswald', sans-serif;
+  margin-top:20px;
+  height: 45px;
+  padding: 0 24px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: #1e5a37;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 200ms ease;
+  cursor: pointer;
 }
 
 /* ESTADO HOVER - Al pasar el mouse */

@@ -1,5 +1,5 @@
 import "../../styles/Footer.css";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo1.png";
 import.meta.env.VITE_WHATSAPP_URL
 
 const Footer = () => {
@@ -38,11 +38,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* DERECHA */}
-        <ul className="footer-menu">
-          <li className="footer-item">Historia</li>
-          <li className="footer-item">Contacto</li>
-        </ul>
+        
       </div>
 
       {/* ===== LINEA ===== */}

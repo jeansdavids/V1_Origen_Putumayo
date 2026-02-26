@@ -58,10 +58,11 @@ export default function OrigenSection() {
           <div className="info-item">
             <i className="bi bi-whatsapp"></i>
             <div>
-              <h3>Customer Support</h3>
+              <h3>WhatsApp</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque vel lacus nec justo placerat.
+                Contáctanos directamente al
+          +57 314 754 6809
+          Estaremos felices de atenderte.
               </p>
             </div>
           </div>
@@ -69,10 +70,11 @@ export default function OrigenSection() {
           <div className="info-item">
             <i className="bi bi-envelope"></i>
             <div>
-              <h3>Email Us</h3>
+              <h3>Email </h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque vel lacus nec justo placerat.
+                corporacionorigenputumayo@gmail.com
+
+Horario de respuesta: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
               </p>
             </div>
           </div>
@@ -80,10 +82,10 @@ export default function OrigenSection() {
           <div className="info-item">
             <i className="bi bi-geo-alt"></i>
             <div>
-              <h3>Many Locations</h3>
+              <h3>Localización Principal</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque vel lacus nec justo placerat.
+                Estamos ubicados en Carrera 97 bis #58-50, Cali – Valle del Cauca, en el barrio Nacar B.
+                Te esperamos para brindarte la mejor atención.
               </p>
             </div>
           </div>
@@ -159,7 +161,7 @@ ${message}
           <div className="map-container">
             <iframe
               title="Google Maps"
-              src="https://www.google.com/maps?q=Medellín,+Colombia&output=embed"
+              src="https://www.google.com/maps?q=3.371489,-76.507543&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>

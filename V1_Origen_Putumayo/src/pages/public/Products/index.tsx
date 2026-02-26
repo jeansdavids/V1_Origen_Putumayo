@@ -7,14 +7,8 @@ import "../../../styles/Products.css/styles.css";
 import ProductCard from "../../../features/products/components/ProductCard";
 import { getPublicProducts } from "../../../services/products.service";
 
-// Importamos el tipo base desde el componente para asegurar compatibilidad
 import type { Product as ProductCardType } from "../../../features/products/components/ProductCard";
 
-/*
-  Tipos mínimos para evitar `any` y cumplir con reglas de lint.
-  Ajusta campos si tu API usa otros nombres.
-  Extendemos de ProductCardType para asegurar que pasamos lo que la tarjeta espera.
-*/
 interface Product extends ProductCardType {
   product_id: string;
   name?: string;
@@ -25,19 +19,17 @@ interface Product extends ProductCardType {
   company_name?: string;
   companyName?: string;
   images?: string[];
+  variant_group?: string | null;
+  weight_value?: number | null;
 }
+
+const CATEGORY_ORDER = ["Todos", "Vinos", "Snacks", "Dulces", "Chontaduro", "Chocolate"];
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState<string>("");
   const [activeCategory, setActiveCategory] = useState<string>("Todos");
 
-  /*
-    Para evitar la regla react-hooks/set-state-in-effect:
-    - loading arranca en true
-    - err arranca en null
-    - no se hace setLoading(true) / setErr(null) al inicio del useEffect
-  */
   const [loading, setLoading] = useState<boolean>(true);
   const [err, setErr] = useState<string | null>(null);
 
@@ -72,20 +64,15 @@ const Products: React.FC = () => {
     };
   }, []);
 
-  /*
-    Fallback de imagen:
-    - Si no hay images o viene vacío, se usa placeholder
-  */
+  // TEMPORAL: Se transforma la URL para usar el endpoint de optimización de Supabase Storage.
+  // Esto es un parche mientras se refactoriza el modelo de datos para guardar solo
+  // la ruta relativa en BD y construir la URL completa desde el código.
   const getImg = (p: ProductCardType): string => {
     if (!p.images || p.images.length === 0) return "/home/placeholder.png";
-    return p.images[0];
+    const url = p.images[0];
+    return url.replace("/object/public/", "/render/image/public/") + "?quality=75"; // PARCHE: solo compresión, sin resize para evitar recorte. Pendiente migrar a solución definitiva (guardar ruta relativa en BD y construir URL con parámetros controlados desde el código).
   };
 
-  /*
-    Categorías dinámicas desde productos:
-    - Siempre incluye "Todos"
-    - Orden alfabético
-  */
   const categories = useMemo<string[]>(() => {
     const set = new Set<string>();
     products.forEach((p) => {
@@ -93,20 +80,48 @@ const Products: React.FC = () => {
       if (c) set.add(c);
     });
 
-    return ["Todos", ...Array.from(set).sort((a, b) => a.localeCompare(b))];
+    const available = Array.from(set);
+    const ordered = CATEGORY_ORDER.filter((cat) => cat === "Todos" || available.includes(cat));
+    const rest = available.filter((cat) => !CATEGORY_ORDER.includes(cat)).sort((a, b) => a.localeCompare(b));
+
+    return [...ordered, ...rest];
   }, [products]);
 
-  /*
-    Filtrado:
-    - Por categoría
-    - Por query (texto)
-  */
+  const groupedProducts = useMemo<Product[]>(() => {
+    const map = new Map<string, Product>();
+
+    products.forEach((product) => {
+      if (!product.variant_group) {
+        map.set(product.product_id, product);
+        return;
+      }
+
+      const key = product.variant_group;
+
+      if (!map.has(key)) {
+        map.set(key, product);
+      } else {
+        const existing = map.get(key)!;
+
+        if (
+          (product.weight_value ?? 0) <
+          (existing.weight_value ?? 0)
+        ) {
+          map.set(key, product);
+        }
+      }
+    });
+
+    return Array.from(map.values());
+  }, [products]);
+
   const filtered = useMemo<Product[]>(() => {
     const q = query.trim().toLowerCase();
 
-    return products.filter((p) => {
+    return groupedProducts.filter((p) => {
       const cat = (p.category || "").trim();
-      const matchesCategory = activeCategory === "Todos" ? true : cat === activeCategory;
+      const matchesCategory =
+        activeCategory === "Todos" ? true : cat === activeCategory;
 
       if (!q) return matchesCategory;
 
@@ -124,52 +139,51 @@ const Products: React.FC = () => {
 
       return matchesCategory && haystack.includes(q);
     });
-  }, [products, query, activeCategory]);
-
-  
+  }, [groupedProducts, query, activeCategory]);
 
   return (
     <main className="products">
-      {/* HERO / SEARCH */}
       <section className="products-hero" aria-label="Productos">
         <h1 className="products-title">ENCUENTRA LO QUE NECESITES</h1>
 
         <div className="products-searchWrap">
-  <div className="products-search">
-    <i className="bi bi-search products-searchIcon" aria-hidden="true" />
-    <input
-      className="products-searchInput"
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      placeholder="Busca productos..."
-      aria-label="Buscar productos"
-    />
-  </div>
-</div>
+          <div className="products-search">
+            <i className="bi bi-search products-searchIcon" aria-hidden="true" />
+            <input
+              className="products-searchInput"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Busca productos..."
+              aria-label="Buscar productos"
+            />
+          </div>
+        </div>
 
-
-        {/* MOBILE: categorías horizontales debajo del buscador (desktop se oculta por CSS) */}
+        {/* MOBILE FILTERS */}
         <div className="products-mobileSticky" aria-label="Filtros rápidos">
           <div className="products-mobileMetaRow">
-  <span className="products-mobileMetaLabel">Resultados</span>
-  <span className="products-badge" aria-label={`Resultados: ${filtered.length}`}>
-    {filtered.length}
-  </span>
-</div>
+            <span className="products-mobileMetaLabel">
+              RESULTADOS ({filtered.length})
+            </span>
+          </div>
 
-
-          <div className="products-mobileCatsRail" aria-label="Categorías">
+          <div className="products-mobileCatsRail">
             {categories.map((c) => {
               const isActive = c === activeCategory;
+
               return (
                 <button
                   key={c}
                   type="button"
                   className={`products-catChip ${isActive ? "is-active" : ""}`}
                   onClick={() => setActiveCategory(c)}
-                  aria-pressed={isActive}
                 >
                   {c}
+                  {isActive && (
+                    <span className="products-chipCount">
+                      {filtered.length}
+                    </span>
+                  )}
                 </button>
               );
             })}
@@ -179,10 +193,8 @@ const Products: React.FC = () => {
         </div>
       </section>
 
-      {/* CONTENT */}
       <section className="products-content">
-        {/* SIDEBAR (DESKTOP) */}
-        <aside className="products-sidebar" aria-label="Categorías">
+        <aside className="products-sidebar">
           <div className="products-sidebarBox">
             <h2 className="products-sidebarTitle">CATEGORÍAS</h2>
 
@@ -190,7 +202,9 @@ const Products: React.FC = () => {
               {categories.map((c) => (
                 <button
                   key={c}
-                  className={`products-categoryBtn ${c === activeCategory ? "is-active" : ""}`}
+                  className={`products-categoryBtn ${
+                    c === activeCategory ? "is-active" : ""
+                  }`}
                   onClick={() => setActiveCategory(c)}
                 >
                   {c}
@@ -201,17 +215,16 @@ const Products: React.FC = () => {
             <div className="products-sidebarMeta">
               <div className="products-sidebarRow">
                 <span>Resultados</span>
-                <span className="products-badge">{filtered.length}</span>
+                <span className="products-badge">
+                  {filtered.length}
+                </span>
               </div>
 
               {err && <div className="products-error">Error: {err}</div>}
-
-              
             </div>
           </div>
         </aside>
 
-        {/* GRID */}
         <div className="products-gridWrap">
           {loading ? (
             <div className="products-empty">
@@ -219,14 +232,25 @@ const Products: React.FC = () => {
             </div>
           ) : filtered.length === 0 ? (
             <div className="products-empty">
-              <p className="products-emptyTitle">No encontramos resultados</p>
-              <p className="products-emptyText">Prueba con otro término o cambia la categoría.</p>
+              <p className="products-emptyTitle">
+                No encontramos resultados
+              </p>
+              <p className="products-emptyText">
+                Prueba con otro término o cambia la categoría.
+              </p>
             </div>
           ) : (
             <div className="products-grid">
               {filtered.map((product) => (
-                <div key={product.product_id} className="products-cardCell">
-                  <ProductCard product={product} getImg={getImg} linkBase="/products" />
+                <div
+                  key={product.product_id}
+                  className="products-cardCell"
+                >
+                  <ProductCard
+                    product={product}
+                    getImg={getImg}
+                    linkBase="/products"
+                  />
                 </div>
               ))}
             </div>

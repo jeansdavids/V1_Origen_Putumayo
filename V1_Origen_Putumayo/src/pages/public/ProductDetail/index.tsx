@@ -7,15 +7,17 @@ import { useCart } from "../../../features/cart/CartContext";
 import type { Product } from "../../../features/products/components/ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icons } from "../../../lib/icons";
+import { generateSlug } from "../../../utils/format";
 import "../../../pages/public/ProductDetail/ProductDetail.css";
 
 const ProductDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
   const { addToCart, openCart } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [variants, setVariants] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -25,11 +27,28 @@ const ProductDetail: React.FC = () => {
         const data: Product[] = await getPublicProducts();
         const products = Array.isArray(data) ? data : [];
 
-        const found = products.find((p: Product) =>
-          String(p.product_id || p.productId || p.id) === id
-        );
+        const found = products.find((p: Product) => {
+          const productId = String(p.product_id || p.productId || p.id);
+          return generateSlug(p.name ?? "producto", productId) === slug;
+        });
 
         setProduct(found || null);
+
+        if (found?.variant_group) {
+          const related = products
+            .filter(
+              (p: Product) =>
+                p.variant_group === found.variant_group
+            )
+            .sort(
+              (a: Product, b: Product) =>
+                (a.weight_value || 0) - (b.weight_value || 0)
+            );
+
+          setVariants(related);
+        } else {
+          setVariants([]);
+        }
       } catch (err) {
         console.error("Error cargando producto:", err);
       } finally {
@@ -38,7 +57,12 @@ const ProductDetail: React.FC = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [slug]);
+
+  // Resetear cantidad cuando cambia el producto
+  useEffect(() => {
+    setQuantity(1);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -63,10 +87,16 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  const imageSrc =
+  // TEMPORAL: Se transforma la URL para usar el endpoint de optimización de Supabase Storage.
+  // Esto es un parche mientras se refactoriza el modelo de datos para guardar solo
+  // la ruta relativa en BD y construir la URL completa desde el código.
+  const rawImageUrl =
     product.images && product.images.length > 0
       ? product.images[0]
-      : "/home/placeholder.png";
+      : null;
+  const imageSrc = rawImageUrl
+    ? rawImageUrl.replace("/object/public/", "/render/image/public/") + "?quality=75" // PARCHE: solo compresión, sin resize para evitar recorte. Pendiente migrar a solución definitiva (guardar ruta relativa en BD y construir URL con parámetros controlados desde el código).
+    : "/home/placeholder.png";
 
   const rawPrice =
     product.price ??
@@ -96,15 +126,20 @@ const ProductDetail: React.FC = () => {
         price: price,
         image: imageSrc,
       },
-      quantity
+      quantity,
+      { notify: false }
     );
 
     openCart();
   };
 
+  const currentId = String(
+    product.product_id || product.productId || product.id
+  );
+
   return (
     <main className="pd-container">
-      <button className="pd-back-btn" onClick={() => navigate(-1)}>
+      <button className="pd-back-btn" onClick={() => navigate("/products")}>
         <FontAwesomeIcon icon={Icons.back} style={{ marginRight: "8px" }} />
         Volver
       </button>
@@ -116,6 +151,36 @@ const ProductDetail: React.FC = () => {
             alt={product.name || "Producto"}
             className="pd-main-image"
           />
+
+          {variants.length > 1 && (
+            <div className="pd-variants">
+              <div className="pd-variants-buttons">
+                {variants.map((v) => {
+                  const variantId = String(
+                    v.product_id || v.productId || v.id
+                  );
+                  const variantSlug = generateSlug(v.name ?? "producto", variantId);
+
+                  const isActive = variantId === currentId;
+
+                  return (
+                    <button
+                      key={variantId}
+                      className={`pd-variant-btn ${
+                        isActive ? "active" : ""
+                      }`}
+                      onClick={() =>
+                        navigate(`/products/${variantSlug}`)
+                      }
+                    >
+                      {v.weight_value}
+                      {v.weight_unit}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="pd-info-section">
@@ -123,7 +188,10 @@ const ProductDetail: React.FC = () => {
 
           {product.company_name && (
             <p className="pd-brand">
-              <FontAwesomeIcon icon={Icons.store} style={{ marginRight: "6px" }} />
+              <FontAwesomeIcon
+                icon={Icons.store}
+                style={{ marginRight: "6px" }}
+              />
               Productor: <span>{product.company_name}</span>
             </p>
           )}
@@ -132,7 +200,10 @@ const ProductDetail: React.FC = () => {
 
           <div className="pd-description">
             <h3>
-              <FontAwesomeIcon icon={Icons.description} style={{ marginRight: "6px" }} />
+              <FontAwesomeIcon
+                icon={Icons.description}
+                style={{ marginRight: "6px" }}
+              />
               Descripción
             </h3>
             <p>
@@ -143,7 +214,10 @@ const ProductDetail: React.FC = () => {
 
           {product.location && (
             <div className="pd-meta">
-              <FontAwesomeIcon icon={Icons.location} style={{ marginRight: "6px" }} />
+              <FontAwesomeIcon
+                icon={Icons.location}
+                style={{ marginRight: "6px" }}
+              />
               <strong>Ubicación:</strong> {product.location}
             </div>
           )}

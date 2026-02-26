@@ -5,29 +5,30 @@
 /* IMPORTAR FUENTE BEBAS NEUE */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-.history {
-  background: #ffffff; /* Fondo blanco */
-  color: #111111; /* Color de texto oscuro */
-  width: 100%;
-}
 
 /* ========================================
    SECCIÓN 1 – HERO
-   ======================================== */
+======================================== */
 
 .history-hero {
-  position: relative;
-  height: 640px; /* Altura fija del hero */
-  background-color: #b5b4b4; /* Color de respaldo */
-  /* background-image: url('ruta-a-tu-imagen.jpg'); <--- Agrega tu imagen de fondo aquí */
-  background-size: cover; /* Cubre todo el espacio */
-  background-position: center; /* Centra la imagen */
-  overflow: hidden; /* Oculta contenido que se desborda */
+  width: 100%;
+  height: 90vh; /* Mejor que 100vh para evitar cortes raros */
+  min-height: 900px;
+
+  background-image: url('../../assets/images/Historia.webp');
+  background-size: cover;
+  background-position: center 50%; /* Ajusta el enfoque */
+  background-repeat: no-repeat;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  
+
+  position: relative;
+  overflow: hidden;
 }
+
 
 .hero-title {
   margin: 0;
@@ -44,158 +45,236 @@
 }
 
 /* ========================================
-   SECCIÓN 2 – PROPÓSITO
-   ======================================== */
+   SECCIÓN 2 – PROPÓSITO (REDISEÑO PRO)
+======================================== */
 
 .history-purpose {
-  padding: 80px 20px;
+  padding: 160px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 100px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* HEADER DEL PROPÓSITO */
+/* ========================
+   HEADER
+======================== */
+
 .purpose-header {
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .purpose-header h2 {
   margin: 0;
-  font-family: 'Bebas Neue', sans-serif; /* Tipografía Bebas Neue */
-  color: #111; /* Color oscuro */
-  font-weight: 400;
-  text-transform: uppercase; /* Convierte a mayúsculas */
-  letter-spacing: 2px;
-  line-height: 1.2; /* Altura de línea compacta */
-  font-size: 55px; /* Tamaño en pixeles */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: clamp(42px, 5vw, 68px);
+  letter-spacing: -0.03em;
+  color: #111111;
+  line-height: 1.1;
 }
 
 .purpose-header p {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #555;
-  margin-top: 20px; /* Baja el subtítulo */
-  font-size: 20px; /* Tamaño pequeño */
-  line-height: 1.6;
-  font-weight: 300;
+  margin-top: 32px;
+  font-size: 19px;
+  line-height: 1.9;
+  font-weight: 400;
+  color: #555555;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* TARJETAS DE MISIÓN Y VISIÓN */
+/* Línea decorativa elegante */
+.purpose-header::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #006839;
+  margin: 40px auto 0 auto;
+  border-radius: 4px;
+}
+
+/* ========================
+   CARDS
+======================== */
+
 .purpose-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px;
+  gap: 60px;
   width: 100%;
 }
 
 .card {
   flex: 1;
-  min-width: 300px;
-  max-width: 500px;
-  background-color: #cecbcb;
-  padding: 48px 32px;
+  min-width: 320px;
+  max-width: 540px;
+  padding: 70px 50px;
+
+  background: #d7d7d7;
+  border-radius: 32px;
+
+  border: 1px solid #f0f0f0;
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.06);
+
+  transition: all 0.4s ease;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
 }
 
+/* Hover premium */
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-14px);
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.08);
 }
+
+/* Título misión / visión */
 
 .card h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px;
-  color: #1e5a37; /* Verde corporativo */
-  margin: 0 0 20px 0;
-  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #006839;
+  margin: 0 0 28px 0;
 }
 
+/* Texto */
+
 .card p {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  color: #333;
-  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  color: #444444;
+  line-height: 1.9;
   margin: 0;
 }
 
-/* TEXTO DE CIERRE */
+/* ========================
+   CIERRE
+======================== */
+
 .closing-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: 600;
   text-align: center;
-  color: #111;
-  margin-top: 20px;
-  letter-spacing: 1px;
-  font-weight: 400;
+  color: #111111;
+  letter-spacing: -0.01em;
+  margin-top: 40px;
+  max-width: 900px;
+  line-height: 1.6;
 }
 
 /* ========================================
+   RESPONSIVE – TABLETS
+======================================== */
+@media (max-width: 900px) {
+
+  .history-purpose {
+    padding: 120px 20px;
+    gap: 70px;
+  }
+
+  .purpose-header h2 {
+    font-size: clamp(34px, 5vw, 48px);
+  }
+
+  .purpose-header p {
+    font-size: 17px;
+  }
+
+  .purpose-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .card {
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .closing-text {
+    font-size: 22px;
+  }
+}
+
+
+/* ========================================
    RESPONSIVE – CELULARES
-   ======================================== */
+======================================== */
 @media (max-width: 480px) {
 
   /* HERO */
   .history-hero {
-    height: auto;                 /* Quita altura fija */
-    min-height: 60vh;             /* Mantiene impacto visual */
-    padding: 40px 16px;
+    height: auto;
+    min-height: 55vh;
+    padding: 60px 16px;
   }
 
   .hero-title {
-    font-size: 32px;
-    letter-spacing: 2px;
-    line-height: 1.15;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    line-height: 1.2;
   }
 
   /* SECCIÓN PROPÓSITO */
   .history-purpose {
-    padding: 50px 16px;
-    gap: 40px;
+    padding: 80px 16px;
+    gap: 50px;
   }
 
   .purpose-header h2 {
-    font-size: 34px;
-    letter-spacing: 1.5px;
+    font-size: 30px;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
   }
 
   .purpose-header p {
-    font-size: 16px;
-    margin-top: 14px;
-    line-height: 1.5;
+    font-size: 15px;
+    margin-top: 18px;
+    line-height: 1.6;
   }
 
   /* TARJETAS */
   .purpose-cards {
-     display: flex;
-    flex-direction: column;   /* 👈 fuerza columna */
+    flex-direction: column;
     align-items: center;
+    gap: 30px;
   }
 
   .card {
-     width: 100%;              /* ocupa todo el ancho */
+    width: 100%;
     max-width: 100%;
+    padding: 45px 28px;
   }
 
   .card h3 {
-    font-size: 28px;
+    font-size: 16px;
+    letter-spacing: 0.12em;
   }
 
   .card p {
     font-size: 15px;
+    line-height: 1.7;
   }
 
   /* TEXTO FINAL */
   .closing-text {
-    font-size: 22px;
-    letter-spacing: 0.8px;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 1.5;
   }
 }

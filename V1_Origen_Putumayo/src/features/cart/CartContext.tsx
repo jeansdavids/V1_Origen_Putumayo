@@ -6,18 +6,35 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import type { CartItem } from "./types";
+
+interface AddToCartOptions {
+  notify?: boolean;
+}
 
 interface CartContextValue {
   items: CartItem[];
   isOpen: boolean;
   totalItems: number;
   subtotal: number;
+
+  lastAddedItem: CartItem | null;
+  showSuccess: boolean;
+  setShowSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+
+  pauseSuccessTimer: () => void;
+  resumeSuccessTimer: () => void;
+
   openCart: () => void;
   closeCart: () => void;
-  addToCart: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
+  addToCart: (
+    item: Omit<CartItem, "quantity">,
+    quantity?: number,
+    options?: AddToCartOptions
+  ) => void;
   updateQuantity: (id: string, delta: number) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
@@ -25,10 +42,11 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-/* =========================
-   LOCAL STORAGE
-========================= */
 const CART_STORAGE_KEY = "origen_cart_v1";
+
+/* =========================
+   HELPERS
+========================= */
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -59,24 +77,22 @@ function loadCartFromStorage(): CartItem[] {
       const image = item["image"];
       const quantity = item["quantity"];
 
-      if (typeof id !== "string" || id.trim().length === 0) continue;
-      if (typeof name !== "string" || name.trim().length === 0) continue;
-      if (typeof price !== "number" || !Number.isFinite(price)) continue;
-
-      // image es opcional: si viene, debe ser string
-      if (typeof image !== "undefined" && typeof image !== "string") continue;
+      if (typeof id !== "string") continue;
+      if (typeof name !== "string") continue;
+      if (typeof price !== "number") continue;
 
       sanitized.push({
         id,
         name,
         price,
-        image,
+        image: typeof image === "string" ? image : "",
         quantity: clampQuantity(quantity),
       });
     }
 
     return sanitized;
-  } catch {
+  } catch (error) {
+    console.warn("Error loading cart from storage:", error);
     return [];
   }
 }
@@ -84,78 +100,157 @@ function loadCartFromStorage(): CartItem[] {
 function saveCartToStorage(items: CartItem[]) {
   try {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  } catch {
-    // si falla (modo incógnito/cuota/permisos), no rompemos la app
+  } catch (error) {
+    console.warn("Error saving cart to storage:", error);
   }
 }
+
+/* =========================
+   PROVIDER
+========================= */
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  // Cargar carrito desde storage una sola vez
-  const [items, setItems] = useState<CartItem[]>(() => loadCartFromStorage());
-  const [isOpen, setIsOpen] = useState(false);
+  const [items, setItems] = useState<CartItem[]>(() =>
+    loadCartFromStorage()
+  );
 
-  // Guardar carrito cada vez que cambie
+  const [isOpen, setIsOpen] = useState(false);
+  const [lastAddedItem, setLastAddedItem] =
+    useState<CartItem | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  /* =========================
+     TIMER PROFESIONAL
+  ========================= */
+
+  const timeoutRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const remainingTimeRef = useRef<number>(4500);
+
+  const clearTimer = () => {
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  const startTimer = () => {
+    clearTimer();
+    startTimeRef.current = Date.now();
+
+    timeoutRef.current = window.setTimeout(() => {
+      setShowSuccess(false);
+      remainingTimeRef.current = 4500;
+    }, remainingTimeRef.current);
+  };
+
+  const pauseSuccessTimer = () => {
+    if (timeoutRef.current === null) return;
+
+    const elapsed = Date.now() - startTimeRef.current;
+    remainingTimeRef.current = Math.max(
+      0,
+      remainingTimeRef.current - elapsed
+    );
+
+    clearTimer();
+  };
+
+  const resumeSuccessTimer = () => {
+    if (remainingTimeRef.current <= 0) {
+      setShowSuccess(false);
+      return;
+    }
+
+    startTimer();
+  };
+
+  /* =========================
+     EFFECTS
+  ========================= */
+
   useEffect(() => {
     saveCartToStorage(items);
   }, [items]);
 
   /* =========================
-     UI STATE
+     UI ACTIONS
   ========================= */
-  const openCart = () => setIsOpen(true);
+
+  const openCart = () => {
+    setIsOpen(true);
+
+    // 🔥 Si el toast está visible, lo cerramos
+    if (showSuccess) {
+      setShowSuccess(false);
+      clearTimer();
+      remainingTimeRef.current = 4500;
+    }
+  };
+
   const closeCart = () => setIsOpen(false);
 
   /* =========================
-     ADD TO CART
+     CART ACTIONS
   ========================= */
+
   const addToCart = (
     item: Omit<CartItem, "quantity">,
-    quantity: number = 1
+    quantity: number = 1,
+    options?: AddToCartOptions
   ) => {
+    const notify = options?.notify ?? true;
+
     const safeQty =
-      Number.isFinite(quantity) && quantity > 0 ? Math.floor(quantity) : 1;
+      Number.isFinite(quantity) && quantity > 0
+        ? Math.floor(quantity)
+        : 1;
+
+    const newItem: CartItem = {
+      ...item,
+      quantity: safeQty,
+    };
 
     setItems((prev) => {
       const existing = prev.find((i) => i.id === item.id);
 
       if (existing) {
         return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + safeQty } : i
+          i.id === item.id
+            ? { ...i, quantity: i.quantity + safeQty }
+            : i
         );
       }
 
-      return [...prev, { ...item, quantity: safeQty }];
+      return [...prev, newItem];
     });
+
+    /* =========================
+       🔥 NUEVA LÓGICA UX
+       No mostrar toast si el carrito está abierto
+    ========================= */
+
+    if (notify && !isOpen) {
+      setLastAddedItem(newItem);
+      setShowSuccess(true);
+
+      remainingTimeRef.current = 4500;
+      startTimer();
+    }
   };
 
-  /* =========================
-     UPDATE QUANTITY (+ / −)
-  ========================= */
   const updateQuantity = (id: string, delta: number) => {
-    const safeDelta = Number.isFinite(delta) ? Math.trunc(delta) : 0;
-
     setItems((prev) =>
-      prev.map((item) => {
-        if (item.id !== id) return item;
-
-        const nextQty = item.quantity + safeDelta;
-
-        // Nunca bajar de 1
-        if (nextQty < 1) return item;
-
-        return {
-          ...item,
-          quantity: nextQty,
-        };
-      })
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
+      )
     );
   };
 
-  /* =========================
-     REMOVE / CLEAR
-  ========================= */
   const removeFromCart = (id: string) => {
     setItems((prev) => prev.filter((i) => i.id !== id));
   };
@@ -165,6 +260,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   /* =========================
      DERIVED VALUES
   ========================= */
+
   const totalItems = useMemo(
     () => items.reduce((sum, i) => sum + i.quantity, 0),
     [items]
@@ -180,6 +276,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     isOpen,
     totalItems,
     subtotal,
+
+    lastAddedItem,
+    showSuccess,
+    setShowSuccess,
+
+    pauseSuccessTimer,
+    resumeSuccessTimer,
+
     openCart,
     closeCart,
     addToCart,

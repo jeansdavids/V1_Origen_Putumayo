@@ -25,21 +25,26 @@
   padding: 0 7rem;
 }
 
-/* TÍTULO */
+/* TÍTULO PRINCIPAL */
 .contact-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
-  font-size: 69px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
   margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
 /* SUBTÍTULO */
 .contact-subtitle {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 30px;
-  max-width: 400px;
-  line-height: 1.2;
-  margin-bottom: 4rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  max-width: 420px;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  opacity: 0.9;
 }
 
 /* ICONOS REDES */
@@ -83,19 +88,25 @@
   color: #7ad155;
 }
 
+/* TITULO DEL BLOQUE INFO */
 .info-item h3 {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 24px;
-  font-weight: 400;
-  margin: 0;
+  font-family: "Oswald", sans-serif; /* coherente con contact-title */
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0 0 0.4rem 0;
+  text-transform: uppercase;
+  color: #006839;
 }
 
+/* TEXTO DESCRIPTIVO */
 .info-item p {
+  font-family: "Poppins", sans-serif;
   margin: 0;
-  color: #444444;
-  max-width: 400px;
-  line-height: 1.5;
-  font-family: "Bebas Neue", sans-serif;
+  color: #555555;
+  max-width: 420px;
+  line-height: 1.7;
+  font-size: 16px;
 }
 
 /* ===================== LOCATION SPLIT ===================== */
@@ -107,10 +118,9 @@
 }
 
 /* ===================== IZQUIERDA FORM ===================== */
-
 .location-left {
   width: 50%;
-  background: linear-gradient(180deg, #f6f6f6 0%, #eeeeee 100%);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -119,21 +129,29 @@
   gap: 2.5rem;
 }
 
-/* TITULO */
+/* ================= TITULO ================= */
+
 .location-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 48px;
-  color: #111;
-  font-weight: 400;
-  max-width: 420px;
-  line-height: 1.05;
-  letter-spacing: 1px;
+  font-family: "Oswald", sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  color: #006839;
+  max-width: 480px;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
 }
 
-/* FORMULARIO */
+/* ================= FORMULARIO ================= */
+
 .contact-form {
   width: 100%;
   max-width: 560px;
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
 /* FILAS */
@@ -143,107 +161,140 @@
   margin-bottom: 1.2rem;
 }
 
-/* INPUTS */
+/* ================= INPUTS ================= */
+
 .form-input {
   width: 100%;
   padding: 1rem 1.2rem;
-  background-color: #ffffff;
-  border: 1px solid transparent;
+  background-color: #f9faf9;
+  border: 1.5px solid #e5e5e5;
   outline: none;
   font-size: 15px;
-  font-family: "Bebas Neue", sans-serif;
-  border-radius: 14px;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Poppins", sans-serif;
+  border-radius: 10px;
+  transition: all 0.25s ease;
 }
 
 .form-input::placeholder {
-  color: #888;
+  color: #9aa0a6;
+  font-weight: 400;
 }
 
-/* FOCUS */
 .form-input:focus {
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  border-color: #006839;
+  box-shadow: 0 0 0 3px rgba(0, 104, 57, 0.1);
 }
 
-/* TEXTAREA */
+/* ================= TEXTAREA ================= */
+
 .form-textarea {
   width: 100%;
   min-height: 160px;
   padding: 1rem 1.2rem;
-  background-color: #ffffff;
-  border: 1px solid transparent;
+  background-color: #f9faf9;
+  border: 1.5px solid #e5e5e5;
   outline: none;
   resize: none;
   font-size: 15px;
-  font-family: "Bebas Neue", sans-serif;
-  border-radius: 18px;
+  font-family: "Poppins", sans-serif;
+  border-radius: 10px;
   margin-bottom: 1.8rem;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .form-textarea::placeholder {
-  color: #888;
+  color: #9aa0a6;
 }
 
 .form-textarea:focus {
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  border-color: #006839;
+  box-shadow: 0 0 0 3px rgba(0, 104, 57, 0.1);
 }
 
-/* BOTÓN */
+/* ================= BOTÓN ================= */
+
 .contact-btn {
   align-self: flex-start;
-  padding: 14px 42px;
-  background-color: #000;
+  padding: 14px 48px;
+  background: linear-gradient(135deg, #006839, #00994d);
   color: #fff;
   border: none;
-  border-radius: 40px;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 16px;
-  font-family: "Bebas Neue", sans-serif;
+  font-size: 15px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
   letter-spacing: 1px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .contact-btn:hover {
-  opacity: 0.95;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 104, 57, 0.25);
 }
-
 
 /* ===================== DERECHA MAPA ===================== */
 
+/* ================= DERECHA MAPA ================= */
+
 .location-right {
   width: 50%;
-  background-color: #006839;
+  background: #006839;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem;
+  padding: 6rem;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Overlay suave para profundidad */
+.location-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* TÍTULO MAPA */
 .map-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 40px;
+  font-family: "Oswald", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   color: #ffffff;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
-/* MAPA */
+/* ================= MAPA ================= */
+
 .map-container {
   width: 100%;
-  height: 350px;
-  border-radius: 12px;
+  height: 380px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Efecto hover elegante */
+.map-container:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
 }
 
 .map-container iframe {
   width: 100%;
   height: 100%;
   border: none;
+  filter: saturate(95%) contrast(105%);
 }
 
 

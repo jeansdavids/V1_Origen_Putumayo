@@ -15,12 +15,12 @@ import DebugPage from "./pages/public/DebugPage";
 
 import { CartProvider } from "./features/cart/CartContext";
 import CartDrawer from "./features/cart/CartDrawer";
+import CartSuccess from "./features/cart/CartSuccess";
+
 import { AuthProvider } from "./context/AuthContext";
 
 import AdminRoute from "./components/common/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-
-// ... existing imports
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -35,6 +35,7 @@ const App: React.FC = () => {
         <NavbarLayout>
           <FooterLayout>
             <CartDrawer />
+            <CartSuccess />
 
             <Routes>
               <Route path="/" element={<Home />} />
@@ -42,17 +43,19 @@ const App: React.FC = () => {
               <Route path="/contacto" element={<Contacto />} />
               <Route path="/history" element={<History />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/products/:slug" element={<ProductDetail />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/debug" element={<DebugPage />} />
 
-              {/* Admin Routes */}
-              <Route path="/admin" element={
-                <AdminRoute>
-                  <AdminDashboard />
-                </AdminRoute>
-              } />
-
+              {/* Admin Route */}
+              <Route
+                path="/admin"
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                }
+              />
             </Routes>
 
           </FooterLayout>
@@ -63,4 +66,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
