@@ -30,7 +30,7 @@ Plataforma de e-commerce para la tienda artesanal **Origen Putumayo**. Permite a
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/jeansdavids/V1_Origen_Putumayo.git
+git clone https://github.com/Kaleth2216/V1_Origen_Putumayo.git
 cd V1_Origen_Putumayo
 ```
 
