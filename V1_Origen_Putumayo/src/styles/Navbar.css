@@ -115,7 +115,7 @@
   align-items: center;
   justify-content: center;
   color: #333;
-  font-size: 24px;
+  font-size: 26px;
   transition: all 0.2s ease;
 }
 
@@ -125,14 +125,14 @@
 }
 
 /* ========================================
-   BOTÓN CARRITO (mejorado)
+   BOTÓN LOGIN Y CARRITO
    ======================================== */
+.navbar-loginBtn,
 .navbar-cartBtn {
   position: relative;
   background: transparent;
   border: none;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,8 +144,10 @@
   font-size: 22px;
 
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
+.navbar-loginBtn:hover,
 .navbar-cartBtn:hover {
   color: #1c814b;
   background-color: rgba(28, 129, 75, 0.08);
@@ -215,13 +217,62 @@
    ANIMACIÓN CARRITO
    ======================================== */
 @keyframes cartBounce {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.25); }
-  50% { transform: scale(0.9); }
-  70% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.25);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .cart-bounce {
   animation: cartBounce 0.4s ease;
+}
+
+/* ========================================
+   USER INFO
+   ======================================== */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-username {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+.navbar-logoutBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  color: #d9534f;
+  /* Color rojizo para logout */
+  font-size: 1.3rem;
+  transition: all 0.2s ease;
+}
+
+.navbar-logoutBtn:hover {
+  transform: scale(1.1);
+  color: #c9302c;
 }
