@@ -57,29 +57,10 @@ const App: React.FC = () => {
                 }
               />
             </Routes>
-
           </FooterLayout>
         </NavbarLayout>
       </CartProvider>
     </AuthProvider>
-    <CartProvider>
-      <NavbarLayout>
-        <FooterLayout>
-          {/* Componentes globales del carrito */}
-          <CartDrawer />
-          <CartSuccess /> {/* NUEVO */}
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/historia" element={<History />} />
-            <Route path="/productos" element={<Products />} />
-            <Route path="/productos/:slug" element={<ProductDetail />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-          </Routes>
-        </FooterLayout>
-      </NavbarLayout>
-    </CartProvider>
   );
 };
 
