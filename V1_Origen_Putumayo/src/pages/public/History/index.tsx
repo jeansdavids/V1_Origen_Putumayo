@@ -1,8 +1,14 @@
+import { Helmet } from "react-helmet-async";
 import "../../../styles/Historia.css/styles.css";
 
 export default function OrigenSection() {
   return (
     <section className="history">
+      <Helmet>
+        <title>Nuestra Historia | Origen Putumayo</title>
+        <meta name="description" content="Conoce la historia de Origen Putumayo: una iniciativa que conecta los productos culturales y sostenibles del Putumayo con el mundo, impulsando a productores locales y preservando la identidad amazónica." />
+        <link rel="canonical" href="https://www.origenputumayo.com/historia" />
+      </Helmet>
 
       {/* HISTORIA */}
       <div className="history-hero">

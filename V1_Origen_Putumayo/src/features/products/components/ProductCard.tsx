@@ -43,7 +43,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   getImg,
-  linkBase = "/products",
+  linkBase = "/productos",
   mode = "catalog",
 }) => {
   const navigate = useNavigate();
